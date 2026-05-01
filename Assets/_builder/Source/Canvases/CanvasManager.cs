@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace nobodyworks.builder
 {
+    [DefaultExecutionOrder((int)ExecutionOrder.Late)]
     public class CanvasManager : MonoBehaviour
     {
         private static CanvasManager _instance;

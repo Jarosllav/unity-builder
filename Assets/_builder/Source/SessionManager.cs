@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace nobodyworks.builder
 {
+    [DefaultExecutionOrder((int)ExecutionOrder.Early)]
     public class SessionManager : MonoBehaviour
     {
         private static SessionManager _instance;
