@@ -16,5 +16,6 @@ MonoBehaviour:
   _icon: {fileID: 0}
   _name: 
   _description: 
+  _prefab: {fileID: 6154725382478728418, guid: 6174cf59d3ffefd409d80270f3f127a5, type: 3}
   _rarityDefinition: {fileID: 11400000, guid: 5ab3449d6ffa98142ae8595d69de0f71, type: 2}
   _value: 0

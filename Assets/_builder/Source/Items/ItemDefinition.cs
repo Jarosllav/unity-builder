@@ -18,6 +18,9 @@ namespace nobodyworks.builder.items
         private string _description = string.Empty; // TODO(PO): Implement localization package
         
         [SerializeField]
+        private GameObject _prefab;
+        
+        [SerializeField]
         private ItemRarityDefinition _rarityDefinition;
         
         [SerializeField]
@@ -27,6 +30,7 @@ namespace nobodyworks.builder.items
         public Sprite Icon => _icon;
         public string Name => _name;
         public string Description => _description;
+        public GameObject Prefab => _prefab;
         public ItemRarityDefinition RarityDefinition => _rarityDefinition;
         public float Value => _value;
     }
