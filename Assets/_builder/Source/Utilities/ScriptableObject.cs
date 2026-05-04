@@ -8,7 +8,7 @@ namespace nobodyworks.builder.utilities
 {
     public static partial class Utils
     {
-        #region ==== Editor =====
+        #region Editor
 
 #if UNITY_EDITOR
 

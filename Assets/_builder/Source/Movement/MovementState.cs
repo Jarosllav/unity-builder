@@ -6,7 +6,7 @@ namespace nobodyworks.builder.movement
     [Serializable]
     public class MovementState
     {
-        #region ===== Inspector =====
+        #region Inspector
 
         [SerializeField]
         private int _stateId;

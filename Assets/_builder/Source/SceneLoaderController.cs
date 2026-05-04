@@ -21,7 +21,7 @@ namespace nobodyworks.builder
         
         public event Action<SceneReference> OnLoaded; 
         
-        #region ==== Initialization ====
+        #region Initialization
 
         public SceneLoaderController(SceneReference loadingSceneReference)
         {

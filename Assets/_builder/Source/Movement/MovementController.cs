@@ -55,7 +55,7 @@ namespace nobodyworks.builder.movement
         public event Action OnJumped;
         public event Action OnStateChanged;
 
-        #region ==== Initialization ====
+        #region Initialization
 
         public MovementController(MovementDriver driver, Transform transform, Transform eyesTransform, 
             Transform eyesBoneTransform, Transform feetBoneTransform, LayerMask groundMask, float groundDistanceCheck, MovementState[] states)

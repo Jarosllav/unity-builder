@@ -7,7 +7,7 @@ namespace nobodyworks.builder
 {
     public abstract class InterfaceManager : MonoBehaviour
     {
-        #region ==== Inspector ====
+        #region Inspector
 
         [SerializeField]
         protected bool _showCursor = true;
@@ -28,7 +28,7 @@ namespace nobodyworks.builder
         public event Action<InterfaceManager> OnClosed;
         public event Action<InterfaceManager> OnClosing;
 
-        #region ==== Initialization ====
+        #region Initialization
 
         public virtual void Awake()
         {
