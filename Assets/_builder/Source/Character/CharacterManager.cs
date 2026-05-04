@@ -38,7 +38,6 @@ namespace nobodyworks.builder.character
         
         #endregion
         
-        private IInputProvider _inputProvider;
         private MovementController _movementController;
         private InventoryController _inventoryController;
 
@@ -72,21 +71,8 @@ namespace nobodyworks.builder.character
 
         public void Update()
         {
-            if (_inputProvider == null)
-            {
-                return;
-            }
-            
             var deltaTime = Time.deltaTime;
-            
             _movementController.Tick(deltaTime);
-            _movementController.Move(_inputProvider.GetMove());
-            _movementController.RotateDelta(_inputProvider.GetLook());
-        }
-
-        public void SetInputProvider(IInputProvider inputProvider)
-        {
-            _inputProvider = inputProvider;
         }
     }
 }

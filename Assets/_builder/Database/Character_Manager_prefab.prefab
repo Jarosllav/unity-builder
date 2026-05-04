@@ -179,8 +179,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3801233959869890650}
-  - component: {fileID: 2566469937196240899}
   - component: {fileID: 6463914528387105916}
+  - component: {fileID: 2566469937196240899}
+  - component: {fileID: -5632338659725214172}
   m_Layer: 0
   m_Name: Character_Manager_prefab
   m_TagString: Untagged
@@ -206,30 +207,6 @@ Transform:
   - {fileID: 8312641689565667656}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2566469937196240899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4858765998329754835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ae6c0b9d22d413db8e20c702b5fab3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterController: {fileID: 6463914528387105916}
-  _eyesTransform: {fileID: 8312641689565667656}
-  _eyesBoneTransform: {fileID: 7192410569801185312}
-  _feetBoneTransform: {fileID: 7998842666676469374}
-  _groundMask:
-    serializedVersion: 2
-    m_Bits: 1
-  _groundDistanceCheck: 0.1
-  _movementStates:
-  - _stateId: 0
-    _speed: 2
-  _itemsDatabase: {fileID: 11400000, guid: 2392e3ef7bb6f004fbc3f7913d91dbcf, type: 2}
 --- !u!143 &6463914528387105916
 CharacterController:
   m_ObjectHideFlags: 0
@@ -255,6 +232,42 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2566469937196240899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4858765998329754835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ae6c0b9d22d413db8e20c702b5fab3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterController: {fileID: 6463914528387105916}
+  _eyesTransform: {fileID: 8312641689565667656}
+  _eyesBoneTransform: {fileID: 7192410569801185312}
+  _feetBoneTransform: {fileID: 7998842666676469374}
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 1
+  _groundDistanceCheck: 0.1
+  _movementStates:
+  - _stateId: 0
+    _speed: 2
+  _itemsDatabase: {fileID: 11400000, guid: 2392e3ef7bb6f004fbc3f7913d91dbcf, type: 2}
+--- !u!114 &-5632338659725214172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4858765998329754835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37aa07045d23469ba111c85bab21954e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5986744487025986667
 GameObject:
   m_ObjectHideFlags: 0

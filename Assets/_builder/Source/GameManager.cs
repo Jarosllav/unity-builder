@@ -19,14 +19,13 @@ namespace nobodyworks.builder
         
         public void Awake()
         {
-            _playerCharacterManager = CreateCharacter(new PlayerInputProvider());
+            _playerCharacterManager = CreateCharacter();
         }
 
-        private CharacterManager CreateCharacter(IInputProvider inputProvider)
+        private CharacterManager CreateCharacter()
         {
             var characterGameObject = GameObject.Instantiate(_characterPrefab);
             var characterManager = characterGameObject.GetComponent<CharacterManager>();
-            characterManager.SetInputProvider(inputProvider);
             
             return characterManager;
         }

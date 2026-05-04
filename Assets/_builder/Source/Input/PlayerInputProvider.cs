@@ -1,16 +1,38 @@
 ﻿using System;
+using nobodyworks.builder.character;
+using nobodyworks.builder.movement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace nobodyworks.builder.input
 {
-    public class PlayerInputProvider : IInputProvider
+    public class PlayerInputProvider : MonoBehaviour, IInputProvider
     {
-        private readonly InputSystem_Actions _actionAsset = new();
+        private InputSystem_Actions _actionAsset;
+        private CharacterManager _characterManager;
+        private MovementController _movementController;
+        
+        public void Awake()
+        {
+            _actionAsset = new();
+            _characterManager = GetComponent<CharacterManager>();
+            _movementController = _characterManager.MovementController;
+        }
 
-        public PlayerInputProvider()
+        public void Start()
         {
             _actionAsset.Enable();
+        }
+
+        public void Update()
+        {
+            if (_movementController == null)
+            {
+                return;
+            }
+            
+            _movementController.Move(GetMove());
+            _movementController.RotateDelta(GetLook());
         }
 
         public Vector2 GetMove()
