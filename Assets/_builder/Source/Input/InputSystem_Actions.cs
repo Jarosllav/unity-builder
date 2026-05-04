@@ -51,18 +51,9 @@ namespace nobodyworks.builder.input
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""6c2ab1b8-8984-453a-af3d-a3c78ae1679a"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Interact"",
-                    ""type"": ""Button"",
-                    ""id"": ""852140f2-7766-474d-8707-702459ba45f3"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -108,6 +99,24 @@ namespace nobodyworks.builder.input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact_Primary"",
+                    ""type"": ""Button"",
+                    ""id"": ""852140f2-7766-474d-8707-702459ba45f3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact_Secondary"",
+                    ""type"": ""Button"",
+                    ""id"": ""4bd57bcd-6baa-4193-8860-1d1735016786"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -460,7 +469,7 @@ namespace nobodyworks.builder.input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Interact"",
+                    ""action"": ""Interact_Primary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -471,7 +480,18 @@ namespace nobodyworks.builder.input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Interact"",
+                    ""action"": ""Interact_Primary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb31ad79-7215-47d9-ac3d-65a27e3658f2"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Interact_Secondary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1084,12 +1104,13 @@ namespace nobodyworks.builder.input
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
-            m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
             m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_Previous = m_Player.FindAction("Previous", throwIfNotFound: true);
             m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
             m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
+            m_Player_Interact_Primary = m_Player.FindAction("Interact_Primary", throwIfNotFound: true);
+            m_Player_Interact_Secondary = m_Player.FindAction("Interact_Secondary", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1172,12 +1193,13 @@ namespace nobodyworks.builder.input
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Attack;
-        private readonly InputAction m_Player_Interact;
         private readonly InputAction m_Player_Crouch;
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_Previous;
         private readonly InputAction m_Player_Next;
         private readonly InputAction m_Player_Sprint;
+        private readonly InputAction m_Player_Interact_Primary;
+        private readonly InputAction m_Player_Interact_Secondary;
         public struct PlayerActions
         {
             private @InputSystem_Actions m_Wrapper;
@@ -1185,12 +1207,13 @@ namespace nobodyworks.builder.input
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Attack => m_Wrapper.m_Player_Attack;
-            public InputAction @Interact => m_Wrapper.m_Player_Interact;
             public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @Previous => m_Wrapper.m_Player_Previous;
             public InputAction @Next => m_Wrapper.m_Player_Next;
             public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+            public InputAction @Interact_Primary => m_Wrapper.m_Player_Interact_Primary;
+            public InputAction @Interact_Secondary => m_Wrapper.m_Player_Interact_Secondary;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1209,9 +1232,6 @@ namespace nobodyworks.builder.input
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
-                @Interact.started += instance.OnInteract;
-                @Interact.performed += instance.OnInteract;
-                @Interact.canceled += instance.OnInteract;
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
@@ -1227,6 +1247,12 @@ namespace nobodyworks.builder.input
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
+                @Interact_Primary.started += instance.OnInteract_Primary;
+                @Interact_Primary.performed += instance.OnInteract_Primary;
+                @Interact_Primary.canceled += instance.OnInteract_Primary;
+                @Interact_Secondary.started += instance.OnInteract_Secondary;
+                @Interact_Secondary.performed += instance.OnInteract_Secondary;
+                @Interact_Secondary.canceled += instance.OnInteract_Secondary;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1240,9 +1266,6 @@ namespace nobodyworks.builder.input
                 @Attack.started -= instance.OnAttack;
                 @Attack.performed -= instance.OnAttack;
                 @Attack.canceled -= instance.OnAttack;
-                @Interact.started -= instance.OnInteract;
-                @Interact.performed -= instance.OnInteract;
-                @Interact.canceled -= instance.OnInteract;
                 @Crouch.started -= instance.OnCrouch;
                 @Crouch.performed -= instance.OnCrouch;
                 @Crouch.canceled -= instance.OnCrouch;
@@ -1258,6 +1281,12 @@ namespace nobodyworks.builder.input
                 @Sprint.started -= instance.OnSprint;
                 @Sprint.performed -= instance.OnSprint;
                 @Sprint.canceled -= instance.OnSprint;
+                @Interact_Primary.started -= instance.OnInteract_Primary;
+                @Interact_Primary.performed -= instance.OnInteract_Primary;
+                @Interact_Primary.canceled -= instance.OnInteract_Primary;
+                @Interact_Secondary.started -= instance.OnInteract_Secondary;
+                @Interact_Secondary.performed -= instance.OnInteract_Secondary;
+                @Interact_Secondary.canceled -= instance.OnInteract_Secondary;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1443,12 +1472,13 @@ namespace nobodyworks.builder.input
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
-            void OnInteract(InputAction.CallbackContext context);
             void OnCrouch(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnPrevious(InputAction.CallbackContext context);
             void OnNext(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
+            void OnInteract_Primary(InputAction.CallbackContext context);
+            void OnInteract_Secondary(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

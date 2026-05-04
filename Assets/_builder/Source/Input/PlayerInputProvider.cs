@@ -1,5 +1,6 @@
 ﻿using System;
 using nobodyworks.builder.character;
+using nobodyworks.builder.interaction;
 using nobodyworks.builder.movement;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -19,12 +20,17 @@ namespace nobodyworks.builder.input
             _characterManager = GetComponent<CharacterManager>();
             
             Assert.IsNotNull(_characterManager);
+            
+            _actionAsset.Player.Interact_Primary.performed += (ctx) => Interact(InteractionType.Primary);
+            _actionAsset.Player.Interact_Secondary.performed += (ctx) => Interact(InteractionType.Secondary);
         }
 
         public void Start()
         {
             _movementController = _characterManager.MovementController;
             _actionAsset.Enable();
+            
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         public void Update()
@@ -46,6 +52,11 @@ namespace nobodyworks.builder.input
         public Vector2 GetLook()
         {
             return _actionAsset.Player.Look.ReadValue<Vector2>();
+        }
+
+        private void Interact(InteractionType interactionType)
+        {
+            _characterManager.InteractionController.Use(interactionType);
         }
     }
 }

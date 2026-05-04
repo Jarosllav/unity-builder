@@ -255,6 +255,9 @@ MonoBehaviour:
   _movementStates:
   - _stateId: 0
     _speed: 2
+  _interactionMask:
+    serializedVersion: 2
+    m_Bits: 64
   _itemsDatabase: {fileID: 11400000, guid: 2392e3ef7bb6f004fbc3f7913d91dbcf, type: 2}
 --- !u!114 &-5632338659725214172
 MonoBehaviour:
