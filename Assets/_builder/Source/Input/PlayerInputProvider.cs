@@ -2,6 +2,7 @@
 using nobodyworks.builder.character;
 using nobodyworks.builder.movement;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 namespace nobodyworks.builder.input
@@ -16,11 +17,13 @@ namespace nobodyworks.builder.input
         {
             _actionAsset = new();
             _characterManager = GetComponent<CharacterManager>();
-            _movementController = _characterManager.MovementController;
+            
+            Assert.IsNotNull(_characterManager);
         }
 
         public void Start()
         {
+            _movementController = _characterManager.MovementController;
             _actionAsset.Enable();
         }
 
