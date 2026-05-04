@@ -1,5 +1,7 @@
 ﻿using System;
 using nobodyworks.builder.input;
+using nobodyworks.builder.inventories;
+using nobodyworks.builder.items;
 using nobodyworks.builder.movement;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -31,12 +33,17 @@ namespace nobodyworks.builder.character
         [SerializeField]
         private MovementState[] _movementStates;
         
+        [SerializeField]
+        private ItemsDatabase _itemsDatabase; // TODO(PO): Temp
+        
         #endregion
         
         private IInputProvider _inputProvider;
         private MovementController _movementController;
+        private InventoryController _inventoryController;
 
         public MovementController MovementController => _movementController;
+        public InventoryController InventoryController => _inventoryController;
         
         public void Awake()
         {
@@ -44,11 +51,18 @@ namespace nobodyworks.builder.character
             
             _movementController = new(movementDriver, transform, _eyesTransform, _eyesBoneTransform, 
                 _feetBoneTransform, _groundMask, _groundDistanceCheck, _movementStates);
+            
+            _inventoryController = new();
         }
 
         public void Start()
         {
-            
+            _inventoryController.Add(new Item(_itemsDatabase.GetDefinition("hammer")));
+
+            foreach (var invItem in _inventoryController.Items)
+            {
+                Debug.Log($"- {invItem.Item.Definition.Key} x{invItem.Amount}");
+            }
         }
 
         private void OnDestroy()
