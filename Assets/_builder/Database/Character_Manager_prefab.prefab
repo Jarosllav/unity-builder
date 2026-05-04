@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 10
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -229,6 +229,7 @@ MonoBehaviour:
   _movementStates:
   - _stateId: 0
     _speed: 2
+  _itemsDatabase: {fileID: 11400000, guid: 2392e3ef7bb6f004fbc3f7913d91dbcf, type: 2}
 --- !u!143 &6463914528387105916
 CharacterController:
   m_ObjectHideFlags: 0
