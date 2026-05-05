@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using nobodyworks.builder.skeleton;
 using UnityEngine;
 using nobodyworks.builder.utilities;
 
@@ -7,11 +8,12 @@ namespace nobodyworks.builder.interaction
 {
     public class InteractionController : IDisposable
     {
-        private readonly LayerMask _triggersLayerMask;
-        private readonly Transform _eyesTransform;
+        private readonly InteractionSettings _settings;
         private readonly Dictionary<Type, Action<InteractableManager>> _registeredActions = new(12);
         private readonly Dictionary<Type, Func<InteractableManager, bool>> _registeredConditions = new(12);
 
+        private Transform _eyesTransform;
+        
         private InteractableManager _currentInteractableEnteredManager;
         private Collider _currentInteractableEnteredCollider;
 
@@ -19,7 +21,6 @@ namespace nobodyworks.builder.interaction
         private Collider _currentInteractableSelectedCollider;
 
         private InteractableManager _usingInteractableManager;
-        private float _checkDistance = 3f;
         
         public Condition<InteractableManager> UseCondition { get; } = new();
 
@@ -31,10 +32,10 @@ namespace nobodyworks.builder.interaction
 
         #region Initialization
 
-        public InteractionController(LayerMask triggersLayerMask, Transform eyesTransform)
+        public InteractionController(InteractionSettings settings)
         {
-            _triggersLayerMask = triggersLayerMask;
-            _eyesTransform = eyesTransform;
+            _settings = settings;
+            _eyesTransform = _settings.EyesTransform;
         }
 
         public void Dispose()
@@ -60,7 +61,10 @@ namespace nobodyworks.builder.interaction
                 return;
             }
             
-            if (Physics.SphereCast(_eyesTransform.position, 0.1f, _eyesTransform.forward, out var raycastHit, _checkDistance, _triggersLayerMask))
+            Debug.DrawRay(_eyesTransform.position, _eyesTransform.forward * _settings.CheckDistance, Color.red);
+            
+            if (Physics.SphereCast(_eyesTransform.position, 0.1f, _eyesTransform.forward, 
+                    out var raycastHit, _settings.CheckDistance, _settings.InteractionMask))
             {
                 SelectTrigger(raycastHit.collider);
             }
@@ -240,7 +244,7 @@ namespace nobodyworks.builder.interaction
 
         private bool CheckLayer(int gameObjectLayer)
         {
-            return (_triggersLayerMask & (1 << gameObjectLayer)) != 0;
+            return (_settings.InteractionMask & (1 << gameObjectLayer)) != 0;
         }
     }
 }

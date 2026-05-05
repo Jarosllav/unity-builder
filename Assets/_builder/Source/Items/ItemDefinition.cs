@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using nobodyworks.builder.equipment;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace nobodyworks.builder.items
 {
@@ -21,17 +23,29 @@ namespace nobodyworks.builder.items
         private GameObject _prefab;
         
         [SerializeField]
+        private ItemCategoryDefinition _categoryDefinition;
+        
+        [SerializeField]
         private ItemRarityDefinition _rarityDefinition;
         
         [SerializeField]
         private float _value = 0;
         
+        [SerializeField]
+        private bool _isEquippable = false;
+        
+        [SerializeField]
+        private EquipmentSlotDefinition _slotDefinition;
+        
         public string Key => _key;
         public Sprite Icon => _icon;
         public string Name => _name;
         public string Description => _description;
+        public ItemCategoryDefinition CategoryDefinition => _categoryDefinition;
         public GameObject Prefab => _prefab;
         public ItemRarityDefinition RarityDefinition => _rarityDefinition;
         public float Value => _value;
+        public bool IsEquippable => _isEquippable;
+        public EquipmentSlotDefinition SlotDefinition => _slotDefinition;
     }
 }

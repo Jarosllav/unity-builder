@@ -1,9 +1,11 @@
 ﻿using System;
+using nobodyworks.builder.equipment;
 using nobodyworks.builder.input;
 using nobodyworks.builder.interaction;
 using nobodyworks.builder.inventories;
 using nobodyworks.builder.items;
 using nobodyworks.builder.movement;
+using nobodyworks.builder.skeleton;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -14,28 +16,16 @@ namespace nobodyworks.builder.character
         #region Inspector
 
         [SerializeField]
-        private CharacterController _characterController;
-
-        [SerializeField]
-        private Transform _eyesTransform;
+        private MovementSettings _movementSettings;
         
         [SerializeField]
-        private Transform _eyesBoneTransform;
+        private InteractionSettings _interactionSettings;
         
         [SerializeField]
-        private Transform _feetBoneTransform;
+        private EquipmentSettings _equipmentSettings;
         
         [SerializeField]
-        private LayerMask _groundMask;
-        
-        [SerializeField]
-        private float _groundDistanceCheck;
-        
-        [SerializeField]
-        private MovementState[] _movementStates;
-        
-        [SerializeField]
-        private LayerMask _interactionMask;
+        private SkeletonSettings _skeletonSettings;
         
         [SerializeField]
         private ItemsDatabase _itemsDatabase; // TODO(PO): Temp
@@ -45,25 +35,26 @@ namespace nobodyworks.builder.character
         private MovementController _movementController;
         private InventoryController _inventoryController;
         private InteractionController _interactionController;
+        private SkeletonController _skeletonController;
+        private EquipmentController _equipmentController;
 
         public MovementController MovementController => _movementController;
         public InventoryController InventoryController => _inventoryController;
         public InteractionController InteractionController => _interactionController;
+        public SkeletonController SkeletonController => _skeletonController;
+        public EquipmentController EquipmentController => _equipmentController;
         
         public void Awake()
         {
-            var movementDriver = new CharacterControllerDriver(_characterController);
-            
-            _movementController = new(movementDriver, transform, _eyesTransform, _eyesBoneTransform, 
-                _feetBoneTransform, _groundMask, _groundDistanceCheck, _movementStates);
+            _skeletonController = new(_skeletonSettings);
+            _movementController = new(_movementSettings, _skeletonController);
             _inventoryController = new();
-            _interactionController = new(_interactionMask, _eyesTransform);
+            _interactionController = new(_interactionSettings);
+            _equipmentController = new(_inventoryController, _skeletonController, _equipmentSettings);
         }
 
         public void Start()
         {
-            // _inventoryController.Add(new Item(_itemsDatabase.GetDefinition("hammer")));
-
             _interactionController.Register<ItemInteractableManager>((itemManager) =>
             {
                 _inventoryController.Add(itemManager.GetItem());

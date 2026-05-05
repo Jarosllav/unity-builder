@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using nobodyworks.builder.skeleton;
 using nobodyworks.builder.utilities;
 using UnityEngine;
 
@@ -7,23 +8,19 @@ namespace nobodyworks.builder.movement
 {
     public sealed class MovementController
     {
-        private readonly MovementDriver _driver;
+        private readonly MovementSettings _settings;
         private readonly Transform _transform;
         private readonly Transform _eyesTransform;
         private readonly Transform _eyesBoneTransform;
         private readonly Transform _feetBoneTransform;
+        private readonly Dictionary<int, MovementState> _states;
 
-        private readonly Dictionary<int, MovementState> _states = new(4);
-
+        private MovementDriver _driver;
         private MovementState _currentState;
-        private LayerMask _groundMask;
         private Vector3 _inverseMotion;
         private Vector3 _velocity;
         private MovementConstraint _constraints = MovementConstraint.None;
-        private float _groundDistanceCheck;
         private float _xRotation = 0f;
-        private float _rotateSpeed = 10f; // TODO(PO): Create MovementConfiguration struct or smth
-        private float _jumpForce = 2f;
         private bool _isGrounded = true;
 
         public MovementConstraint Constraints
@@ -45,7 +42,7 @@ namespace nobodyworks.builder.movement
  
         public bool IsGrounded => _isGrounded;
         public Vector3 Motion => _inverseMotion;
-        public Vector3 WorldMotion => _transform.TransformDirection(_inverseMotion);
+        public Vector3 WorldMotion => _eyesTransform.TransformDirection(_inverseMotion);
         public MovementState CurrentState => _currentState;
         public MovementDriver Driver => _driver;
         public float EyesRotation => _xRotation;
@@ -57,25 +54,22 @@ namespace nobodyworks.builder.movement
 
         #region Initialization
 
-        public MovementController(MovementDriver driver, Transform transform, Transform eyesTransform, 
-            Transform eyesBoneTransform, Transform feetBoneTransform, LayerMask groundMask, float groundDistanceCheck, MovementState[] states)
+        public MovementController(MovementSettings settings, SkeletonController skeletonController)
         {
-            _driver = driver;
-            _transform = transform;
-            _eyesTransform = eyesTransform;
-            _eyesBoneTransform = eyesBoneTransform;
-            _feetBoneTransform = feetBoneTransform;
-            _groundMask = groundMask;
-            _groundDistanceCheck = groundDistanceCheck;
+            _settings = settings;
+            _transform = _settings.Transform;
+            _eyesTransform = _settings.EyesTransform;
+            _eyesBoneTransform = skeletonController.GetBone(_settings.EyesBoneDefinition).Transform;
+            _feetBoneTransform = skeletonController.GetBone(_settings.FeetBoneDefinition).Transform;
+            
+            _states = new(_settings.States.Length);
 
-            _states = new(states.Length);
-
-            foreach (var state in states)
+            foreach (var state in _settings.States)
             {
                 _states[state.Id] = state;
             }
             
-            SetMovementState(0);
+            SetState(0);
         }
 
         public void Dispose()
@@ -90,7 +84,8 @@ namespace nobodyworks.builder.movement
         {
             if (!Constraints.HasFlag(MovementConstraint.Gravity))
             {
-                _isGrounded = Physics.CheckSphere(_feetBoneTransform.position, _groundDistanceCheck, _groundMask);
+                _isGrounded = Physics.CheckSphere(_feetBoneTransform.position, _settings.GroundDistanceCheck, 
+                    _settings.GroundMask);
 
                 if (_isGrounded && _velocity.y < 0)
                 {
@@ -103,7 +98,7 @@ namespace nobodyworks.builder.movement
             }
         }
 
-        public void SetMovementState(int movementStateId)
+        public void SetState(int movementStateId)
         {
             if (!_states.ContainsKey(movementStateId))
             {
@@ -120,6 +115,11 @@ namespace nobodyworks.builder.movement
             OnStateChanged?.Invoke();
         }
 
+        public void SetDriver(MovementDriver driver)
+        {
+            _driver = driver;
+        }
+        
         public void Teleport(Vector3 position)
         {
             _driver.DisableMotion();
@@ -137,7 +137,7 @@ namespace nobodyworks.builder.movement
                 return;
             }
 
-            _velocity.y = Mathf.Sqrt(-2f * _jumpForce * Physics.gravity.y);
+            _velocity.y = Mathf.Sqrt(-2f * _settings.JumpForce * Physics.gravity.y);
             OnJumped?.Invoke();
         }
 
@@ -170,7 +170,7 @@ namespace nobodyworks.builder.movement
         {
             if (!Constraints.HasFlag(MovementConstraint.Rotate))
             {
-                float mouseY = rotation.y * _rotateSpeed * Time.deltaTime;
+                float mouseY = rotation.y * _settings.RotateSpeed * Time.deltaTime;
                 _xRotation -= mouseY;
             }
 
@@ -180,7 +180,7 @@ namespace nobodyworks.builder.movement
             
             if (!Constraints.HasFlag(MovementConstraint.Rotate))
             {
-                float mouseX = rotation.x * _rotateSpeed * Time.deltaTime;
+                float mouseX = rotation.x * _settings.RotateSpeed * Time.deltaTime;
                 _transform.Rotate(Vector3.up * mouseX);
             }
         }
@@ -216,7 +216,7 @@ namespace nobodyworks.builder.movement
             }
             else
             {
-                _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, _rotateSpeed * Time.deltaTime);
+                _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, _settings.RotateSpeed * Time.deltaTime);
             }
         }
 

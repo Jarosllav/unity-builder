@@ -118,6 +118,42 @@ namespace nobodyworks.builder.input
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_1"",
+                    ""type"": ""Button"",
+                    ""id"": ""a5092974-a5b2-4188-abb0-73ec2e46548a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_2"",
+                    ""type"": ""Button"",
+                    ""id"": ""1347689d-88c7-4a6c-aca4-d61c49738067"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_3"",
+                    ""type"": ""Button"",
+                    ""id"": ""a5cf94d0-e887-4747-92d0-4bcc56ce7ddd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_4"",
+                    ""type"": ""Button"",
+                    ""id"": ""76c05514-d83d-4a7f-b4de-8f059aef317d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -514,6 +550,50 @@ namespace nobodyworks.builder.input
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9c3db82e-cfa6-4898-81e0-d0ce23af4c42"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""49578b7e-5b99-443a-a4c5-cfb6a8a00637"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec0b197f-ec08-43c9-b4e0-cb9f78e99570"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6dea276-e0a5-4209-b054-ac70dfc0bdb9"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1111,6 +1191,10 @@ namespace nobodyworks.builder.input
             m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
             m_Player_Interact_Primary = m_Player.FindAction("Interact_Primary", throwIfNotFound: true);
             m_Player_Interact_Secondary = m_Player.FindAction("Interact_Secondary", throwIfNotFound: true);
+            m_Player_Quick_1 = m_Player.FindAction("Quick_1", throwIfNotFound: true);
+            m_Player_Quick_2 = m_Player.FindAction("Quick_2", throwIfNotFound: true);
+            m_Player_Quick_3 = m_Player.FindAction("Quick_3", throwIfNotFound: true);
+            m_Player_Quick_4 = m_Player.FindAction("Quick_4", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1200,6 +1284,10 @@ namespace nobodyworks.builder.input
         private readonly InputAction m_Player_Sprint;
         private readonly InputAction m_Player_Interact_Primary;
         private readonly InputAction m_Player_Interact_Secondary;
+        private readonly InputAction m_Player_Quick_1;
+        private readonly InputAction m_Player_Quick_2;
+        private readonly InputAction m_Player_Quick_3;
+        private readonly InputAction m_Player_Quick_4;
         public struct PlayerActions
         {
             private @InputSystem_Actions m_Wrapper;
@@ -1214,6 +1302,10 @@ namespace nobodyworks.builder.input
             public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
             public InputAction @Interact_Primary => m_Wrapper.m_Player_Interact_Primary;
             public InputAction @Interact_Secondary => m_Wrapper.m_Player_Interact_Secondary;
+            public InputAction @Quick_1 => m_Wrapper.m_Player_Quick_1;
+            public InputAction @Quick_2 => m_Wrapper.m_Player_Quick_2;
+            public InputAction @Quick_3 => m_Wrapper.m_Player_Quick_3;
+            public InputAction @Quick_4 => m_Wrapper.m_Player_Quick_4;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1253,6 +1345,18 @@ namespace nobodyworks.builder.input
                 @Interact_Secondary.started += instance.OnInteract_Secondary;
                 @Interact_Secondary.performed += instance.OnInteract_Secondary;
                 @Interact_Secondary.canceled += instance.OnInteract_Secondary;
+                @Quick_1.started += instance.OnQuick_1;
+                @Quick_1.performed += instance.OnQuick_1;
+                @Quick_1.canceled += instance.OnQuick_1;
+                @Quick_2.started += instance.OnQuick_2;
+                @Quick_2.performed += instance.OnQuick_2;
+                @Quick_2.canceled += instance.OnQuick_2;
+                @Quick_3.started += instance.OnQuick_3;
+                @Quick_3.performed += instance.OnQuick_3;
+                @Quick_3.canceled += instance.OnQuick_3;
+                @Quick_4.started += instance.OnQuick_4;
+                @Quick_4.performed += instance.OnQuick_4;
+                @Quick_4.canceled += instance.OnQuick_4;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1287,6 +1391,18 @@ namespace nobodyworks.builder.input
                 @Interact_Secondary.started -= instance.OnInteract_Secondary;
                 @Interact_Secondary.performed -= instance.OnInteract_Secondary;
                 @Interact_Secondary.canceled -= instance.OnInteract_Secondary;
+                @Quick_1.started -= instance.OnQuick_1;
+                @Quick_1.performed -= instance.OnQuick_1;
+                @Quick_1.canceled -= instance.OnQuick_1;
+                @Quick_2.started -= instance.OnQuick_2;
+                @Quick_2.performed -= instance.OnQuick_2;
+                @Quick_2.canceled -= instance.OnQuick_2;
+                @Quick_3.started -= instance.OnQuick_3;
+                @Quick_3.performed -= instance.OnQuick_3;
+                @Quick_3.canceled -= instance.OnQuick_3;
+                @Quick_4.started -= instance.OnQuick_4;
+                @Quick_4.performed -= instance.OnQuick_4;
+                @Quick_4.canceled -= instance.OnQuick_4;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1479,6 +1595,10 @@ namespace nobodyworks.builder.input
             void OnSprint(InputAction.CallbackContext context);
             void OnInteract_Primary(InputAction.CallbackContext context);
             void OnInteract_Secondary(InputAction.CallbackContext context);
+            void OnQuick_1(InputAction.CallbackContext context);
+            void OnQuick_2(InputAction.CallbackContext context);
+            void OnQuick_3(InputAction.CallbackContext context);
+            void OnQuick_4(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

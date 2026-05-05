@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 5399913377879654381}
   - component: {fileID: 7550059907786308637}
   - component: {fileID: 4393778855055871219}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hammer_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

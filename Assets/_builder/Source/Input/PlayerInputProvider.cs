@@ -10,6 +10,13 @@ namespace nobodyworks.builder.input
 {
     public class PlayerInputProvider : MonoBehaviour, IInputProvider
     {
+        #region Inspector
+
+        [SerializeField]
+        private CharacterController _characterController;
+
+        #endregion
+        
         private InputSystem_Actions _actionAsset;
         private CharacterManager _characterManager;
         private MovementController _movementController;
@@ -23,11 +30,20 @@ namespace nobodyworks.builder.input
             
             _actionAsset.Player.Interact_Primary.performed += (ctx) => Interact(InteractionType.Primary);
             _actionAsset.Player.Interact_Secondary.performed += (ctx) => Interact(InteractionType.Secondary);
+            
+            _actionAsset.Player.Quick_1.performed += (ctx) => Quick(0);
+            _actionAsset.Player.Quick_2.performed += (ctx) => Quick(1);
+            _actionAsset.Player.Quick_3.performed += (ctx) => Quick(2);
+            _actionAsset.Player.Quick_4.performed += (ctx) => Quick(3);
         }
 
         public void Start()
         {
+            var movementDriver = new CharacterControllerDriver(_characterController);
+
             _movementController = _characterManager.MovementController;
+            _movementController.SetDriver(movementDriver);
+            
             _actionAsset.Enable();
             
             Cursor.lockState = CursorLockMode.Locked;
@@ -57,6 +73,20 @@ namespace nobodyworks.builder.input
         private void Interact(InteractionType interactionType)
         {
             _characterManager.InteractionController.Use(interactionType);
+        }
+
+        private void Quick(int id)
+        {
+            var invItem = _characterManager.InventoryController.Items[id];
+
+            if (_characterManager.EquipmentController.IsEquipped(invItem.Item))
+            {
+                _characterManager.EquipmentController.Unequip(invItem.Item);
+            }
+            else
+            {
+                _characterManager.EquipmentController.Equip(invItem.Item);
+            }
         }
     }
 }

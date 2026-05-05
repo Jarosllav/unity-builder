@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa63f97683e54155a9b43ba0735db003, type: 3}
+  m_Name: Secondary_Slot_Definition
+  m_EditorClassIdentifier: 
+  _key: secondary
+  _boneDefinition: {fileID: 11400000, guid: 10b33a3052363db4bb3ad77901ff5c4a, type: 2}

@@ -49,24 +49,62 @@ namespace nobodyworks.builder.inventories
             return true;
         }
 
+        public bool Remove(Item item, int amount = 1)
+        {
+            var existing = _items.FirstOrDefault(i => i.Item.Definition == item.Definition);
+
+            if (existing != null)
+            {
+                if (existing.Amount - amount < 0)
+                {
+                    return false;
+                }
+                
+                existing.SetAmount(existing.Amount - amount);
+
+                if (existing.Amount == 0)
+                {
+                    _items.Remove(existing);
+                }
+                
+                OnItemsChanged?.Invoke();
+                return true;
+            }
+            
+            return false;
+        }
+        
+        public bool Has(Item item)
+        {
+            foreach (var invItem in _items)
+            {
+                if (invItem.Item.Definition == item.Definition)
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
         public bool RemoveAtOnce(Item[] items)
         {
             var operations = new Dictionary<InventoryItem, int>();
 
             foreach (var item in items)
             {
-                var inventoryItem = _items
+                var invItem = _items
                     .Where(i => !operations.ContainsKey(i) ||  i.Amount - operations[i] > 0)
                     .FirstOrDefault(i => i.Item == item);
 
-                if (inventoryItem == null)
+                if (invItem == null)
                 {
                     return false;
                 }
 
-                if (!operations.TryAdd(inventoryItem, 1))
+                if (!operations.TryAdd(invItem, 1))
                 {
-                    operations[inventoryItem]++;
+                    operations[invItem]++;
                 }
             }
 

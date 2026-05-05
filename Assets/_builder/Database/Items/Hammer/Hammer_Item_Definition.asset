@@ -17,5 +17,8 @@ MonoBehaviour:
   _name: 
   _description: 
   _prefab: {fileID: 6154725382478728418, guid: 6174cf59d3ffefd409d80270f3f127a5, type: 3}
+  _categoryDefinition: {fileID: 0}
   _rarityDefinition: {fileID: 11400000, guid: 5ab3449d6ffa98142ae8595d69de0f71, type: 2}
   _value: 0
+  _isEquippable: 1
+  _slotDefinition: {fileID: 11400000, guid: 28a0e35609cd69f4691bfd89483c6781, type: 2}
