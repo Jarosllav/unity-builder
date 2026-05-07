@@ -139,7 +139,7 @@ namespace nobodyworks.builder.equipment
             return slotController.Item.Definition == itemDefinition;
         }
         
-        private EquipmentSlotController GetSlotController(EquipmentSlotDefinition slotDefinition)
+        public EquipmentSlotController GetSlotController(EquipmentSlotDefinition slotDefinition)
         {
             foreach (var slotController in _slotsControllers)
             {

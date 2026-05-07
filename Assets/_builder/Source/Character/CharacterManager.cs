@@ -1,5 +1,7 @@
 ﻿using System;
+using nobodyworks.builder.carrying;
 using nobodyworks.builder.equipment;
+using nobodyworks.builder.extensions;
 using nobodyworks.builder.input;
 using nobodyworks.builder.interaction;
 using nobodyworks.builder.inventories;
@@ -7,7 +9,6 @@ using nobodyworks.builder.items;
 using nobodyworks.builder.movement;
 using nobodyworks.builder.skeleton;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace nobodyworks.builder.character
 {
@@ -28,6 +29,9 @@ namespace nobodyworks.builder.character
         private SkeletonSettings _skeletonSettings;
         
         [SerializeField]
+        private CarrierSettings _carrierSettings;
+        
+        [SerializeField]
         private ItemsDatabase _itemsDatabase; // TODO(PO): Temp
         
         #endregion
@@ -37,12 +41,14 @@ namespace nobodyworks.builder.character
         private InteractionController _interactionController;
         private SkeletonController _skeletonController;
         private EquipmentController _equipmentController;
-
+        private CarrierController _carrierController;
+        
         public MovementController MovementController => _movementController;
         public InventoryController InventoryController => _inventoryController;
         public InteractionController InteractionController => _interactionController;
         public SkeletonController SkeletonController => _skeletonController;
         public EquipmentController EquipmentController => _equipmentController;
+        public CarrierController CarrierController => _carrierController;
         
         public void Awake()
         {
@@ -51,6 +57,7 @@ namespace nobodyworks.builder.character
             _inventoryController = new();
             _interactionController = new(_interactionSettings);
             _equipmentController = new(_inventoryController, _skeletonController, _equipmentSettings);
+            _carrierController = new(_carrierSettings, _equipmentController, _movementController);
         }
 
         public void Start()
@@ -58,6 +65,16 @@ namespace nobodyworks.builder.character
             _interactionController.Register<ItemInteractableManager>((itemManager) =>
             {
                 _inventoryController.Add(itemManager.GetItem());
+            });
+            
+            _interactionController.Register<CrateInteractableManager>((crateManager) =>
+            {
+                _carrierController.Take(crateManager);
+            });
+            
+            _interactionController.Register<LogInteractableManager>((logManager) =>
+            {
+                _carrierController.Take(logManager);
             });
         }
 
@@ -69,8 +86,10 @@ namespace nobodyworks.builder.character
         public void Update()
         {
             var deltaTime = Time.deltaTime;
+            
             _movementController.Tick(deltaTime);
             _interactionController.Tick(deltaTime);
+            _carrierController.Tick(deltaTime);
         }
 
         #region Unity callbacks

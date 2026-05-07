@@ -72,6 +72,12 @@ namespace nobodyworks.builder.input
 
         private void Interact(InteractionType interactionType)
         {
+            if (interactionType == InteractionType.Primary && _characterManager.CarrierController.IsCarrying)
+            {
+                _characterManager.CarrierController.Drop();
+                return;
+            }
+            
             _characterManager.InteractionController.Use(interactionType);
         }
 
