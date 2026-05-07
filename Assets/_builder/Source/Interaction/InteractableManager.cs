@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using nobodyworks.builder.utilities;
+using UnityEngine.Serialization;
 
 namespace nobodyworks.builder.interaction
 {
@@ -9,7 +10,7 @@ namespace nobodyworks.builder.interaction
         #region Inspector
         
         [SerializeField]
-        private InteractionType _interactionType = InteractionType.Primary;
+        private InteractionType _interactionTypes = InteractionType.None;
         
         #endregion
         
@@ -20,9 +21,9 @@ namespace nobodyworks.builder.interaction
         public event Action<InteractableManager> OnExited;
         public event Action<InteractableManager> OnSelected;
         public event Action<InteractableManager> OnDeselected;
-        public event Action<InteractableManager> OnUsed;
+        public event Action<InteractableManager, InteractionType> OnUsed;
 
-        #region ===== Initialization =====
+        #region Initialization
 
         public virtual void OnDestroy()
         {
@@ -37,7 +38,7 @@ namespace nobodyworks.builder.interaction
         
         public bool CheckUsage(InteractionType interactionType)
         {
-            if (interactionType != _interactionType)
+            if ((_interactionTypes & interactionType) == 0)
             {
                 return false;
             }
@@ -45,10 +46,10 @@ namespace nobodyworks.builder.interaction
             return UseCondition.AllTrue();
         }
 
-        public void Use()
+        public void Use(InteractionType interactionType)
         {
-            OnUsed?.Invoke(this);
-            OnUse();
+            OnUsed?.Invoke(this, interactionType);
+            OnUse(interactionType);
         }
 
         public void Enter()
@@ -85,7 +86,7 @@ namespace nobodyworks.builder.interaction
 
         protected virtual void OnDeselect() { }
         
-        protected virtual void OnUse() { }
+        protected virtual void OnUse(InteractionType interactionType) { }
 
         #endregion
     }

@@ -154,6 +154,24 @@ namespace nobodyworks.builder.input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate_Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""03a463c9-d911-40ff-9c32-bee56288831b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate_Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""dc7a6de9-04e0-4dea-b928-1b043e4d948e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -594,6 +612,28 @@ namespace nobodyworks.builder.input
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Quick_4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6116d96c-e0ff-40e3-94fa-65b0a85fa3e0"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate_Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d2aa471-3f56-4922-a0fe-a93391c9c91c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate_Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1195,6 +1235,8 @@ namespace nobodyworks.builder.input
             m_Player_Quick_2 = m_Player.FindAction("Quick_2", throwIfNotFound: true);
             m_Player_Quick_3 = m_Player.FindAction("Quick_3", throwIfNotFound: true);
             m_Player_Quick_4 = m_Player.FindAction("Quick_4", throwIfNotFound: true);
+            m_Player_Rotate_Left = m_Player.FindAction("Rotate_Left", throwIfNotFound: true);
+            m_Player_Rotate_Right = m_Player.FindAction("Rotate_Right", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1288,6 +1330,8 @@ namespace nobodyworks.builder.input
         private readonly InputAction m_Player_Quick_2;
         private readonly InputAction m_Player_Quick_3;
         private readonly InputAction m_Player_Quick_4;
+        private readonly InputAction m_Player_Rotate_Left;
+        private readonly InputAction m_Player_Rotate_Right;
         public struct PlayerActions
         {
             private @InputSystem_Actions m_Wrapper;
@@ -1306,6 +1350,8 @@ namespace nobodyworks.builder.input
             public InputAction @Quick_2 => m_Wrapper.m_Player_Quick_2;
             public InputAction @Quick_3 => m_Wrapper.m_Player_Quick_3;
             public InputAction @Quick_4 => m_Wrapper.m_Player_Quick_4;
+            public InputAction @Rotate_Left => m_Wrapper.m_Player_Rotate_Left;
+            public InputAction @Rotate_Right => m_Wrapper.m_Player_Rotate_Right;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1357,6 +1403,12 @@ namespace nobodyworks.builder.input
                 @Quick_4.started += instance.OnQuick_4;
                 @Quick_4.performed += instance.OnQuick_4;
                 @Quick_4.canceled += instance.OnQuick_4;
+                @Rotate_Left.started += instance.OnRotate_Left;
+                @Rotate_Left.performed += instance.OnRotate_Left;
+                @Rotate_Left.canceled += instance.OnRotate_Left;
+                @Rotate_Right.started += instance.OnRotate_Right;
+                @Rotate_Right.performed += instance.OnRotate_Right;
+                @Rotate_Right.canceled += instance.OnRotate_Right;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1403,6 +1455,12 @@ namespace nobodyworks.builder.input
                 @Quick_4.started -= instance.OnQuick_4;
                 @Quick_4.performed -= instance.OnQuick_4;
                 @Quick_4.canceled -= instance.OnQuick_4;
+                @Rotate_Left.started -= instance.OnRotate_Left;
+                @Rotate_Left.performed -= instance.OnRotate_Left;
+                @Rotate_Left.canceled -= instance.OnRotate_Left;
+                @Rotate_Right.started -= instance.OnRotate_Right;
+                @Rotate_Right.performed -= instance.OnRotate_Right;
+                @Rotate_Right.canceled -= instance.OnRotate_Right;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1599,6 +1657,8 @@ namespace nobodyworks.builder.input
             void OnQuick_2(InputAction.CallbackContext context);
             void OnQuick_3(InputAction.CallbackContext context);
             void OnQuick_4(InputAction.CallbackContext context);
+            void OnRotate_Left(InputAction.CallbackContext context);
+            void OnRotate_Right(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

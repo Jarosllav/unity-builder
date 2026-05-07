@@ -320,6 +320,14 @@ MonoBehaviour:
     _primarySlotDefinition: {fileID: 11400000, guid: 28a0e35609cd69f4691bfd89483c6781, type: 2}
     _secondarySlotDefinition: {fileID: 11400000, guid: a06152c0484a2064b981d71a68dd4fd5, type: 2}
     _carrySlotDefinition: {fileID: 11400000, guid: 62234369ae0e27d429975cb91f4cd1f5, type: 2}
+    _greenMaterial: {fileID: 2100000, guid: f8f7068550bfb16448715ceae9717a6b, type: 2}
+    _redMaterial: {fileID: 2100000, guid: 3f8a3bf1a1b36ba4882b08c8b51525d4, type: 2}
+  _placementSettings:
+    _placementLayerMask:
+      serializedVersion: 2
+      m_Bits: 8
+    _maxDistance: 5
+    _rotateSpeed: 35
   _itemsDatabase: {fileID: 11400000, guid: 2392e3ef7bb6f004fbc3f7913d91dbcf, type: 2}
 --- !u!114 &-5632338659725214172
 MonoBehaviour:

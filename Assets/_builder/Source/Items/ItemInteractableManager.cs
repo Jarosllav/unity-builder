@@ -22,7 +22,7 @@ namespace nobodyworks.builder.items
             return new Item(_itemDefinition);
         }
         
-        protected override void OnUse()
+        protected override void OnUse(InteractionType interactionType)
         {
             GameObject.Destroy(gameObject);
         }

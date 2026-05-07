@@ -1,9 +1,13 @@
-﻿namespace nobodyworks.builder.interaction
+﻿using System;
+
+namespace nobodyworks.builder.interaction
 {
+    [Flags]
     public enum InteractionType
     {
-        Primary,
-        Secondary,
-        Force
+        None = 0,
+        Primary = 1 << 0,
+        Secondary = 1 << 1,
+        Force = 1 << 2
     }
 }

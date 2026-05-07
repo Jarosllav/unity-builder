@@ -46,6 +46,8 @@ namespace nobodyworks.builder.movement
         public MovementState CurrentState => _currentState;
         public MovementDriver Driver => _driver;
         public float EyesRotation => _xRotation;
+        public Vector3 EyesDirection => _eyesTransform.forward;
+        public Vector3 EyesPosition => _eyesTransform.position;
 
         public readonly Condition ConstraintsCondition = new();
         

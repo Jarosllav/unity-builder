@@ -9,7 +9,7 @@ namespace nobodyworks.builder.interaction
     public class InteractionController : IDisposable
     {
         private readonly InteractionSettings _settings;
-        private readonly Dictionary<Type, Action<InteractableManager>> _registeredActions = new(12);
+        private readonly Dictionary<Type, Action<InteractableManager, InteractionType>> _registeredActions = new(12);
         private readonly Dictionary<Type, Func<InteractableManager, bool>> _registeredConditions = new(12);
 
         private Transform _eyesTransform;
@@ -28,7 +28,7 @@ namespace nobodyworks.builder.interaction
         public event Action<InteractionController, InteractableManager> OnExited;
         public event Action<InteractionController, InteractableManager> OnSelected;
         public event Action<InteractionController, InteractableManager> OnDeselected;
-        public event Action<InteractionController, InteractableManager> OnUsed;
+        public event Action<InteractionController, InteractableManager, InteractionType> OnUsed;
 
         #region Initialization
 
@@ -84,23 +84,23 @@ namespace nobodyworks.builder.interaction
                 return false;
             }
             
-            interactableManager.Use();
-            OnUsed?.Invoke(this, interactableManager);
+            interactableManager.Use(interactionType);
+            OnUsed?.Invoke(this, interactableManager, interactionType);
             
             if (_registeredActions.TryGetValue(interactableManager.GetType(), out var handler))
             {
-                handler.Invoke(interactableManager);
+                handler.Invoke(interactableManager, interactionType);
             }
             
             return true;
         }
 
-        public void Register<TInteractableManager>(Action<TInteractableManager> handler)
+        public void Register<TInteractableManager>(Action<TInteractableManager, InteractionType> handler)
             where TInteractableManager : InteractableManager
         {
-            _registeredActions[typeof(TInteractableManager)] = interactable =>
+            _registeredActions[typeof(TInteractableManager)] = (interactable, interactionType) =>
             {
-                handler((TInteractableManager)interactable);
+                handler((TInteractableManager)interactable, interactionType);
             };
         }
 

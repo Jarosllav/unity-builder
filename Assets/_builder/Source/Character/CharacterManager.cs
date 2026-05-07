@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using nobodyworks.builder.carrying;
 using nobodyworks.builder.equipment;
 using nobodyworks.builder.extensions;
@@ -7,6 +8,7 @@ using nobodyworks.builder.interaction;
 using nobodyworks.builder.inventories;
 using nobodyworks.builder.items;
 using nobodyworks.builder.movement;
+using nobodyworks.builder.placement;
 using nobodyworks.builder.skeleton;
 using UnityEngine;
 
@@ -31,6 +33,9 @@ namespace nobodyworks.builder.character
         [SerializeField]
         private CarrierSettings _carrierSettings;
         
+        [SerializeField]
+        private PlacementSettings _placementSettings;
+        
         #endregion
         
         private MovementController _movementController;
@@ -39,6 +44,7 @@ namespace nobodyworks.builder.character
         private SkeletonController _skeletonController;
         private EquipmentController _equipmentController;
         private CarrierController _carrierController;
+        private PlacementController _placementController;
         
         public MovementController MovementController => _movementController;
         public InventoryController InventoryController => _inventoryController;
@@ -46,6 +52,7 @@ namespace nobodyworks.builder.character
         public SkeletonController SkeletonController => _skeletonController;
         public EquipmentController EquipmentController => _equipmentController;
         public CarrierController CarrierController => _carrierController;
+        public PlacementController PlacementController => _placementController;
         
         public void Awake()
         {
@@ -55,24 +62,53 @@ namespace nobodyworks.builder.character
             _interactionController = new(_interactionSettings);
             _equipmentController = new(_inventoryController, _skeletonController, _equipmentSettings);
             _carrierController = new(_carrierSettings, _equipmentController, _movementController);
+            _placementController = new(_placementSettings, _movementController);
         }
 
         public void Start()
         {
-            _interactionController.Register<ItemInteractableManager>((itemManager) =>
+            _interactionController.Register<ItemInteractableManager>((itemManager, _) =>
             {
                 _inventoryController.Add(itemManager.GetItem());
             });
             
-            _interactionController.Register<CrateInteractableManager>((crateManager) =>
+            _interactionController.Register<CrateInteractableManager>((crateManager, interactionType) =>
             {
-                _carrierController.Take(crateManager);
+                if (interactionType == InteractionType.Secondary)
+                {
+                    _carrierController.Take(crateManager);
+                }
+                else if (interactionType == InteractionType.Primary)
+                {
+                    var str = new StringBuilder();
+                    str.AppendLine("Crate inventory:\n");
+
+                    foreach (var invItem in crateManager.InventoryController.Items)
+                    {
+                        str.AppendLine(invItem.Item.Definition.Key + " x" + invItem.Amount);
+                    }
+                    
+                    Debug.Log(str.ToString());
+                }
             });
             
-            _interactionController.Register<LogInteractableManager>((logManager) =>
+            _interactionController.Register<LogInteractableManager>((logManager, _) =>
             {
                 _carrierController.Take(logManager);
             });
+            
+            _carrierController.OnCarryStarted += () =>
+            {
+                if (_carrierController.Carrying is IPlaceable placeable)
+                {
+                    _placementController.Create(placeable);
+                }
+            };
+            
+            _carrierController.OnCarryEnded += () =>
+            {
+                _placementController.Destroy();
+            };
         }
 
         private void OnDestroy()
@@ -87,6 +123,7 @@ namespace nobodyworks.builder.character
             _movementController.Tick(deltaTime);
             _interactionController.Tick(deltaTime);
             _carrierController.Tick(deltaTime);
+            _placementController.Tick(deltaTime);
         }
 
         #region Unity callbacks

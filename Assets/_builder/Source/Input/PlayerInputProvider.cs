@@ -2,6 +2,7 @@
 using nobodyworks.builder.character;
 using nobodyworks.builder.interaction;
 using nobodyworks.builder.movement;
+using nobodyworks.builder.placement;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
@@ -20,6 +21,7 @@ namespace nobodyworks.builder.input
         private InputSystem_Actions _actionAsset;
         private CharacterManager _characterManager;
         private MovementController _movementController;
+        private PlacementController _placementController;
         
         public void Awake()
         {
@@ -44,6 +46,8 @@ namespace nobodyworks.builder.input
             _movementController = _characterManager.MovementController;
             _movementController.SetDriver(movementDriver);
             
+            _placementController = _characterManager.PlacementController;
+            
             _actionAsset.Enable();
             
             Cursor.lockState = CursorLockMode.Locked;
@@ -58,6 +62,15 @@ namespace nobodyworks.builder.input
             
             _movementController.Move(GetMove());
             _movementController.RotateDelta(GetLook());
+
+            if (_actionAsset.Player.Rotate_Left.inProgress)
+            {
+                _placementController.Rotate(false);
+            }
+            else if (_actionAsset.Player.Rotate_Right.inProgress)
+            {
+                _placementController.Rotate(true);
+            }
         }
 
         public Vector2 GetMove()
@@ -72,7 +85,7 @@ namespace nobodyworks.builder.input
 
         private void Interact(InteractionType interactionType)
         {
-            if (interactionType == InteractionType.Primary && _characterManager.CarrierController.IsCarrying)
+            if (interactionType == InteractionType.Secondary && _characterManager.CarrierController.IsCarrying)
             {
                 _characterManager.CarrierController.Drop();
                 return;
