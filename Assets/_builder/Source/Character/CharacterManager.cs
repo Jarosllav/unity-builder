@@ -31,9 +31,6 @@ namespace nobodyworks.builder.character
         [SerializeField]
         private CarrierSettings _carrierSettings;
         
-        [SerializeField]
-        private ItemsDatabase _itemsDatabase; // TODO(PO): Temp
-        
         #endregion
         
         private MovementController _movementController;

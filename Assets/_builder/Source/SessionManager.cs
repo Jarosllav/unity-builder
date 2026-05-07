@@ -1,6 +1,7 @@
 using System;
-using Eflatun.SceneReference;
 using UnityEngine;
+using Eflatun.SceneReference;
+using nobodyworks.builder.items;
 
 namespace nobodyworks.builder
 {
@@ -20,6 +21,9 @@ namespace nobodyworks.builder
         
         [SerializeField]
         private SceneReference _gameplaySceneReference;
+        
+        [SerializeField]
+        private ItemsDatabase _itemsDatabase;
         
         #endregion
         
@@ -42,6 +46,8 @@ namespace nobodyworks.builder
             {
                 _instance = this;
             }
+            
+            Databases.Setup(_itemsDatabase);
             
             DontDestroyOnLoad(this);
             
