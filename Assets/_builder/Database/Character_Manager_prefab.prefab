@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 6463914528387105916}
   - component: {fileID: 2566469937196240899}
   - component: {fileID: -5632338659725214172}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Character_Manager_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,10 +285,10 @@ MonoBehaviour:
     _feetBoneDefinition: {fileID: 11400000, guid: ef9ebf7ce8a081a47be5e963fc024251, type: 2}
     _groundMask:
       serializedVersion: 2
-      m_Bits: 1
+      m_Bits: 73
     _groundDistanceCheck: 0.1
     _rotateSpeed: 10
-    _jumpForce: 2
+    _jumpForce: 4
     _states:
     - _stateId: 0
       _speed: 4

@@ -91,7 +91,7 @@ namespace nobodyworks.builder.movement
 
                 if (_isGrounded && _velocity.y < 0)
                 {
-                    _velocity.y = -2f;
+                    _velocity.y = 0;
                 }
 
                 _velocity.y += Physics.gravity.y * deltaTime;
@@ -139,7 +139,7 @@ namespace nobodyworks.builder.movement
                 return;
             }
 
-            _velocity.y = Mathf.Sqrt(-2f * _settings.JumpForce * Physics.gravity.y);
+            _velocity.y = Mathf.Sqrt(-1f * _settings.JumpForce * Physics.gravity.y);
             OnJumped?.Invoke();
         }
 

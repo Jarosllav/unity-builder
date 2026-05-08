@@ -37,6 +37,8 @@ namespace nobodyworks.builder.input
             _actionAsset.Player.Quick_2.performed += (ctx) => Quick(1);
             _actionAsset.Player.Quick_3.performed += (ctx) => Quick(2);
             _actionAsset.Player.Quick_4.performed += (ctx) => Quick(3);
+            
+            _actionAsset.Player.Jump.performed += (ctx) => _characterManager.MovementController.Jump();
         }
 
         public void Start()
