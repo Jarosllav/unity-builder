@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48937c7a71bfaff4eb0d1f1a29240585, type: 3}
+  m_Name: Hoe_Item_Definition
+  m_EditorClassIdentifier: 
+  _key: hoe
+  _icon: {fileID: 0}
+  _name: 
+  _description: 
+  _prefab: {fileID: 5749711840950760891, guid: efc2510981a57e14eb51ce64c6668ca6, type: 3}
+  _categoryDefinition: {fileID: 0}
+  _rarityDefinition: {fileID: 11400000, guid: 5ab3449d6ffa98142ae8595d69de0f71, type: 2}
+  _value: 0
+  _isStackable: 0
+  _isEquippable: 1
+  _slotDefinition: {fileID: 11400000, guid: 28a0e35609cd69f4691bfd89483c6781, type: 2}
