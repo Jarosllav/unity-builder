@@ -1,4 +1,5 @@
 ﻿using System;
+using nobodyworks.builder.character;
 using nobodyworks.builder.extensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,11 +16,14 @@ namespace nobodyworks.builder
         #endregion
 
         protected CanvasManager CanvasManager;
+        protected GameManager GameManager;
         protected RectTransform RectTransform;
 
         private bool _isOpened = false;
         private bool _waitForFrame = false;
 
+        protected CharacterManager CharacterManager => GameManager.PlayerCharacterManager;
+        
         public bool IsOpened => _isOpened;
         public bool ShowCursor => _showCursor;
 
@@ -66,10 +70,11 @@ namespace nobodyworks.builder
             }
         }
 
-        public void Initialize(CanvasManager canvasManager)
+        public void Initialize(CanvasManager canvasManager, GameManager gameManager)
         {
             CanvasManager = canvasManager;
-
+            GameManager = gameManager;
+            
             OnInitialized();
         }
 
@@ -114,5 +119,6 @@ namespace nobodyworks.builder
         protected virtual void OnInitialized() { }
         protected virtual void OnStarted() { }
         protected virtual void OnDestroyed() { }
+        protected virtual void OnCharacterChanged(CharacterManager characterManager) { }
     }
 }

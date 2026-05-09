@@ -17,9 +17,16 @@ namespace nobodyworks.builder
         
         private CharacterManager _playerCharacterManager;
         
+        public CharacterManager PlayerCharacterManager => _playerCharacterManager;
+        
         public void Awake()
         {
             _playerCharacterManager = GetOrCreateCharacter();
+        }
+
+        public void OnDestroy()
+        {
+            
         }
 
         private CharacterManager GetOrCreateCharacter()

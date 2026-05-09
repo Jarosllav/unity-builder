@@ -14,6 +14,7 @@ namespace nobodyworks.builder
         private readonly List<InterfaceManager> _interfacesManagers = new(12);
         private readonly List<InterfaceManager> _openedInterfaces = new(4);
         
+        private GameManager _gameManager;
         private EventSystem _eventSystem;
         private int _cursorRefCount = 0;
 
@@ -33,6 +34,7 @@ namespace nobodyworks.builder
             }
             
             _eventSystem = FindAnyObjectByType<EventSystem>();
+            _gameManager = FindAnyObjectByType<GameManager>();
             
             var foundInterfaces = FindObjectsByType<InterfaceManager>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
@@ -55,7 +57,7 @@ namespace nobodyworks.builder
         {
             foreach (var interfaceManager in _interfacesManagers)
             {
-                interfaceManager.Initialize(this);
+                interfaceManager.Initialize(this, _gameManager);
 
                 if (!interfaceManager.IsOpened)
                 {
