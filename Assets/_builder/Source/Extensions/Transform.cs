@@ -21,5 +21,15 @@ namespace nobodyworks.builder.extensions
 
             transform.SetLocalPositionAndRotation(offsetPosition, Quaternion.Euler(offsetRotation));
         }
+
+        public static void DestroyChildren(this Transform transform)
+        {
+            var childCount = transform.childCount;
+
+            for (int i = 0; i < childCount; ++i)
+            {
+                GameObject.Destroy(transform.GetChild(i).gameObject);
+            }
+        }
     }
 }
