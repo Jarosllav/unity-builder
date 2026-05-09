@@ -32,6 +32,9 @@ namespace nobodyworks.builder.items
         private float _value = 0;
         
         [SerializeField]
+        private bool _isStackable = true;
+        
+        [SerializeField]
         private bool _isEquippable = false;
         
         [SerializeField]
@@ -45,6 +48,7 @@ namespace nobodyworks.builder.items
         public GameObject Prefab => _prefab;
         public ItemRarityDefinition RarityDefinition => _rarityDefinition;
         public float Value => _value;
+        public bool IsStackable => _isStackable;
         public bool IsEquippable => _isEquippable;
         public EquipmentSlotDefinition SlotDefinition => _slotDefinition;
     }

@@ -98,7 +98,14 @@ namespace nobodyworks.builder.input
 
         private void Quick(int id)
         {
-            var invItem = _characterManager.InventoryController.Items[id];
+            var itemsCount = _characterManager.InventoryController.InventoryItems.Count;
+
+            if (id >= itemsCount)
+            {
+                return;
+            }
+            
+            var invItem = _characterManager.InventoryController.InventoryItems[id];
 
             if (_characterManager.EquipmentController.IsEquipped(invItem.Item))
             {

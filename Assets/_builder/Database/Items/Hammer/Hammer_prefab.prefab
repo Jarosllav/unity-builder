@@ -272,5 +272,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b7e4ce99dd04cd0b67047a860453ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionType: 0
+  _interactionTypes: 1
   _itemDefinition: {fileID: 11400000, guid: 58b3e2e6fadedd143b35168b8d754d2c, type: 2}

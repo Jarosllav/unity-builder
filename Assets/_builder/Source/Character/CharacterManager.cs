@@ -25,6 +25,9 @@ namespace nobodyworks.builder.character
         private InteractionSettings _interactionSettings;
         
         [SerializeField]
+        private InventorySettings _inventorySettings;
+        
+        [SerializeField]
         private EquipmentSettings _equipmentSettings;
         
         [SerializeField]
@@ -58,7 +61,7 @@ namespace nobodyworks.builder.character
         {
             _skeletonController = new(_skeletonSettings);
             _movementController = new(_movementSettings, _skeletonController);
-            _inventoryController = new();
+            _inventoryController = new(_inventorySettings);
             _interactionController = new(_interactionSettings);
             _equipmentController = new(_inventoryController, _skeletonController, _equipmentSettings);
             _carrierController = new(_carrierSettings, _equipmentController, _movementController);
@@ -83,7 +86,7 @@ namespace nobodyworks.builder.character
                     var str = new StringBuilder();
                     str.AppendLine("Crate inventory:\n");
 
-                    foreach (var invItem in crateManager.InventoryController.Items)
+                    foreach (var invItem in crateManager.InventoryController.InventoryItems)
                     {
                         str.AppendLine(invItem.Item.Definition.Key + " x" + invItem.Amount);
                     }
@@ -151,14 +154,19 @@ namespace nobodyworks.builder.character
 
             GUILayout.Label("Inventory:");
             
-            for (int i = 0; i < _inventoryController.Items.Count; ++i)
+            for (int i = 0; i < _inventoryController.InventoryItems.Count; ++i)
             {
-                var inventoryItem = _inventoryController.Items[i];
-                
+                var inventoryItem = _inventoryController.InventoryItems[i];
+
+                if (inventoryItem == null)
+                {
+                    continue;
+                }
+
                 GUILayout.Label($"{i + 1}. {inventoryItem.Item.Definition.Key} x{inventoryItem.Amount}");
             }
 
-            if (_inventoryController.Items.Count <= 0)
+            if (_inventoryController.Count() <= 0)
             {
                 GUILayout.Label("- empty");
             }

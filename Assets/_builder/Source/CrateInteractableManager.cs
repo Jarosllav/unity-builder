@@ -1,11 +1,10 @@
 ﻿using System;
+using UnityEngine;
 using nobodyworks.builder.carrying;
 using nobodyworks.builder.interaction;
 using nobodyworks.builder.inventories;
-using nobodyworks.builder.items;
 using nobodyworks.builder.placement;
 using nobodyworks.builder.utilities;
-using UnityEngine;
 
 namespace nobodyworks.builder
 {
@@ -13,6 +12,9 @@ namespace nobodyworks.builder
     {
         #region Inspector
 
+        [SerializeField]
+        private InventorySettings _inventorySettings;
+        
         [SerializeField]
         private GameObject _modelGameObject;
         
@@ -34,8 +36,7 @@ namespace nobodyworks.builder
         
         public void Awake()
         {
-            _inventoryController = new();
-            _inventoryController.Add(new(Databases.Items.GetDefinition("hammer")));
+            _inventoryController = new(_inventorySettings);
         }
 
         public void CarryStarted()
