@@ -3,6 +3,8 @@ using UnityEngine;
 using nobodyworks.builder.character;
 using nobodyworks.builder.clock;
 using nobodyworks.builder.input;
+using nobodyworks.builder.sky;
+using TriInspector;
 
 namespace nobodyworks.builder
 {
@@ -13,22 +15,28 @@ namespace nobodyworks.builder
 
         [SerializeField]
         private ClockSettings _clockSettings;
+        
+        [SerializeField]
+        private SkySettings _skySettings;
         [SerializeField]
         private GameObject _characterPrefab;
 
         #endregion
         
         private ClockController _clockController;
+        private SkyController _skyController;
         private CharacterManager _playerCharacterManager;
         
         public CharacterManager PlayerCharacterManager => _playerCharacterManager;
         public ClockController ClockController => _clockController;
+        public SkyController SkyController => _skyController;
         
         public event Action OnSetupped;
         
         public void Awake()
         {
             _clockController = new(_clockSettings);
+            _skyController = new(_skySettings, _clockController);
             
             _playerCharacterManager = GetOrCreateCharacter();
         }
@@ -41,6 +49,7 @@ namespace nobodyworks.builder
         public void OnDestroy()
         {
             _clockController.Dispose();
+            _skyController.Dispose();
             
             OnSetupped = null;
         }
@@ -76,5 +85,19 @@ namespace nobodyworks.builder
             
             return characterManager;
         }
+
+#if UNITY_EDITOR
+        [Button, ShowInPlayMode]
+        protected void Editor_Day()
+        {
+            _clockController.SetTime(_clockSettings.DayTimeReference);
+        }
+
+        [Button, ShowInPlayMode]
+        protected void Editor_Night()
+        {
+            _clockController.SetTime(_clockSettings.NightTimeReference);
+        }
+#endif
     }
 }
