@@ -19,13 +19,22 @@ namespace nobodyworks.builder
         
         public CharacterManager PlayerCharacterManager => _playerCharacterManager;
         
+        public event Action OnSetupped;
+        
         public void Awake()
         {
             _playerCharacterManager = GetOrCreateCharacter();
         }
 
+        public void Start()
+        {
+            OnSetupped?.Invoke();
+        }
+
         public void OnDestroy()
         {
+            OnSetupped = null;
+        }
             
         }
 
@@ -36,11 +45,15 @@ namespace nobodyworks.builder
 
             if (characterManagerInScene != null)
             {
+                characterManagerInScene.Install();
+                
                 return  characterManagerInScene;
             }
 #endif
             var characterGameObject = GameObject.Instantiate(_characterPrefab);
             var characterManager = characterGameObject.GetComponent<CharacterManager>();
+
+            characterManager.Install();
             
             return characterManager;
         }

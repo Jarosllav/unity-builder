@@ -51,9 +51,11 @@ namespace nobodyworks.builder
                     interfaceManager.Open();
                 }
             }
+            
+            _gameManager.OnSetupped += GameSetuppedHandler;
         }
 
-        public void Start()
+        private void GameSetuppedHandler()
         {
             foreach (var interfaceManager in _interfacesManagers)
             {

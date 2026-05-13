@@ -49,6 +49,8 @@ namespace nobodyworks.builder.character
         private CarrierController _carrierController;
         private PlacementController _placementController;
         
+        private bool _isInstalled = false;
+        
         public MovementController MovementController => _movementController;
         public InventoryController InventoryController => _inventoryController;
         public InteractionController InteractionController => _interactionController;
@@ -56,8 +58,11 @@ namespace nobodyworks.builder.character
         public EquipmentController EquipmentController => _equipmentController;
         public CarrierController CarrierController => _carrierController;
         public PlacementController PlacementController => _placementController;
+        public bool IsInstalled => _isInstalled;
         
-        public void Awake()
+        public event Action OnInstalled;
+
+        public void Install()
         {
             _skeletonController = new(_skeletonSettings);
             _movementController = new(_movementSettings, _skeletonController);
@@ -66,9 +71,14 @@ namespace nobodyworks.builder.character
             _equipmentController = new(_inventoryController, _skeletonController, _equipmentSettings);
             _carrierController = new(_carrierSettings, _equipmentController, _movementController);
             _placementController = new(_placementSettings, _movementController);
-        }
 
-        public void Start()
+            CreateEvents();
+            
+            _isInstalled = true;
+            OnInstalled?.Invoke();
+        }
+        
+        private void CreateEvents()
         {
             _interactionController.Register<ItemInteractableManager>((itemManager, _) =>
             {
@@ -114,13 +124,22 @@ namespace nobodyworks.builder.character
             };
         }
 
-        private void OnDestroy()
+        public void OnDestroy()
         {
             _movementController.Dispose();
+            _interactionController.Dispose();
+            _equipmentController.Dispose();
+            
+            OnInstalled = null;
         }
 
         public void Update()
         {
+            if (!_isInstalled)
+            {
+                return;
+            }
+            
             var deltaTime = Time.deltaTime;
             
             _movementController.Tick(deltaTime);

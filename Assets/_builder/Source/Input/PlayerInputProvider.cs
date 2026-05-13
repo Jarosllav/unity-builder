@@ -29,19 +29,18 @@ namespace nobodyworks.builder.input
             _characterManager = GetComponent<CharacterManager>();
             
             Assert.IsNotNull(_characterManager);
-            
-            _actionAsset.Player.Interact_Primary.performed += (ctx) => Interact(InteractionType.Primary);
-            _actionAsset.Player.Interact_Secondary.performed += (ctx) => Interact(InteractionType.Secondary);
-            
-            _actionAsset.Player.Quick_1.performed += (ctx) => Quick(0);
-            _actionAsset.Player.Quick_2.performed += (ctx) => Quick(1);
-            _actionAsset.Player.Quick_3.performed += (ctx) => Quick(2);
-            _actionAsset.Player.Quick_4.performed += (ctx) => Quick(3);
-            
-            _actionAsset.Player.Jump.performed += (ctx) => _characterManager.MovementController.Jump();
+
+            if (_characterManager.IsInstalled)
+            {
+                CharacterInstalledHandler();
+            }
+            else
+            {
+                _characterManager.OnInstalled += CharacterInstalledHandler;
+            }
         }
 
-        public void Start()
+        private void CharacterInstalledHandler()
         {
             var movementDriver = new CharacterControllerDriver(_characterController);
 
@@ -53,6 +52,21 @@ namespace nobodyworks.builder.input
             _actionAsset.Enable();
             
             Cursor.lockState = CursorLockMode.Locked;
+            
+            CreateEventHandlers();
+        }
+
+        private void CreateEventHandlers()
+        {
+            _actionAsset.Player.Interact_Primary.performed += (ctx) => Interact(InteractionType.Primary);
+            _actionAsset.Player.Interact_Secondary.performed += (ctx) => Interact(InteractionType.Secondary);
+            
+            _actionAsset.Player.Quick_1.performed += (ctx) => Quick(0);
+            _actionAsset.Player.Quick_2.performed += (ctx) => Quick(1);
+            _actionAsset.Player.Quick_3.performed += (ctx) => Quick(2);
+            _actionAsset.Player.Quick_4.performed += (ctx) => Quick(3);
+            
+            _actionAsset.Player.Jump.performed += (ctx) => _characterManager.MovementController.Jump();
         }
 
         public void Update()
