@@ -45,6 +45,13 @@ namespace nobodyworks.builder.clock
             CheckDayPhase();
         }
 
+        public void SetTime(TimeReference timeReference)
+        {
+            _minutes = timeReference.AsMinutes();
+            OnTimeChanged?.Invoke();
+            CheckDayPhase();
+        }
+        
         private void CheckDayPhase()
         {
             if (TryUpdateDayPhase())

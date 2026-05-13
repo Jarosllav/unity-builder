@@ -26,6 +26,8 @@ namespace nobodyworks.builder.clock
         public float TimeScale => _timeScale;
         public int StartTimeMinutes => _startTimeReference.AsMinutes();
         public int DayTimeMinutes => _dayTimeReference.AsMinutes();
+        public TimeReference DayTimeReference => _dayTimeReference;
         public int NightTimeMinutes => _nightTimeReference.AsMinutes();
+        public TimeReference NightTimeReference => _nightTimeReference;
     }
 }
