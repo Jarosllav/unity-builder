@@ -2,6 +2,7 @@
 using UnityEngine;
 using nobodyworks.builder.character;
 using nobodyworks.builder.clock;
+using nobodyworks.builder.cutscene;
 using nobodyworks.builder.input;
 using nobodyworks.builder.sky;
 using TriInspector;
@@ -18,6 +19,10 @@ namespace nobodyworks.builder
         
         [SerializeField]
         private SkySettings _skySettings;
+        
+        [SerializeField]
+        private CutscenesSettings _cutscenesSettings;
+        
         [SerializeField]
         private GameObject _characterPrefab;
 
@@ -25,11 +30,13 @@ namespace nobodyworks.builder
         
         private ClockController _clockController;
         private SkyController _skyController;
+        private CutscenesController _cutscenesController;
         private CharacterManager _playerCharacterManager;
         
         public CharacterManager PlayerCharacterManager => _playerCharacterManager;
         public ClockController ClockController => _clockController;
         public SkyController SkyController => _skyController;
+        public CutscenesController CutscenesController => _cutscenesController;
         
         public event Action OnSetupped;
         
@@ -37,6 +44,7 @@ namespace nobodyworks.builder
         {
             _clockController = new(_clockSettings);
             _skyController = new(_skySettings, _clockController);
+            _cutscenesController = new(_cutscenesSettings);
             
             _playerCharacterManager = GetOrCreateCharacter();
         }
@@ -88,16 +96,24 @@ namespace nobodyworks.builder
 
 #if UNITY_EDITOR
         [Button, ShowInPlayMode]
+        [Button("Day"), ShowInPlayMode]
         protected void Editor_Day()
         {
             _clockController.SetTime(_clockSettings.DayTimeReference);
         }
 
-        [Button, ShowInPlayMode]
+        [Button("Night"), ShowInPlayMode]
         protected void Editor_Night()
         {
             _clockController.SetTime(_clockSettings.NightTimeReference);
         }
+
+        [Button("Play carriage cutscene"), ShowInPlayMode]
+        protected void Editor_PlayCarriageCutscene()
+        {
+            _cutscenesController.Play<CarriageCutsceneManager>();
+        }
+        
 #endif
     }
 }
