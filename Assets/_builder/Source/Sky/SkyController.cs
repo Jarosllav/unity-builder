@@ -16,14 +16,16 @@ namespace nobodyworks.builder.sky
             _clockController = clockController;
             
             _clockController.OnPhaseChanged += ClockPhaseChangedHandler;
-
-            ChangeScenery(_settings.NightScenerySettings);
-            ClockPhaseChangedHandler();
         }
 
         public void Dispose()
         {
             
+        }
+
+        public void Refresh()
+        {
+            ClockPhaseChangedHandler();
         }
 
         private void ClockPhaseChangedHandler()

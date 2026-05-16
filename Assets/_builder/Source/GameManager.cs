@@ -32,6 +32,8 @@ namespace nobodyworks.builder
         private SkyController _skyController;
         private CutscenesController _cutscenesController;
         private CharacterManager _playerCharacterManager;
+        private SessionContext _sessionContext;
+        private bool _isInstalled = false;
         
         public CharacterManager PlayerCharacterManager => _playerCharacterManager;
         public ClockController ClockController => _clockController;
@@ -52,6 +54,24 @@ namespace nobodyworks.builder
         public void Start()
         {
             OnSetupped?.Invoke();
+        }
+
+        public void Install(SessionContext context)
+        {
+            if (_isInstalled)
+            {
+                return;
+            }
+            
+            _sessionContext = context;
+            _isInstalled = true;
+            
+            _skyController.Refresh();
+            
+            if (_sessionContext.FromMainMenu && _sessionContext.IsNewGame)
+            {
+                SetupNewGame();
+            }
         }
 
         public void OnDestroy()
@@ -76,7 +96,6 @@ namespace nobodyworks.builder
 
         private CharacterManager GetOrCreateCharacter()
         {
-#if DEBUG
             var characterManagerInScene = FindAnyObjectByType<CharacterManager>();
 
             if (characterManagerInScene != null)
@@ -85,13 +104,18 @@ namespace nobodyworks.builder
                 
                 return  characterManagerInScene;
             }
-#endif
+            
             var characterGameObject = GameObject.Instantiate(_characterPrefab);
             var characterManager = characterGameObject.GetComponent<CharacterManager>();
 
             characterManager.Install();
             
             return characterManager;
+        }
+
+        private void SetupNewGame()
+        {
+            _cutscenesController.Play<CarriageCutsceneManager>();
         }
 
 #if UNITY_EDITOR

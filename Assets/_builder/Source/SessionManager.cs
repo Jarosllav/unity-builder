@@ -5,6 +5,12 @@ using nobodyworks.builder.items;
 
 namespace nobodyworks.builder
 {
+    public class SessionContext
+    {
+        public bool FromMainMenu = false;
+        public bool IsNewGame = false;
+    }
+    
     [DefaultExecutionOrder((int)ExecutionOrder.Early)]
     public class SessionManager : MonoBehaviour
     {
@@ -27,9 +33,12 @@ namespace nobodyworks.builder
         
         #endregion
         
-        private SceneLoaderController _sceneLoaderController;
+        private readonly SessionContext _context = new();
         
+        private SceneLoaderController _sceneLoaderController;
         private bool _isDestroying = false;
+        
+        public SessionContext Context => _context;
 
         #region Initialization
 
@@ -52,6 +61,7 @@ namespace nobodyworks.builder
             DontDestroyOnLoad(this);
             
             _sceneLoaderController = new(_loadingSceneReference);
+            _sceneLoaderController.OnLoaded += SceneLoadedHandler;
         }
 
         public void Start()
@@ -62,6 +72,7 @@ namespace nobodyworks.builder
             }
             
             _sceneLoaderController.CheckActiveScene();
+            TryInstallGameManager();
         }
 
         public void OnDestroy()
@@ -78,12 +89,30 @@ namespace nobodyworks.builder
         
         public void CreateSession()
         {
+            _context.FromMainMenu = true;
+            _context.IsNewGame = true;
+            
             _ = _sceneLoaderController.ChangeScene(_gameplaySceneReference);
         }
 
         public void DestroySession()
         {
             _ = _sceneLoaderController.ChangeScene(_menuSceneReference);
+        }
+
+        private void TryInstallGameManager()
+        {
+            var gameManager = GameObject.FindAnyObjectByType<GameManager>();
+
+            if (gameManager != null)
+            {
+                gameManager.Install(_context);
+            }
+        }
+        
+        private void SceneLoadedHandler(SceneReference sceneReference)
+        {
+            TryInstallGameManager();
         }
     }
 }

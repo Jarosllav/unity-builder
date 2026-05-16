@@ -51,8 +51,15 @@ namespace nobodyworks.builder
                     interfaceManager.Open();
                 }
             }
-            
-            _gameManager.OnSetupped += GameSetuppedHandler;
+
+            if (_gameManager != null)
+            {
+                _gameManager.OnSetupped += GameSetuppedHandler;
+            }
+            else
+            {
+                GameSetuppedHandler();
+            }
         }
 
         private void GameSetuppedHandler()
