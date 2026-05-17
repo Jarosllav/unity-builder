@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using nobodyworks.builder.utilities;
+using UnityEngine;
 
 namespace nobodyworks.builder.placement
 {
@@ -7,5 +8,7 @@ namespace nobodyworks.builder.placement
         GameObject GameObject { get; }
         GameObject ModelGameObject { get; }
         Vector3 FloorPosition { get; }
+        
+        bool CanPlace();
     }
 }

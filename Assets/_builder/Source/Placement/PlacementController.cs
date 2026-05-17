@@ -12,6 +12,9 @@ namespace nobodyworks.builder.placement
         
         private IPlaceable _placeable;
         private GameObject _ghostGameObject;
+        private TriggerHandlers _ghostTriggerHandlers;
+        private MaterialsSnapshot _materialsSnapshot;
+        private bool _lastCanPlace = false;
         
         public PlacementController(PlacementSettings settings, MovementController movementController)
         {
@@ -26,11 +29,13 @@ namespace nobodyworks.builder.placement
                 return;    
             }
             
-            if (Physics.Raycast(_movementController.EyesPosition, _movementController.EyesDirection, out var hit, 
+            if (Physics.Raycast(_movementController.EyesPosition, _movementController.EyesDirection, out var hit,
                     _settings.MaxDistance, _settings.PlacementLayerMask))
             {
                 _ghostGameObject.transform.position = hit.point - _placeable.FloorPosition;
             }
+
+            TryUpdateGhostMaterials();
         }
 
         public void Create(IPlaceable placeable)
@@ -42,6 +47,15 @@ namespace nobodyworks.builder.placement
             
             _placeable = placeable;
             _ghostGameObject = GameObject.Instantiate(_placeable.ModelGameObject);
+            _ghostTriggerHandlers = _ghostGameObject.AddComponent<TriggerHandlers>();
+            _lastCanPlace = true;
+            
+            var rigidbody = _ghostGameObject.AddComponent<Rigidbody>();
+            rigidbody.useGravity = false;
+            rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            
+            _materialsSnapshot = new MaterialsSnapshot(_ghostGameObject);
+            TryUpdateGhostMaterials(true);
         }
 
         public void Destroy()
@@ -52,13 +66,20 @@ namespace nobodyworks.builder.placement
             );
             
             GameObject.Destroy(_ghostGameObject);
-            
+
+            _ghostTriggerHandlers = null;
+            _materialsSnapshot = null;
             _placeable = null;
         }
 
         public bool CanPlace()
         {
-            return true;
+            if (_placeable == null)
+            {
+                return true;
+            }
+            
+            return _placeable.CanPlace() && !_ghostTriggerHandlers.IsColliding;
         }
 
         public void Rotate(bool clockwise)
@@ -70,6 +91,17 @@ namespace nobodyworks.builder.placement
             
             var angles = _settings.RotateSpeed * Time.deltaTime;
             _ghostGameObject.transform.Rotate(Vector3.up, clockwise ? angles : -angles);
+        }
+
+        private void TryUpdateGhostMaterials(bool force = false)
+        {
+            var canPlace = CanPlace();
+
+            if (force || _lastCanPlace != canPlace)
+            {
+                _lastCanPlace = canPlace;
+                _materialsSnapshot.Override(canPlace ? _settings.SuccessMaterial : _settings.FailureMaterial);
+            }
         }
     }
 }
