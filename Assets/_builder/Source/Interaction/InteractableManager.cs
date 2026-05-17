@@ -12,11 +12,17 @@ namespace nobodyworks.builder.interaction
         [SerializeField]
         private InteractionType _interactionTypes = InteractionType.None;
         
+        [SerializeField]
+        private Collider[] _colliders;
+        
+        [SerializeField]
+        private Collider[] _triggers;
+        
         #endregion
         
         public Condition UseCondition { get; } = new();
         public object Cookie { get; set; }
-
+        
         public event Action<InteractableManager> OnEntered;
         public event Action<InteractableManager> OnExited;
         public event Action<InteractableManager> OnSelected;
@@ -35,7 +41,7 @@ namespace nobodyworks.builder.interaction
         }
 
         #endregion
-        
+
         public bool CheckUsage(InteractionType interactionType)
         {
             if ((_interactionTypes & interactionType) == 0)
@@ -74,6 +80,22 @@ namespace nobodyworks.builder.interaction
         {
             OnDeselected?.Invoke(this);
             OnDeselect();
+        }
+
+        public void ChangeColliders(bool enabled)
+        {
+            foreach (var collider in _colliders)
+            {
+                collider.enabled = enabled;
+            }
+        }
+
+        public void ChangeTriggers(bool enabled)
+        {
+            foreach (var trigger in _triggers)
+            {
+                trigger.enabled = enabled;
+            }
         }
 
         #region Callbacks

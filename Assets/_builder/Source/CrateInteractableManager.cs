@@ -41,12 +41,17 @@ namespace nobodyworks.builder
 
         public void CarryStarted()
         {
-            
+            ChangeColliders(false);
         }
 
         public void CarryEnded()
         {
-            
+            ChangeColliders(true);
+        }
+
+        public bool CanPlace()
+        {
+            return true;
         }
 
         private void OnDrawGizmos()
