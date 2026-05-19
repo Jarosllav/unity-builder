@@ -85,29 +85,20 @@ namespace nobodyworks.builder.character
                 _inventoryController.Add(itemManager.GetItem());
             });
             
-            _interactionController.Register<CrateInteractableManager>((crateManager, interactionType) =>
+            _interactionController.Register<ICarryable>((carryable, interactionType) =>
             {
                 if (interactionType == InteractionType.Secondary)
                 {
-                    _carrierController.Take(crateManager);
-                }
-                else if (interactionType == InteractionType.Primary)
-                {
-                    var str = new StringBuilder();
-                    str.AppendLine("Crate inventory:\n");
-
-                    foreach (var invItem in crateManager.InventoryController.InventoryItems)
-                    {
-                        str.AppendLine(invItem.Item.Definition.Key + " x" + invItem.Amount);
-                    }
-                    
-                    Debug.Log(str.ToString());
+                    _carrierController.Take(carryable);
                 }
             });
-            
-            _interactionController.Register<LogInteractableManager>((logManager, _) =>
+
+            _interactionController.Register<CrateInteractableManager>((crateManager, interactionType) =>
             {
-                _carrierController.Take(logManager);
+                if (interactionType != InteractionType.Primary)
+                {
+                    return;
+                }
             });
             
             _carrierController.OnCarryStarted += () =>
