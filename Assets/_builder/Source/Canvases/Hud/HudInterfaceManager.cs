@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using TMPro;
+using UnityEngine;
 
 namespace nobodyworks.builder.interfaces
 {
@@ -6,6 +8,12 @@ namespace nobodyworks.builder.interfaces
     {
         [SerializeField]
         private QuickBarReferences _quickBarReferences;
+        
+        [SerializeField]
+        private TMP_Text _dayTimeLabel;
+        
+        [SerializeField]
+        private TMP_Text _dayPhaseLabel;
         
         protected override void OnInitialized()
         {
@@ -27,6 +35,12 @@ namespace nobodyworks.builder.interfaces
                     _quickBarReferences.SetSlot(i, invItem.Item.Definition);
                 }
             };
+        }
+
+        public void Update()
+        {
+            _dayTimeLabel.text = $"{GameManager.ClockController.Hour:D2}:{GameManager.ClockController.Minute:D2}";
+            _dayPhaseLabel.text = $"{GameManager.ClockController.Phase}";
         }
     }
 }
