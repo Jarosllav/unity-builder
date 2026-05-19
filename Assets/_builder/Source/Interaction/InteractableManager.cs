@@ -103,7 +103,15 @@ namespace nobodyworks.builder.interaction
         public virtual string GetInteractionLabel(InteractionType type)
         {
             return type.ToString();
-        } 
+        }
+
+        public virtual string GetName()
+        {
+#if DEBUG
+            return gameObject.name;
+#endif
+            return string.Empty;
+        }
         
         #region Callbacks
 
