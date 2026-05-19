@@ -14,6 +14,9 @@ namespace nobodyworks.builder.interfaces
         private KeyHintsWidget _keyHintsWidget;
         
         [SerializeField]
+        private InteractableWidget _interactableWidget;
+        
+        [SerializeField]
         private TMP_Text _dayTimeLabel;
         
         [SerializeField]
@@ -23,6 +26,7 @@ namespace nobodyworks.builder.interfaces
         {
             _quickBarWidget.Setup(CharacterManager.InventoryController.Settings.MaxCapacity);
             _keyHintsWidget.Setup(CharacterManager.InteractionController);
+            _interactableWidget.Setup(CharacterManager.InteractionController, GameManager.PlayerInputProvider);
             
             CharacterManager.InventoryController.OnItemsChanged += () =>
             {
