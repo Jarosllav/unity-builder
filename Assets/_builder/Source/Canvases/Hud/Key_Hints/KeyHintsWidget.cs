@@ -53,7 +53,7 @@ namespace nobodyworks.builder.interfaces
 
         private void InteractionSelectedHandler(InteractionController _, InteractableManager interactableManager)
         {
-            var types = interactableManager.InteractionTypes;
+            var types = interactableManager.InteractionDefinition.InteractionTypes;
             
             foreach (InteractionType type in Enum.GetValues(typeof(InteractionType)))
             {
@@ -69,7 +69,7 @@ namespace nobodyworks.builder.interfaces
 
                 var hint = _hintsPool.Get();
                 _activeHints.Add(hint);
-                hint.Setup(GetKeyLabel(type), interactableManager.GetInteractionLabel(type));
+                hint.Setup(GetKeyLabel(type), interactableManager.InteractionDefinition.GetLabel(type));
             }
         }
 

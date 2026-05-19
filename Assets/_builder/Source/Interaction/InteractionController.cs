@@ -120,6 +120,16 @@ namespace nobodyworks.builder.interaction
             _registeredConditions[typeof(T)] = interactable => condition((T)(object)interactable);
         }
 
+        public InteractableManager GetCurrentInteractableManager()
+        {
+            if ( _currentInteractableSelectedManager != null)
+            {
+                return _currentInteractableSelectedManager;
+            }
+
+            return _currentInteractableEnteredManager;
+        }
+        
         private bool CheckUseConditions(InteractableManager interactableManager, InteractionType interactionType)
         {
             if (!interactableManager.CheckUsage(interactionType))
@@ -240,17 +250,7 @@ namespace nobodyworks.builder.interaction
         }
 
         #endregion
-
-        private InteractableManager GetCurrentInteractableManager()
-        {
-            if ( _currentInteractableSelectedManager != null)
-            {
-                return _currentInteractableSelectedManager;
-            }
-
-            return _currentInteractableEnteredManager;
-        }
-
+        
         private bool CheckLayer(int gameObjectLayer)
         {
             return (_settings.InteractionMask & (1 << gameObjectLayer)) != 0;

@@ -1,6 +1,8 @@
 ﻿using System;
+using nobodyworks.builder.extensions;
 using UnityEngine;
 using nobodyworks.builder.utilities;
+using UnityEngine.Localization;
 using UnityEngine.Serialization;
 
 namespace nobodyworks.builder.interaction
@@ -10,7 +12,10 @@ namespace nobodyworks.builder.interaction
         #region Inspector
         
         [SerializeField]
-        private InteractionType _interactionTypes = InteractionType.None;
+        private LocalizedString _name;
+        
+        [SerializeField]
+        private InteractionDefinition _interactionDefinition;
         
         [SerializeField]
         private Collider[] _colliders;
@@ -22,7 +27,8 @@ namespace nobodyworks.builder.interaction
         
         public Condition UseCondition { get; } = new();
         public object Cookie { get; set; }
-        public InteractionType InteractionTypes => _interactionTypes;
+        
+        public InteractionDefinition InteractionDefinition => _interactionDefinition;
         
         public event Action<InteractableManager> OnEntered;
         public event Action<InteractableManager> OnExited;
@@ -45,7 +51,7 @@ namespace nobodyworks.builder.interaction
 
         public bool CheckUsage(InteractionType interactionType)
         {
-            if ((_interactionTypes & interactionType) == 0)
+            if ((_interactionDefinition.InteractionTypes & interactionType) == 0)
             {
                 return false;
             }
@@ -99,18 +105,16 @@ namespace nobodyworks.builder.interaction
             }
         }
 
-        // TODO (PO): add InteractionDefinition abstraction layer to store interaction types, descriptions, and metadata.
-        public virtual string GetInteractionLabel(InteractionType type)
-        {
-            return type.ToString();
-        }
-
         public virtual string GetName()
         {
+            var name = _name.GetText();
 #if DEBUG
-            return gameObject.name;
+            if (name == string.Empty)
+            {
+                return gameObject.name;
+            }
 #endif
-            return string.Empty;
+            return name;
         }
         
         #region Callbacks
