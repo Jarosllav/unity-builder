@@ -1,16 +1,17 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace nobodyworks.builder.interfaces
 {
     public class HudInterfaceManager : InterfaceManager
     {
         [SerializeField]
-        private QuickBarReferences _quickBarReferences;
+        private QuickBarWidget _quickBarWidget;
         
         [SerializeField]
-        private KeyHintsReferences _keyHintsReferences;
+        private KeyHintsWidget _keyHintsWidget;
         
         [SerializeField]
         private TMP_Text _dayTimeLabel;
@@ -20,12 +21,12 @@ namespace nobodyworks.builder.interfaces
         
         protected override void OnInitialized()
         {
-            _quickBarReferences.Setup(CharacterManager.InventoryController.Settings.MaxCapacity);
-            _keyHintsReferences.Setup(CharacterManager.InteractionController);
+            _quickBarWidget.Setup(CharacterManager.InventoryController.Settings.MaxCapacity);
+            _keyHintsWidget.Setup(CharacterManager.InteractionController);
             
             CharacterManager.InventoryController.OnItemsChanged += () =>
             {
-                _quickBarReferences.ResetAllSlots();
+                _quickBarWidget.ResetAllSlots();
 
                 for (int i = 0; i < CharacterManager.InventoryController.InventoryItems.Count; ++i)
                 {
@@ -36,7 +37,7 @@ namespace nobodyworks.builder.interfaces
                         continue;
                     }
                     
-                    _quickBarReferences.SetSlot(i, invItem.Item.Definition);
+                    _quickBarWidget.SetSlot(i, invItem.Item.Definition);
                 }
             };
         }

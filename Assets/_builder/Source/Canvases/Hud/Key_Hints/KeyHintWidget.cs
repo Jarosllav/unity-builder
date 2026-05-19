@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace nobodyworks.builder.interfaces
 {
-    public class KeyHintReferences : MonoBehaviour
+    public class KeyHintWidget : MonoBehaviour
     {
         #region Inspector
 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace nobodyworks.builder.interfaces
 {
-    public class QuickSlotReferences : MonoBehaviour
+    public class QuickSlotWidget : MonoBehaviour
     {
         [SerializeField]
         private Image _iconImage;

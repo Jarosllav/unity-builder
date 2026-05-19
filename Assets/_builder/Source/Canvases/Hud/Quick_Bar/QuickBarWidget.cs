@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace nobodyworks.builder.interfaces
 {
-    public class QuickBarReferences : MonoBehaviour
+    public class QuickBarWidget : MonoBehaviour
     {
         [SerializeField]
         private GameObject _slotPrefab;
@@ -19,24 +19,24 @@ namespace nobodyworks.builder.interfaces
             for (int i = 0; i < maxSlots; ++i)
             {
                 var slotGameObject = GameObject.Instantiate(_slotPrefab, _slotsTransform);
-                var slotReferences = slotGameObject.GetComponent<QuickSlotReferences>();
+                var slotWidget = slotGameObject.GetComponent<QuickSlotWidget>();
                 
-                slotReferences.Setup(i + 1);
+                slotWidget.Setup(i + 1);
             }
         }
 
         internal void SetSlot(int slotId, ItemDefinition itemDefinition)
         {
-            var slotReferences = _slotsTransform.GetChild(slotId).gameObject.GetComponent<QuickSlotReferences>();
-            slotReferences.Change(itemDefinition);
+            var slotWidget = _slotsTransform.GetChild(slotId).gameObject.GetComponent<QuickSlotWidget>();
+            slotWidget.Change(itemDefinition);
         }
 
         internal void ResetAllSlots()
         {
             for (int i = 0; i < _slotsTransform.childCount; ++i)
             {
-                var slotReference = _slotsTransform.GetChild(i).GetComponent<QuickSlotReferences>();
-                slotReference.Setup(i + 1);
+                var slotWidget = _slotsTransform.GetChild(i).GetComponent<QuickSlotWidget>();
+                slotWidget.Setup(i + 1);
             }
         }
     }

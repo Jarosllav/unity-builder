@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace nobodyworks.builder.interfaces
 {
-    public class KeyHintsReferences : MonoBehaviour
+    public class KeyHintsWidget : MonoBehaviour
     {
         #region Inspector
 
@@ -28,8 +28,8 @@ namespace nobodyworks.builder.interfaces
 
         #endregion
 
-        private Pool<KeyHintReferences> _hintsPool;
-        private readonly List<KeyHintReferences> _activeHints = new();
+        private Pool<KeyHintWidget> _hintsPool;
+        private readonly List<KeyHintWidget> _activeHints = new();
 
         public void Awake()
         {
@@ -43,12 +43,12 @@ namespace nobodyworks.builder.interfaces
             interactionController.OnDeselected += InteractionDeselectedHandler;
         }
 
-        private KeyHintReferences CreateKeyHint()
+        private KeyHintWidget CreateKeyHint()
         {
             var hintGameObject = GameObject.Instantiate(_keyHintPrefab, _keyHintTransform);
-            var hintReferences = hintGameObject.GetComponent<KeyHintReferences>();
+            var hintWidget = hintGameObject.GetComponent<KeyHintWidget>();
             
-            return hintReferences;
+            return hintWidget;
         }
 
         private void InteractionSelectedHandler(InteractionController _, InteractableManager interactableManager)
