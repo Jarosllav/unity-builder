@@ -32,10 +32,12 @@ namespace nobodyworks.builder
         private SkyController _skyController;
         private CutscenesController _cutscenesController;
         private CharacterManager _playerCharacterManager;
+        private PlayerInputProvider _playerInputProvider;
         private SessionContext _sessionContext;
         private bool _isInstalled = false;
         
         public CharacterManager PlayerCharacterManager => _playerCharacterManager;
+        public PlayerInputProvider PlayerInputProvider => _playerInputProvider;
         public ClockController ClockController => _clockController;
         public SkyController SkyController => _skyController;
         public CutscenesController CutscenesController => _cutscenesController;
@@ -49,6 +51,7 @@ namespace nobodyworks.builder
             _cutscenesController = new(_cutscenesSettings);
             
             _playerCharacterManager = GetOrCreateCharacter();
+            _playerInputProvider = _playerCharacterManager.GetComponent<PlayerInputProvider>();
         }
 
         public void Start()
