@@ -22,6 +22,7 @@ namespace nobodyworks.builder.interaction
         
         public Condition UseCondition { get; } = new();
         public object Cookie { get; set; }
+        public InteractionType InteractionTypes => _interactionTypes;
         
         public event Action<InteractableManager> OnEntered;
         public event Action<InteractableManager> OnExited;
@@ -98,6 +99,12 @@ namespace nobodyworks.builder.interaction
             }
         }
 
+        // TODO (PO): add InteractionDefinition abstraction layer to store interaction types, descriptions, and metadata.
+        public virtual string GetInteractionLabel(InteractionType type)
+        {
+            return type.ToString();
+        } 
+        
         #region Callbacks
 
         protected virtual void OnEnter() { }

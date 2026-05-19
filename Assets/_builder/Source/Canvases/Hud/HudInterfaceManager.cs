@@ -10,6 +10,9 @@ namespace nobodyworks.builder.interfaces
         private QuickBarReferences _quickBarReferences;
         
         [SerializeField]
+        private KeyHintsReferences _keyHintsReferences;
+        
+        [SerializeField]
         private TMP_Text _dayTimeLabel;
         
         [SerializeField]
@@ -18,6 +21,7 @@ namespace nobodyworks.builder.interfaces
         protected override void OnInitialized()
         {
             _quickBarReferences.Setup(CharacterManager.InventoryController.Settings.MaxCapacity);
+            _keyHintsReferences.Setup(CharacterManager.InteractionController);
             
             CharacterManager.InventoryController.OnItemsChanged += () =>
             {
