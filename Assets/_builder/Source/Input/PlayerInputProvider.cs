@@ -6,6 +6,7 @@ using nobodyworks.builder.placement;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 namespace nobodyworks.builder.input
 {
@@ -23,6 +24,9 @@ namespace nobodyworks.builder.input
         private MovementController _movementController;
         private PlacementController _placementController;
         
+        public event Action<InteractionType, float> OnInteractionStarted;
+        public event Action<InteractionType> OnInteractionCanceled;
+        
         public void Awake()
         {
             _actionAsset = new();
@@ -38,6 +42,12 @@ namespace nobodyworks.builder.input
             {
                 _characterManager.OnInstalled += CharacterInstalledHandler;
             }
+        }
+
+        public void OnDestroy()
+        {
+            OnInteractionStarted = null;
+            OnInteractionCanceled = null;
         }
 
         private void CharacterInstalledHandler()
@@ -58,7 +68,12 @@ namespace nobodyworks.builder.input
 
         private void CreateEventHandlers()
         {
+            _actionAsset.Player.Interact_Primary.started += (ctx) => InteractionStart(InteractionType.Primary, (ctx.interaction as HoldInteraction).duration);
+            _actionAsset.Player.Interact_Primary.canceled += (ctx) => InteractionCancel(InteractionType.Primary);
             _actionAsset.Player.Interact_Primary.performed += (ctx) => Interact(InteractionType.Primary);
+            
+            _actionAsset.Player.Interact_Secondary.started += (ctx) => InteractionStart(InteractionType.Secondary, (ctx.interaction as HoldInteraction).duration);
+            _actionAsset.Player.Interact_Secondary.canceled += (ctx) => InteractionCancel(InteractionType.Secondary);
             _actionAsset.Player.Interact_Secondary.performed += (ctx) => Interact(InteractionType.Secondary);
             
             _actionAsset.Player.Quick_1.performed += (ctx) => Quick(0);
@@ -108,6 +123,16 @@ namespace nobodyworks.builder.input
             }
             
             _characterManager.InteractionController.Use(interactionType);
+        }
+
+        private void InteractionStart(InteractionType interactionType, float duration)
+        {
+            OnInteractionStarted?.Invoke(interactionType, duration > 0f ? duration : InputSystem.settings.defaultHoldTime);
+        }
+        
+        private void InteractionCancel(InteractionType interactionType)
+        {
+            OnInteractionCanceled?.Invoke(interactionType);
         }
 
         private void Quick(int id)
