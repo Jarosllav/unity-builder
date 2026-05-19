@@ -14,9 +14,6 @@ namespace nobodyworks.builder.placement
         
         [SerializeField]
         private float _rotateSpeed = 3f;
-        
-        [SerializeField]
-        private LayerMask _collisionLayerMask;
 
         [SerializeField]
         private Material _successMaterial;
@@ -27,7 +24,6 @@ namespace nobodyworks.builder.placement
         public LayerMask PlacementLayerMask => _placementLayerMask;
         public float MaxDistance => _maxDistance;
         public float RotateSpeed => _rotateSpeed;
-        public LayerMask CollisionLayerMask => _collisionLayerMask;
         public Material SuccessMaterial => _successMaterial;
         public Material FailureMaterial => _failureMaterial;
     }

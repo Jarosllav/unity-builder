@@ -33,6 +33,11 @@ namespace nobodyworks.builder.placement
                     _settings.MaxDistance, _settings.PlacementLayerMask))
             {
                 _ghostGameObject.transform.position = hit.point - _placeable.FloorPosition;
+                _ghostGameObject.SetActive(true);
+            }
+            else
+            {
+                _ghostGameObject.SetActive(false);
             }
 
             TryUpdateGhostMaterials();
@@ -79,7 +84,7 @@ namespace nobodyworks.builder.placement
                 return true;
             }
             
-            return _placeable.CanPlace() && !_ghostTriggerHandlers.IsColliding;
+            return _placeable.CanPlace() && !_ghostTriggerHandlers.IsColliding && _ghostGameObject.activeSelf;
         }
 
         public void Rotate(bool clockwise)
