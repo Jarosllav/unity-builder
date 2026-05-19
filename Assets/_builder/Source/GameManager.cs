@@ -122,7 +122,6 @@ namespace nobodyworks.builder
         }
 
 #if UNITY_EDITOR
-        [Button, ShowInPlayMode]
         [Button("Day"), ShowInPlayMode]
         protected void Editor_Day()
         {
