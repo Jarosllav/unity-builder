@@ -19,6 +19,7 @@ namespace nobodyworks.builder.interfaces
 
         #endregion
 
+        private InteractionController _interactionController;
         private float _startTime;
         private float _duration;
         private bool _isHolding;
@@ -40,6 +41,7 @@ namespace nobodyworks.builder.interfaces
 
         public void Setup(InteractionController interactionController, PlayerInputProvider playerInputProvider)
         {
+            _interactionController = interactionController;
             interactionController.OnSelected += InteractionSelectedHandler;
             interactionController.OnDeselected += InteractionDeselectedHandler;
             
@@ -84,8 +86,16 @@ namespace nobodyworks.builder.interfaces
             Hide();
         }
 
-        private void InteractionStartedHandler(InteractionType _, float duration)
+        private void InteractionStartedHandler(InteractionType interactionType, float duration)
         {
+            var interactableManager = _interactionController.GetCurrentInteractableManager();
+            
+            if (interactableManager == null 
+                || !interactableManager.InteractionDefinition.InteractionTypes.HasFlag(interactionType))
+            {
+                return;
+            }
+            
             _duration = duration;
             _startTime = Time.time;
             _isHolding = true;
