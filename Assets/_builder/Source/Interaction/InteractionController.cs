@@ -86,35 +86,50 @@ namespace nobodyworks.builder.interaction
             
             interactableManager.Use(interactionType);
             OnUsed?.Invoke(this, interactableManager, interactionType);
-            
-            if (_registeredActions.TryGetValue(interactableManager.GetType(), out var handler))
+
+            var concreteType = interactableManager.GetType();
+            foreach (var (registeredType, handler) in _registeredActions)
             {
-                handler.Invoke(interactableManager, interactionType);
+                if (registeredType.IsAssignableFrom(concreteType))
+                {
+                    handler.Invoke(interactableManager, interactionType);
+                }
             }
-            
+
             return true;
         }
 
-        public void Register<TInteractableManager>(Action<TInteractableManager, InteractionType> handler)
-            where TInteractableManager : InteractableManager
+        public void Register<T>(Action<T, InteractionType> handler)
+            where T : class
         {
-            _registeredActions[typeof(TInteractableManager)] = (interactable, interactionType) =>
+            _registeredActions[typeof(T)] = (interactable, interactionType) =>
             {
-                handler((TInteractableManager)interactable, interactionType);
+                handler((T)(object)interactable, interactionType);
             };
         }
 
-        public void Unregister<TInteractableManager>(Action<TInteractableManager> handler)
+        public void Unregister<T>()
+            where T : class
         {
-            _registeredActions.Remove(typeof(TInteractableManager));
+            _registeredActions.Remove(typeof(T));
         }
 
-        public void RegisterCondition<TInteractableManager>(Func<TInteractableManager, bool> condition)
-            where TInteractableManager : InteractableManager
+        public void RegisterCondition<T>(Func<T, bool> condition)
+            where T : class
         {
-            _registeredConditions[typeof(TInteractableManager)] = interactable => condition((TInteractableManager)interactable);
+            _registeredConditions[typeof(T)] = interactable => condition((T)(object)interactable);
         }
 
+        public InteractableManager GetCurrentInteractableManager()
+        {
+            if ( _currentInteractableSelectedManager != null)
+            {
+                return _currentInteractableSelectedManager;
+            }
+
+            return _currentInteractableEnteredManager;
+        }
+        
         private bool CheckUseConditions(InteractableManager interactableManager, InteractionType interactionType)
         {
             if (!interactableManager.CheckUsage(interactionType))
@@ -126,15 +141,19 @@ namespace nobodyworks.builder.interaction
             {
                 return false;
             }
-            
-            if (_registeredConditions.TryGetValue(interactableManager.GetType(), out var condition))
+
+            var concreteType = interactableManager.GetType();
+            foreach (var (registeredType, condition) in _registeredConditions)
             {
-                if (!condition.Invoke(interactableManager))
+                if (registeredType.IsAssignableFrom(concreteType))
                 {
-                    return false;
+                    if (!condition.Invoke(interactableManager))
+                    {
+                        return false;
+                    }
                 }
             }
-            
+
             return true;
         }
         
@@ -231,17 +250,7 @@ namespace nobodyworks.builder.interaction
         }
 
         #endregion
-
-        private InteractableManager GetCurrentInteractableManager()
-        {
-            if ( _currentInteractableSelectedManager != null)
-            {
-                return _currentInteractableSelectedManager;
-            }
-
-            return _currentInteractableEnteredManager;
-        }
-
+        
         private bool CheckLayer(int gameObjectLayer)
         {
             return (_settings.InteractionMask & (1 << gameObjectLayer)) != 0;
