@@ -36,9 +36,11 @@ namespace nobodyworks.builder
         private readonly SessionContext _context = new();
         
         private SceneLoaderController _sceneLoaderController;
+        private GameManager _gameManager;
         private bool _isDestroying = false;
         
         public SessionContext Context => _context;
+        public GameManager GameManager => _gameManager;
 
         #region Initialization
 
@@ -102,11 +104,11 @@ namespace nobodyworks.builder
 
         private void TryInstallGameManager()
         {
-            var gameManager = GameObject.FindAnyObjectByType<GameManager>();
+            _gameManager = GameObject.FindAnyObjectByType<GameManager>();
 
-            if (gameManager != null)
+            if (_gameManager != null)
             {
-                gameManager.Install(_context);
+                _gameManager.Install(_context);
             }
         }
         

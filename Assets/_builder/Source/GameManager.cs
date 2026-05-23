@@ -12,6 +12,9 @@ namespace nobodyworks.builder
     [DefaultExecutionOrder((int)ExecutionOrder.Default)]
     public class GameManager : MonoBehaviour
     {
+        private static GameManager _instance;
+        public static GameManager Instance => _instance;
+        
         #region Inspector
 
         [SerializeField]
@@ -35,6 +38,7 @@ namespace nobodyworks.builder
         private PlayerInputProvider _playerInputProvider;
         private SessionContext _sessionContext;
         private bool _isInstalled = false;
+        private bool _isDestroying = false;
         
         public CharacterManager PlayerCharacterManager => _playerCharacterManager;
         public PlayerInputProvider PlayerInputProvider => _playerInputProvider;
@@ -46,6 +50,18 @@ namespace nobodyworks.builder
         
         public void Awake()
         {
+            if (_instance != null)
+            {
+                _isDestroying = true;
+                GameObject.Destroy(this);
+                return;
+            }
+
+            if (_instance == null)
+            {
+                _instance = this;
+            }
+            
             _clockController = new(_clockSettings);
             _skyController = new(_skySettings, _clockController);
             _cutscenesController = new(_cutscenesSettings);
@@ -56,12 +72,17 @@ namespace nobodyworks.builder
 
         public void Start()
         {
+            if (_isDestroying)
+            {
+                return;
+            }
+            
             OnSetupped?.Invoke();
         }
 
         public void Install(SessionContext context)
         {
-            if (_isInstalled)
+            if (_isInstalled || _isDestroying)
             {
                 return;
             }
@@ -79,6 +100,11 @@ namespace nobodyworks.builder
 
         public void OnDestroy()
         {
+            if (_isDestroying)
+            {
+                return;
+            }
+            
             _clockController.Dispose();
             _skyController.Dispose();
             

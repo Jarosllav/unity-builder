@@ -208,8 +208,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b7e4ce99dd04cd0b67047a860453ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionTypes: 1
+  _name:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _interactionDefinition: {fileID: 11400000, guid: 8f55bc1ba27d13d49bcb5c0a118288a7, type: 2}
+  _colliders:
+  - {fileID: 6477397975520027730}
+  - {fileID: 5969163547178982034}
+  _triggers: []
   _itemDefinition: {fileID: 11400000, guid: 764034404e6564d4d9164eea68515f97, type: 2}
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &7010733666048441919
 GameObject:
   m_ObjectHideFlags: 0

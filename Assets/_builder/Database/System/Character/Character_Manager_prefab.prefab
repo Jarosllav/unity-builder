@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3856908849466091952}
   - component: {fileID: 2828917168635899355}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7334501260975094925}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Carry_Socket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2179206875893085216}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7192410569801185312}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Eyes_Bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7998842666676469374}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Feet_Bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 6463914528387105916}
   - component: {fileID: 2566469937196240899}
   - component: {fileID: -5632338659725214172}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Character_Manager_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ MonoBehaviour:
   _interactionSettings:
     _interactionMask:
       serializedVersion: 2
-      m_Bits: 64
+      m_Bits: 192
     _eyesTransform: {fileID: 8312641689565667656}
     _checkDistance: 3
   _inventorySettings:
@@ -330,6 +330,8 @@ MonoBehaviour:
       m_Bits: 8
     _maxDistance: 5
     _rotateSpeed: 35
+    _successMaterial: {fileID: 2100000, guid: f8f7068550bfb16448715ceae9717a6b, type: 2}
+    _failureMaterial: {fileID: 2100000, guid: 3f8a3bf1a1b36ba4882b08c8b51525d4, type: 2}
 --- !u!114 &-5632338659725214172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,7 +357,7 @@ GameObject:
   - component: {fileID: 7321838645658593464}
   - component: {fileID: 7833912110237634406}
   - component: {fileID: 8244159472032396609}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5837405080897513840}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Primary_Socket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,7 +495,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8312641689565667656}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +527,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5312161310784379327}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Secondary_Socket
   m_TagString: Untagged
   m_Icon: {fileID: 0}

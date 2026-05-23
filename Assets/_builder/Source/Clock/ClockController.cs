@@ -51,6 +51,11 @@ namespace nobodyworks.builder.clock
             OnTimeChanged?.Invoke();
             CheckDayPhase();
         }
+
+        public TimeReference GetTime()
+        {
+            return new(TimeUnits.WithoutDay, 0, Hour, Minute, 0);
+        }
         
         private void CheckDayPhase()
         {
