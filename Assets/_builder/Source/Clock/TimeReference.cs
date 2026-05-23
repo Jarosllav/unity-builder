@@ -76,5 +76,40 @@ namespace nobodyworks.builder.clock
         {
             return AsSeconds() / 3600;
         }
+
+        public void AddHours(int hours)
+        {
+            Accumulate(hours * SECONDS_PER_HOUR);
+        }
+
+        public void AddMinutes(int minutes)
+        {
+            Accumulate(minutes * 60);
+        }
+
+        private void Accumulate(int seconds)
+        {
+            var total = AsSeconds() + seconds;
+
+            if (EnabledDayUnit)
+            {
+                _days = total / SECONDS_PER_DAY;
+                total %= SECONDS_PER_DAY;
+            }
+            if (EnabledHourUnit)
+            {
+                _hours = total / SECONDS_PER_HOUR;
+                total %= SECONDS_PER_HOUR;
+            }
+            if (EnabledMinuteUnit)
+            {
+                _minutes = total / 60;
+                total %= 60;
+            }
+            if (EnabledSecondUnit)
+            {
+                _seconds = total;
+            }
+        }
     }
 }
