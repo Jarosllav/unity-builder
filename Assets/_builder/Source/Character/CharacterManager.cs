@@ -111,7 +111,10 @@ namespace nobodyworks.builder.character
             
             _carrierController.OnCarryEnded += () =>
             {
-                _placementController.Destroy();
+                if (_carrierController.Carrying is IPlaceable)
+                {
+                    _placementController.Destroy();
+                }
             };
             
             _carrierController.EndCondition.Subscribe(() =>
