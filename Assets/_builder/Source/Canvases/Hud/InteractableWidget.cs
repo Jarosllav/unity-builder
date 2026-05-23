@@ -1,4 +1,5 @@
 ﻿using System;
+using nobodyworks.builder.carrying;
 using nobodyworks.builder.input;
 using nobodyworks.builder.interaction;
 using TMPro;
@@ -20,6 +21,7 @@ namespace nobodyworks.builder.interfaces
         #endregion
 
         private InteractionController _interactionController;
+        private CarrierController _carrierController;
         private float _startTime;
         private float _duration;
         private bool _isHolding;
@@ -37,11 +39,20 @@ namespace nobodyworks.builder.interfaces
             }
             
             _progressImage.fillAmount = Mathf.Clamp01((Time.time - _startTime) / _duration);
-        }
 
-        public void Setup(InteractionController interactionController, PlayerInputProvider playerInputProvider)
+            if (_progressImage.fillAmount >= 1f)
+            {
+                _isHolding = false;
+                HideProgress();
+            }
+        }
+        
+        public void Setup(InteractionController interactionController, CarrierController carrierController, 
+            PlayerInputProvider playerInputProvider)
         {
             _interactionController = interactionController;
+            _carrierController = carrierController;
+            
             interactionController.OnSelected += InteractionSelectedHandler;
             interactionController.OnDeselected += InteractionDeselectedHandler;
             
@@ -49,24 +60,44 @@ namespace nobodyworks.builder.interfaces
             playerInputProvider.OnInteractionCanceled += InteractionCanceledHandler;
         }
 
+        private void ShowProgress()
+        {
+            _progressImage.gameObject.SetActive(true);
+        }
+
+        private void HideProgress()
+        {
+            _progressImage.gameObject.SetActive(false);
+            ResetProgress();
+        }
+
+        private void ShowLabel()
+        {
+            _interactableLabel.gameObject.SetActive(true);
+        }
+
+        private void HideLabel()
+        {
+            _interactableLabel.gameObject.SetActive(false);
+            ResetLabel();
+        }
+        
         private void Show()
         {
-            Reset();
-            
-            _progressImage.gameObject.SetActive(true);
-            _interactableLabel.gameObject.SetActive(true);
+            ShowProgress();
+            ShowLabel();
         }
 
         private void Hide()
         {
-            _progressImage.gameObject.SetActive(false);
-            _interactableLabel.gameObject.SetActive(false);
+            HideProgress();
+            HideLabel();
         }
 
         private void Reset()
         {
             ResetProgress();
-            _interactableLabel.text = string.Empty;
+            ResetLabel();
         }
 
         private void ResetProgress()
@@ -74,24 +105,25 @@ namespace nobodyworks.builder.interfaces
             _progressImage.fillAmount = 0f;
         }
 
+        private void ResetLabel()
+        {
+            _interactableLabel.text = string.Empty;
+        }
+
         private void InteractionSelectedHandler(InteractionController _, InteractableManager interactableManager)
         {
-            Show();
-            
             _interactableLabel.text = interactableManager.GetName();
+            ShowLabel();
         }
         
         private void InteractionDeselectedHandler(InteractionController _, InteractableManager interactableManager)
         {
-            Hide();
+            HideLabel();
         }
 
         private void InteractionStartedHandler(InteractionType interactionType, float duration)
         {
-            var interactableManager = _interactionController.GetCurrentInteractableManager();
-            
-            if (interactableManager == null 
-                || !interactableManager.InteractionDefinition.InteractionTypes.HasFlag(interactionType))
+            if (!HasValidInteractable(interactionType) && !HasValidCarryable(interactionType))
             {
                 return;
             }
@@ -99,12 +131,27 @@ namespace nobodyworks.builder.interfaces
             _duration = duration;
             _startTime = Time.time;
             _isHolding = true;
+            
+            ShowProgress();
         }
 
         private void InteractionCanceledHandler(InteractionType _)
         {
-            ResetProgress();
+            HideProgress();
             _isHolding = false;
+        }
+
+        private bool HasValidInteractable(InteractionType interactionType)
+        {
+            var interactableManager = _interactionController.GetCurrentInteractableManager();
+            
+            return interactableManager != null && 
+                   interactableManager.InteractionDefinition.InteractionTypes.HasFlag(interactionType);
+        }
+
+        private bool HasValidCarryable(InteractionType interactionType)
+        {
+            return interactionType == InteractionType.Secondary && _carrierController.IsCarrying;
         }
     }
 }

@@ -26,7 +26,8 @@ namespace nobodyworks.builder.interfaces
         {
             _quickBarWidget.Setup(CharacterManager.InventoryController.Settings.MaxCapacity);
             _keyHintsWidget.Setup(CharacterManager.InteractionController);
-            _interactableWidget.Setup(CharacterManager.InteractionController, GameManager.PlayerInputProvider);
+            _interactableWidget.Setup(CharacterManager.InteractionController, CharacterManager.CarrierController, 
+                GameManager.PlayerInputProvider);
             
             CharacterManager.InventoryController.OnItemsChanged += () =>
             {
