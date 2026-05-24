@@ -27,6 +27,18 @@ MonoBehaviour:
     m_Key: loading
     m_Metadata:
       m_Items: []
+  - m_Id: 458002892419072
+    m_Key: use
+    m_Metadata:
+      m_Items: []
+  - m_Id: 458246044610560
+    m_Key: sleep
+    m_Metadata:
+      m_Items: []
+  - m_Id: 458280630841344
+    m_Key: take
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

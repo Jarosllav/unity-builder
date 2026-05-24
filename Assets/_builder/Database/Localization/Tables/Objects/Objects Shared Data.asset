@@ -13,8 +13,20 @@ MonoBehaviour:
   m_Name: Objects Shared Data
   m_EditorClassIdentifier: 
   m_TableCollectionName: Objects
-  m_TableCollectionNameGuidString: 00000000000000000000000000000000
-  m_Entries: []
+  m_TableCollectionNameGuidString: 3550eea3a2b7ba848861d469250044c0
+  m_Entries:
+  - m_Id: 1280268660736
+    m_Key: crate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1282223206400
+    m_Key: sleeping_bag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 447208062545920
+    m_Key: New Entry
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

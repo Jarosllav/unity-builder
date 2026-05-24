@@ -14,7 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TableCollectionName: Items
   m_TableCollectionNameGuidString: 4d8798af675d98149aa663592502f8e5
-  m_Entries: []
+  m_Entries:
+  - m_Id: 10964832710656
+    m_Key: hoe
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10975859535872
+    m_Key: hoe_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11330060120064
+    m_Key: hammer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11331834310656
+    m_Key: hammer_desc
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

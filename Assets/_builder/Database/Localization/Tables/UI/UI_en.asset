@@ -30,6 +30,18 @@ MonoBehaviour:
     m_Localized: Loading...
     m_Metadata:
       m_Items: []
+  - m_Id: 458002892419072
+    m_Localized: Use
+    m_Metadata:
+      m_Items: []
+  - m_Id: 458246044610560
+    m_Localized: Sleep
+    m_Metadata:
+      m_Items: []
+  - m_Id: 458280630841344
+    m_Localized: Take
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -17,7 +17,19 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 3550eea3a2b7ba848861d469250044c0, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 1280268660736
+    m_Localized: Crate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1282223206400
+    m_Localized: Sleeping Bag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 447208062545920
+    m_Localized: Log
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
