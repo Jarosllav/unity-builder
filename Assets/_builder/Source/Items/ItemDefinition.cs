@@ -1,5 +1,7 @@
 ﻿using nobodyworks.builder.equipment;
+using nobodyworks.builder.extensions;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.Serialization;
 
 namespace nobodyworks.builder.items
@@ -14,10 +16,10 @@ namespace nobodyworks.builder.items
         private Sprite _icon;
         
         [SerializeField]
-        private string _name = string.Empty; // TODO(PO): Implement localization package
+        private LocalizedString _name;
         
         [SerializeField]
-        private string _description = string.Empty; // TODO(PO): Implement localization package
+        private LocalizedString _description;
         
         [SerializeField]
         private GameObject _prefab;
@@ -42,8 +44,8 @@ namespace nobodyworks.builder.items
         
         public string Key => _key;
         public Sprite Icon => _icon;
-        public string Name => _name;
-        public string Description => _description;
+        public string Name => _name.GetText();
+        public string Description => _description.GetText();
         public ItemCategoryDefinition CategoryDefinition => _categoryDefinition;
         public GameObject Prefab => _prefab;
         public ItemRarityDefinition RarityDefinition => _rarityDefinition;
@@ -51,5 +53,11 @@ namespace nobodyworks.builder.items
         public bool IsStackable => _isStackable;
         public bool IsEquippable => _isEquippable;
         public EquipmentSlotDefinition SlotDefinition => _slotDefinition;
+
+#if UNITY_EDITOR
+        
+        public LocalizedString Editor_LocalizedName => _name;
+        
+#endif
     }
 }
