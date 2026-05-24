@@ -1,4 +1,5 @@
 ﻿using System;
+using IngameDebugConsole;
 using UnityEngine;
 using nobodyworks.builder.character;
 using nobodyworks.builder.clock;
@@ -167,5 +168,18 @@ namespace nobodyworks.builder
         }
         
 #endif
+        
+        [ConsoleMethod("settime", "")]
+        public static void Cmd_SetTime(int hours, int minutes)
+        {
+            Instance.ClockController.SetTime(new TimeReference(TimeUnits.WithoutDay, 0, hours, minutes, 0));
+        }
+        
+        [ConsoleMethod("gettime", "")]
+        public static void Cmd_GetTime()
+        {
+            var time = Instance.ClockController.GetTime();
+            Debug.Log($"{time.Hours}:{time.Minutes}");
+        }
     }
 }
