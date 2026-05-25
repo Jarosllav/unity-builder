@@ -1,6 +1,7 @@
 ﻿using System;
 using nobodyworks.builder.character;
 using nobodyworks.builder.interaction;
+using nobodyworks.builder.interfaces;
 using nobodyworks.builder.movement;
 using nobodyworks.builder.placement;
 using UnityEngine;
@@ -10,6 +11,12 @@ using UnityEngine.InputSystem.Interactions;
 
 namespace nobodyworks.builder.input
 {
+    public enum InputMode
+    {
+        Gameplay,
+        UI
+    }
+    
     public class PlayerInputProvider : MonoBehaviour, IInputProvider
     {
         #region Inspector
@@ -20,6 +27,9 @@ namespace nobodyworks.builder.input
         #endregion
         
         private InputSystem_Actions _actionAsset;
+        private InputMode _inputMode = InputMode.Gameplay;
+        
+        private CanvasManager _canvasManager;
         private CharacterManager _characterManager;
         private MovementController _movementController;
         private PlacementController _placementController;
@@ -44,12 +54,49 @@ namespace nobodyworks.builder.input
             }
         }
 
+        public void Start()
+        {
+            _canvasManager = CanvasManager.Instance;
+            
+            _canvasManager.OnCursorChanged += () =>
+            {
+                if (Cursor.lockState == CursorLockMode.None)
+                {
+                    SetMode(InputMode.UI);
+                }
+                else
+                {
+                    SetMode(InputMode.Gameplay);
+                }
+            };
+        }
+
         public void OnDestroy()
         {
             OnInteractionStarted = null;
             OnInteractionCanceled = null;
         }
 
+        public void SetMode(InputMode inputMode)
+        {
+            _inputMode = inputMode;
+
+            if (_inputMode == InputMode.Gameplay)
+            {
+                _actionAsset.UI.Disable();
+                _actionAsset.Player.Enable();
+                
+                _movementController.Constraints = MovementConstraint.None;
+            }
+            else if (_inputMode == InputMode.UI)
+            {
+                _actionAsset.Player.Disable();
+                _actionAsset.UI.Enable();
+                
+                _movementController.Constraints = MovementConstraint.FullMotion;
+            }
+        }
+        
         private void CharacterInstalledHandler()
         {
             var movementDriver = new CharacterControllerDriver(_characterController);
@@ -64,6 +111,7 @@ namespace nobodyworks.builder.input
             Cursor.lockState = CursorLockMode.Locked;
             
             CreateEventHandlers();
+            CreateGlobalEventHandlers();
         }
 
         private void CreateEventHandlers()
@@ -82,6 +130,11 @@ namespace nobodyworks.builder.input
             _actionAsset.Player.Quick_4.performed += (ctx) => Quick(3);
             
             _actionAsset.Player.Jump.performed += (ctx) => _characterManager.MovementController.Jump();
+        }
+
+        private void CreateGlobalEventHandlers()
+        {
+            _actionAsset.Global.Tab.performed += (ctx) => _canvasManager.GetInterface<CharacterInterfaceManager>().Toggle();
         }
 
         public void Update()
