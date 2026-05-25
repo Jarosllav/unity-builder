@@ -174,25 +174,6 @@ namespace nobodyworks.builder.character
             {
                 return;
             }
-
-            GUILayout.Label("Inventory:");
-            
-            for (int i = 0; i < _inventoryController.InventoryItems.Count; ++i)
-            {
-                var inventoryItem = _inventoryController.InventoryItems[i];
-
-                if (inventoryItem == null)
-                {
-                    continue;
-                }
-
-                GUILayout.Label($"{i + 1}. {inventoryItem.Item.Definition.Key} x{inventoryItem.Amount}");
-            }
-
-            if (_inventoryController.Count() <= 0)
-            {
-                GUILayout.Label("- empty");
-            }
         }
 
 #endif
