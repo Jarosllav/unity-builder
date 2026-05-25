@@ -15,9 +15,9 @@ MonoBehaviour:
   _interactionTypes: 1
   _primaryLabel:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:864fda17b3de7f34c9861b22dc65468e
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 458280630841344
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

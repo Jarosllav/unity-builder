@@ -1,4 +1,5 @@
-﻿using nobodyworks.builder.interaction;
+﻿using System;
+using nobodyworks.builder.interaction;
 using UnityEngine;
 
 namespace nobodyworks.builder.items
@@ -26,5 +27,17 @@ namespace nobodyworks.builder.items
         {
             GameObject.Destroy(gameObject);
         }
+
+#if UNITY_EDITOR
+
+        private void OnValidate()
+        {
+            if ((_name == null || _name.IsEmpty) && _itemDefinition != null)
+            {
+                _name = _itemDefinition.Editor_LocalizedName;
+            }
+        }
+
+#endif
     }
 }

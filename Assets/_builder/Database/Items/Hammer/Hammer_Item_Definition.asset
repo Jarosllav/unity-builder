@@ -14,8 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _key: hammer
   _icon: {fileID: 0}
-  _name: 
-  _description: 
+  _name:
+    m_TableReference:
+      m_TableCollectionName: GUID:4d8798af675d98149aa663592502f8e5
+    m_TableEntryReference:
+      m_KeyId: 11330060120064
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _description:
+    m_TableReference:
+      m_TableCollectionName: GUID:4d8798af675d98149aa663592502f8e5
+    m_TableEntryReference:
+      m_KeyId: 11331834310656
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _prefab: {fileID: 6154725382478728418, guid: 6174cf59d3ffefd409d80270f3f127a5, type: 3}
   _categoryDefinition: {fileID: 0}
   _rarityDefinition: {fileID: 11400000, guid: 5ab3449d6ffa98142ae8595d69de0f71, type: 2}
@@ -23,3 +39,6 @@ MonoBehaviour:
   _isStackable: 0
   _isEquippable: 1
   _slotDefinition: {fileID: 11400000, guid: 28a0e35609cd69f4691bfd89483c6781, type: 2}
+  references:
+    version: 2
+    RefIds: []

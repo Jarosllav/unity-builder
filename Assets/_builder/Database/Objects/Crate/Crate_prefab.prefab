@@ -49,15 +49,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:3550eea3a2b7ba848861d469250044c0
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 1280268660736
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
   _interactionDefinition: {fileID: 11400000, guid: 46177dd7caef71342a1a4232c48d0cb2, type: 2}
-  _interactionTypes: 3
   _colliders:
   - {fileID: 4695465046266172228}
   _triggers:

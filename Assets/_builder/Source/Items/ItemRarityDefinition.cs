@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using nobodyworks.builder.extensions;
+using UnityEngine;
+using UnityEngine.Localization;
 
 namespace nobodyworks.builder.items
 {
@@ -9,13 +11,13 @@ namespace nobodyworks.builder.items
         private string _key = string.Empty;
         
         [SerializeField]
-        private string _name = string.Empty; // TODO: Implement localization package
+        private LocalizedString _name;
         
         [SerializeField]
         private Color _color = Color.white;
         
         public string Key => _key;
-        public string Name => _name;
+        public string Name => _name.GetText();
         public Color Color => _color;
     }
 }

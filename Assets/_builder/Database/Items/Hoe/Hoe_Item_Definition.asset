@@ -14,8 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _key: hoe
   _icon: {fileID: 0}
-  _name: 
-  _description: 
+  _name:
+    m_TableReference:
+      m_TableCollectionName: GUID:4d8798af675d98149aa663592502f8e5
+    m_TableEntryReference:
+      m_KeyId: 10964832710656
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _description:
+    m_TableReference:
+      m_TableCollectionName: GUID:4d8798af675d98149aa663592502f8e5
+    m_TableEntryReference:
+      m_KeyId: 10975859535872
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _prefab: {fileID: 5749711840950760891, guid: efc2510981a57e14eb51ce64c6668ca6, type: 3}
   _categoryDefinition: {fileID: 0}
   _rarityDefinition: {fileID: 11400000, guid: 5ab3449d6ffa98142ae8595d69de0f71, type: 2}
@@ -23,3 +39,6 @@ MonoBehaviour:
   _isStackable: 0
   _isEquippable: 1
   _slotDefinition: {fileID: 11400000, guid: 28a0e35609cd69f4691bfd89483c6781, type: 2}
+  references:
+    version: 2
+    RefIds: []

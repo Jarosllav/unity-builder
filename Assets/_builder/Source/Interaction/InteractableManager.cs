@@ -12,10 +12,10 @@ namespace nobodyworks.builder.interaction
         #region Inspector
         
         [SerializeField]
-        private LocalizedString _name;
+        protected LocalizedString _name;
         
         [SerializeField]
-        private InteractionDefinition _interactionDefinition;
+        protected InteractionDefinition _interactionDefinition;
         
         [SerializeField]
         private Collider[] _colliders;
