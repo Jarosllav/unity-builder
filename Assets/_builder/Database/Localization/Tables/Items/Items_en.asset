@@ -26,6 +26,10 @@ MonoBehaviour:
     m_Localized: Hammer
     m_Metadata:
       m_Items: []
+  - m_Id: 740413576409088
+    m_Localized: Common
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

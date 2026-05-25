@@ -13,5 +13,16 @@ MonoBehaviour:
   m_Name: Common_Item_Rarity_Definition
   m_EditorClassIdentifier: 
   _key: common
-  _name: Common
+  _name:
+    m_TableReference:
+      m_TableCollectionName: GUID:4d8798af675d98149aa663592502f8e5
+    m_TableEntryReference:
+      m_KeyId: 740413576409088
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _color: {r: 1, g: 1, b: 1, a: 1}
+  references:
+    version: 2
+    RefIds: []

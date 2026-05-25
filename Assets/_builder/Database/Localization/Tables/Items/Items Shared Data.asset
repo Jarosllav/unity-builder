@@ -31,6 +31,10 @@ MonoBehaviour:
     m_Key: hammer_desc
     m_Metadata:
       m_Items: []
+  - m_Id: 740413576409088
+    m_Key: rarity_common
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
