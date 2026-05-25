@@ -24,7 +24,7 @@ namespace nobodyworks.builder.interfaces
         
         protected override void OnInitialized()
         {
-            _quickBarWidget.Setup(CharacterManager.InventoryController.Settings.MaxCapacity);
+            _quickBarWidget.Setup(4);
             _keyHintsWidget.Setup(CharacterManager.InteractionController);
             _interactableWidget.Setup(CharacterManager.InteractionController, CharacterManager.CarrierController, 
                 GameManager.PlayerInputProvider);
