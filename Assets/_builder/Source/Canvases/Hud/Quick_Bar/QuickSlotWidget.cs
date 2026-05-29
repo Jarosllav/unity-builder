@@ -9,19 +9,25 @@ namespace nobodyworks.builder.interfaces
     {
         [SerializeField]
         private Image _iconImage;
-        
+
         [SerializeField]
         private TMP_Text _numLabel;
 
-        internal void Setup(int id)
+        public void Setup(int id, ItemDefinition itemDefinition = null)
         {
-            _iconImage.sprite = null;
-            _iconImage.enabled = false;
             _numLabel.text = id.ToString();
+            Change(itemDefinition);
         }
 
-        internal void Change(ItemDefinition itemDefinition)
+        public void Change(ItemDefinition itemDefinition)
         {
+            if (itemDefinition == null)
+            {
+                _iconImage.sprite = null;
+                _iconImage.enabled = false;
+                return;
+            }
+
             _iconImage.sprite = itemDefinition.Icon;
             _iconImage.enabled = true;
         }

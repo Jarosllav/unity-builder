@@ -9,6 +9,7 @@ using nobodyworks.builder.inventories;
 using nobodyworks.builder.items;
 using nobodyworks.builder.movement;
 using nobodyworks.builder.placement;
+using nobodyworks.builder.quickbar;
 using nobodyworks.builder.skeleton;
 using UnityEngine;
 
@@ -38,9 +39,12 @@ namespace nobodyworks.builder.character
         
         [SerializeField]
         private PlacementSettings _placementSettings;
-        
+
+        [SerializeField]
+        private QuickBarSettings _quickBarSettings;
+
         #endregion
-        
+
         private MovementController _movementController;
         private InventoryController _inventoryController;
         private InteractionController _interactionController;
@@ -48,9 +52,10 @@ namespace nobodyworks.builder.character
         private EquipmentController _equipmentController;
         private CarrierController _carrierController;
         private PlacementController _placementController;
-        
+        private QuickBarController _quickBarController;
+
         private bool _isInstalled = false;
-        
+
         public MovementController MovementController => _movementController;
         public InventoryController InventoryController => _inventoryController;
         public InteractionController InteractionController => _interactionController;
@@ -58,6 +63,7 @@ namespace nobodyworks.builder.character
         public EquipmentController EquipmentController => _equipmentController;
         public CarrierController CarrierController => _carrierController;
         public PlacementController PlacementController => _placementController;
+        public QuickBarController QuickBarController => _quickBarController;
         public bool IsInstalled => _isInstalled;
         
         public event Action OnInstalled;
@@ -71,6 +77,7 @@ namespace nobodyworks.builder.character
             _equipmentController = new(_inventoryController, _skeletonController, _equipmentSettings);
             _carrierController = new(_carrierSettings, _equipmentController, _movementController);
             _placementController = new(_placementSettings, _movementController);
+            _quickBarController = new(_quickBarSettings);
 
             CreateEvents();
             
@@ -133,6 +140,7 @@ namespace nobodyworks.builder.character
             _movementController.Dispose();
             _interactionController.Dispose();
             _equipmentController.Dispose();
+            _quickBarController.Dispose();
             
             OnInstalled = null;
         }

@@ -2,6 +2,8 @@
 using nobodyworks.builder.character;
 using nobodyworks.builder.interaction;
 using nobodyworks.builder.interfaces;
+using nobodyworks.builder.inventories;
+using nobodyworks.builder.items;
 using nobodyworks.builder.movement;
 using nobodyworks.builder.placement;
 using UnityEngine;
@@ -124,17 +126,23 @@ namespace nobodyworks.builder.input
             _actionAsset.Player.Interact_Secondary.canceled += (ctx) => InteractionCancel(InteractionType.Secondary);
             _actionAsset.Player.Interact_Secondary.performed += (ctx) => Interact(InteractionType.Secondary);
             
-            _actionAsset.Player.Quick_1.performed += (ctx) => Quick(0);
-            _actionAsset.Player.Quick_2.performed += (ctx) => Quick(1);
-            _actionAsset.Player.Quick_3.performed += (ctx) => Quick(2);
-            _actionAsset.Player.Quick_4.performed += (ctx) => Quick(3);
-            
             _actionAsset.Player.Jump.performed += (ctx) => _characterManager.MovementController.Jump();
         }
 
         private void CreateGlobalEventHandlers()
         {
             _actionAsset.Global.Tab.performed += (ctx) => _canvasManager.GetInterface<CharacterInterfaceManager>().Toggle();
+
+            _actionAsset.Global.Quick_1.performed += (ctx) => Quick(0);
+            _actionAsset.Global.Quick_2.performed += (ctx) => Quick(1);
+            _actionAsset.Global.Quick_3.performed += (ctx) => Quick(2);
+            _actionAsset.Global.Quick_4.performed += (ctx) => Quick(3);
+            _actionAsset.Global.Quick_5.performed += (ctx) => Quick(4);
+            _actionAsset.Global.Quick_6.performed += (ctx) => Quick(5);
+            _actionAsset.Global.Quick_7.performed += (ctx) => Quick(6);
+            _actionAsset.Global.Quick_8.performed += (ctx) => Quick(7);
+            _actionAsset.Global.Quick_9.performed += (ctx) => Quick(8);
+            _actionAsset.Global.Quick_0.performed += (ctx) => Quick(9);
         }
 
         public void Update()
@@ -187,26 +195,84 @@ namespace nobodyworks.builder.input
         {
             OnInteractionCanceled?.Invoke(interactionType);
         }
-
+        
         private void Quick(int id)
         {
-            var itemsCount = _characterManager.InventoryController.InventoryItems.Count;
-
-            if (id >= itemsCount)
+            if (_inputMode == InputMode.UI)
             {
-                return;
-            }
-            
-            var invItem = _characterManager.InventoryController.InventoryItems[id];
-
-            if (_characterManager.EquipmentController.IsEquipped(invItem.Item))
-            {
-                _characterManager.EquipmentController.Unequip(invItem.Item);
+                AssignQuickSlot(id);
             }
             else
             {
-                _characterManager.EquipmentController.Equip(invItem.Item);
+                EquipFromQuickSlot(id);
             }
+        }
+
+        private void AssignQuickSlot(int id)
+        {
+            var inventoryInterface = _canvasManager.GetInterface<InventoryInterfaceManager>();
+            if (inventoryInterface == null || !inventoryInterface.IsHoveringSlot)
+            {
+                return;
+            }
+
+            var hoveredItem = inventoryInterface.HoveredItem;
+
+            if (hoveredItem == null)
+            {
+                _characterManager.QuickBarController.Clear(id);
+                return;
+            }
+
+            if (!hoveredItem.Item.Definition.IsEquippable)
+            {
+                return;
+            }
+
+            if (_characterManager.QuickBarController.GetSlot(id) == hoveredItem.Item.Definition)
+            {
+                _characterManager.QuickBarController.Clear(id);
+                return;
+            }
+
+            _characterManager.QuickBarController.Assign(id, hoveredItem.Item.Definition);
+        }
+
+        private void EquipFromQuickSlot(int id)
+        {
+            var itemDefinition = _characterManager.QuickBarController.GetSlot(id);
+            if (itemDefinition == null)
+            {
+                return;
+            }
+
+            var inventoryItem = FindInventoryItem(itemDefinition);
+            if (inventoryItem == null)
+            {
+                return;
+            }
+
+            if (_characterManager.EquipmentController.IsEquipped(inventoryItem.Item))
+            {
+                _characterManager.EquipmentController.Unequip(inventoryItem.Item);
+            }
+            else
+            {
+                _characterManager.EquipmentController.Equip(inventoryItem.Item);
+            }
+        }
+
+        private InventoryItem FindInventoryItem(ItemDefinition itemDefinition)
+        {
+            foreach (var invItem in _characterManager.InventoryController.InventoryItems)
+            {
+                if (invItem != null && invItem.Item.Definition == itemDefinition)
+                {
+                    return invItem;
+                }
+            }
+
+            return null;
         }
     }
 }
