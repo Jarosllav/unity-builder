@@ -1,5 +1,6 @@
-﻿using nobodyworks.builder.extensions;
+using nobodyworks.builder.extensions;
 using nobodyworks.builder.items;
+using nobodyworks.builder.quickbar;
 using UnityEngine;
 
 namespace nobodyworks.builder.interfaces
@@ -8,36 +9,28 @@ namespace nobodyworks.builder.interfaces
     {
         [SerializeField]
         private GameObject _slotPrefab;
-        
+
         [SerializeField]
         private Transform _slotsTransform;
 
-        internal void Setup(int maxSlots)
+        public void Setup(QuickBarController controller)
         {
             _slotsTransform.DestroyChildren();
-            
-            for (int i = 0; i < maxSlots; ++i)
+
+            for (int i = 0; i < controller.Capacity; ++i)
             {
                 var slotGameObject = GameObject.Instantiate(_slotPrefab, _slotsTransform);
                 var slotWidget = slotGameObject.GetComponent<QuickSlotWidget>();
-                
-                slotWidget.Setup(i + 1);
+                slotWidget.Setup(i + 1, controller.GetSlot(i));
             }
+
+            controller.OnSlotChanged += SlotChangedHandler;
         }
 
-        internal void SetSlot(int slotId, ItemDefinition itemDefinition)
+        private void SlotChangedHandler(int slotIndex, ItemDefinition itemDefinition)
         {
-            var slotWidget = _slotsTransform.GetChild(slotId).gameObject.GetComponent<QuickSlotWidget>();
+            var slotWidget = _slotsTransform.GetChild(slotIndex).GetComponent<QuickSlotWidget>();
             slotWidget.Change(itemDefinition);
-        }
-
-        internal void ResetAllSlots()
-        {
-            for (int i = 0; i < _slotsTransform.childCount; ++i)
-            {
-                var slotWidget = _slotsTransform.GetChild(i).GetComponent<QuickSlotWidget>();
-                slotWidget.Setup(i + 1);
-            }
         }
     }
 }

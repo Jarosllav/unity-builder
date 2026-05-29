@@ -17,6 +17,8 @@ namespace nobodyworks.builder
         private GameManager _gameManager;
         private EventSystem _eventSystem;
         private int _cursorRefCount = 0;
+        
+        public event Action OnCursorChanged;
 
         #region Initialization
 
@@ -77,6 +79,8 @@ namespace nobodyworks.builder
 
         public void OnDestroy()
         {
+            OnCursorChanged = null;
+            
             _openedInterfaces.Clear();
         }
         
@@ -124,7 +128,14 @@ namespace nobodyworks.builder
 
         private void UpdateCursorState()
         {
+            var currentState = Cursor.lockState;
+            
             Cursor.lockState = _cursorRefCount > 0 ? CursorLockMode.None : CursorLockMode.Locked;
+
+            if (currentState != Cursor.lockState)
+            {
+                OnCursorChanged?.Invoke();
+            }
         }
         
         private void InterfaceOpenedHandler(InterfaceManager interfaceManager)

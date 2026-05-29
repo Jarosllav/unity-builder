@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3856908849466091952}
   - component: {fileID: 2828917168635899355}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7334501260975094925}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Carry_Socket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2179206875893085216}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7192410569801185312}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Eyes_Bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7998842666676469374}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Feet_Bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -299,7 +299,7 @@ MonoBehaviour:
     _eyesTransform: {fileID: 8312641689565667656}
     _checkDistance: 3
   _inventorySettings:
-    _maxCapacity: 4
+    _maxCapacity: 24
   _equipmentSettings:
     _slotDefinitions:
     - {fileID: 11400000, guid: 28a0e35609cd69f4691bfd89483c6781, type: 2}
@@ -332,6 +332,8 @@ MonoBehaviour:
     _rotateSpeed: 35
     _successMaterial: {fileID: 2100000, guid: f8f7068550bfb16448715ceae9717a6b, type: 2}
     _failureMaterial: {fileID: 2100000, guid: 3f8a3bf1a1b36ba4882b08c8b51525d4, type: 2}
+  _quickBarSettings:
+    _capacity: 4
 --- !u!114 &-5632338659725214172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +359,7 @@ GameObject:
   - component: {fileID: 7321838645658593464}
   - component: {fileID: 7833912110237634406}
   - component: {fileID: 8244159472032396609}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,7 +466,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5837405080897513840}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Primary_Socket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +497,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8312641689565667656}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +529,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5312161310784379327}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Secondary_Socket
   m_TagString: Untagged
   m_Icon: {fileID: 0}

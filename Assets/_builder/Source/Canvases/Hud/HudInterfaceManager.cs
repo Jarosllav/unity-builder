@@ -1,7 +1,5 @@
-﻿using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace nobodyworks.builder.interfaces
 {
@@ -9,42 +7,25 @@ namespace nobodyworks.builder.interfaces
     {
         [SerializeField]
         private QuickBarWidget _quickBarWidget;
-        
+
         [SerializeField]
         private KeyHintsWidget _keyHintsWidget;
-        
+
         [SerializeField]
         private InteractableWidget _interactableWidget;
-        
+
         [SerializeField]
         private TMP_Text _dayTimeLabel;
-        
+
         [SerializeField]
         private TMP_Text _dayPhaseLabel;
-        
+
         protected override void OnInitialized()
         {
-            _quickBarWidget.Setup(CharacterManager.InventoryController.Settings.MaxCapacity);
+            _quickBarWidget.Setup(CharacterManager.QuickBarController);
             _keyHintsWidget.Setup(CharacterManager.InteractionController);
-            _interactableWidget.Setup(CharacterManager.InteractionController, CharacterManager.CarrierController, 
+            _interactableWidget.Setup(CharacterManager.InteractionController, CharacterManager.CarrierController,
                 GameManager.PlayerInputProvider);
-            
-            CharacterManager.InventoryController.OnItemsChanged += () =>
-            {
-                _quickBarWidget.ResetAllSlots();
-
-                for (int i = 0; i < CharacterManager.InventoryController.InventoryItems.Count; ++i)
-                {
-                    var invItem = CharacterManager.InventoryController.InventoryItems[i];
-
-                    if (invItem == null)
-                    {
-                        continue;
-                    }
-                    
-                    _quickBarWidget.SetSlot(i, invItem.Item.Definition);
-                }
-            };
         }
 
         public void Update()
