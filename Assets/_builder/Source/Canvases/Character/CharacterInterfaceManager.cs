@@ -16,6 +16,7 @@ namespace nobodyworks.builder.interfaces
             _inventoryManager.Setup(CharacterManager.InventoryController);
             
             OnOpened += (_) => { _inventoryManager.Open(); };
+            OnClosed += (_) => { _inventoryManager.Close(); };
         }
     }
 }

@@ -28,6 +28,8 @@ namespace nobodyworks.builder.interfaces
             _inventoryController.OnItemsChanged += InventoryItemsChangedHandler;
 
             CreateItemsSlots();
+            
+            OnClosed += (_) => { _hoveredSlot = null; };
         }
 
         private void CreateItemsSlots()
