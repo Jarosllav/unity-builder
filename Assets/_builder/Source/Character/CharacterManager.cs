@@ -89,7 +89,7 @@ namespace nobodyworks.builder.character
         {
             _interactionController.Register<ItemInteractableManager>((itemManager, _) =>
             {
-                _inventoryController.Add(itemManager.GetItem());
+                _inventoryController.Add(itemManager.GetItem(), itemManager.Amount);
             });
             
             _interactionController.Register<ICarryable>((carryable, interactionType) =>

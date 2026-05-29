@@ -11,8 +11,13 @@ namespace nobodyworks.builder.items
         [SerializeField]
         private ItemDefinition _itemDefinition;
         
+        [SerializeField]
+        private int _amount = 1;
+        
         #endregion
 
+        public int Amount => _amount;
+        
         public Item GetItem()
         {
             if (Cookie is Item cachedItem)
