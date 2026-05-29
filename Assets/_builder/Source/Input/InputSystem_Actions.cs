@@ -1176,6 +1176,96 @@ namespace nobodyworks.builder.input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_1"",
+                    ""type"": ""Button"",
+                    ""id"": ""dfe98bbf-2789-41f6-83fd-c5e0794d1279"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_2"",
+                    ""type"": ""Button"",
+                    ""id"": ""8b374519-d703-4d78-8967-b1f664df45e2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_3"",
+                    ""type"": ""Button"",
+                    ""id"": ""9073021e-1d9c-46fb-a816-18c69f76ac4b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_4"",
+                    ""type"": ""Button"",
+                    ""id"": ""bdb04926-d241-47f5-b5d8-4c8ed5247ec3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_5"",
+                    ""type"": ""Button"",
+                    ""id"": ""1f819294-62fa-468f-9983-27da7668df96"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_6"",
+                    ""type"": ""Button"",
+                    ""id"": ""d10ab40c-ebaf-417d-9ba3-30f029526f12"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_7"",
+                    ""type"": ""Button"",
+                    ""id"": ""76ae6d40-92b5-466a-9cde-3fd432829c85"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_8"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3b1b134-fbf5-43a8-b8b2-8b283642b1a4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_9"",
+                    ""type"": ""Button"",
+                    ""id"": ""60d1525a-cf57-4e7f-b20d-f9e96d268f6d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quick_0"",
+                    ""type"": ""Button"",
+                    ""id"": ""cedf8ce1-adb9-4789-b7e3-300301dcd79b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1187,6 +1277,116 @@ namespace nobodyworks.builder.input
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cb6a8851-f17f-45dd-b3cd-b02c8f93aabc"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3758975-b8ac-4080-8eb2-135e9fd85980"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fcec803d-81c1-4406-92be-4d403b718250"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9abaf9b4-8df6-4208-bfd2-a2a0f9b548c6"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c46ab151-45d8-4fc5-9412-7f4dc8e6636e"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b1278a7-970a-4837-b932-2913644528a7"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74744852-c2bb-4ba2-9bb9-5c8fcb4490e1"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca70e7fb-1332-46b9-8a0c-2ee9a46729f7"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""661b90de-0eb8-4752-b2ac-40fa9a769dcc"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_9"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e4eef1c-a60b-4f14-8a31-adf6a9e38f26"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Quick_0"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1301,6 +1501,16 @@ namespace nobodyworks.builder.input
             m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
             m_Global_Escape = m_Global.FindAction("Escape", throwIfNotFound: true);
             m_Global_Tab = m_Global.FindAction("Tab", throwIfNotFound: true);
+            m_Global_Quick_1 = m_Global.FindAction("Quick_1", throwIfNotFound: true);
+            m_Global_Quick_2 = m_Global.FindAction("Quick_2", throwIfNotFound: true);
+            m_Global_Quick_3 = m_Global.FindAction("Quick_3", throwIfNotFound: true);
+            m_Global_Quick_4 = m_Global.FindAction("Quick_4", throwIfNotFound: true);
+            m_Global_Quick_5 = m_Global.FindAction("Quick_5", throwIfNotFound: true);
+            m_Global_Quick_6 = m_Global.FindAction("Quick_6", throwIfNotFound: true);
+            m_Global_Quick_7 = m_Global.FindAction("Quick_7", throwIfNotFound: true);
+            m_Global_Quick_8 = m_Global.FindAction("Quick_8", throwIfNotFound: true);
+            m_Global_Quick_9 = m_Global.FindAction("Quick_9", throwIfNotFound: true);
+            m_Global_Quick_0 = m_Global.FindAction("Quick_0", throwIfNotFound: true);
         }
 
         ~@InputSystem_Actions()
@@ -1655,12 +1865,32 @@ namespace nobodyworks.builder.input
         private List<IGlobalActions> m_GlobalActionsCallbackInterfaces = new List<IGlobalActions>();
         private readonly InputAction m_Global_Escape;
         private readonly InputAction m_Global_Tab;
+        private readonly InputAction m_Global_Quick_1;
+        private readonly InputAction m_Global_Quick_2;
+        private readonly InputAction m_Global_Quick_3;
+        private readonly InputAction m_Global_Quick_4;
+        private readonly InputAction m_Global_Quick_5;
+        private readonly InputAction m_Global_Quick_6;
+        private readonly InputAction m_Global_Quick_7;
+        private readonly InputAction m_Global_Quick_8;
+        private readonly InputAction m_Global_Quick_9;
+        private readonly InputAction m_Global_Quick_0;
         public struct GlobalActions
         {
             private @InputSystem_Actions m_Wrapper;
             public GlobalActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Escape => m_Wrapper.m_Global_Escape;
             public InputAction @Tab => m_Wrapper.m_Global_Tab;
+            public InputAction @Quick_1 => m_Wrapper.m_Global_Quick_1;
+            public InputAction @Quick_2 => m_Wrapper.m_Global_Quick_2;
+            public InputAction @Quick_3 => m_Wrapper.m_Global_Quick_3;
+            public InputAction @Quick_4 => m_Wrapper.m_Global_Quick_4;
+            public InputAction @Quick_5 => m_Wrapper.m_Global_Quick_5;
+            public InputAction @Quick_6 => m_Wrapper.m_Global_Quick_6;
+            public InputAction @Quick_7 => m_Wrapper.m_Global_Quick_7;
+            public InputAction @Quick_8 => m_Wrapper.m_Global_Quick_8;
+            public InputAction @Quick_9 => m_Wrapper.m_Global_Quick_9;
+            public InputAction @Quick_0 => m_Wrapper.m_Global_Quick_0;
             public InputActionMap Get() { return m_Wrapper.m_Global; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1676,6 +1906,36 @@ namespace nobodyworks.builder.input
                 @Tab.started += instance.OnTab;
                 @Tab.performed += instance.OnTab;
                 @Tab.canceled += instance.OnTab;
+                @Quick_1.started += instance.OnQuick_1;
+                @Quick_1.performed += instance.OnQuick_1;
+                @Quick_1.canceled += instance.OnQuick_1;
+                @Quick_2.started += instance.OnQuick_2;
+                @Quick_2.performed += instance.OnQuick_2;
+                @Quick_2.canceled += instance.OnQuick_2;
+                @Quick_3.started += instance.OnQuick_3;
+                @Quick_3.performed += instance.OnQuick_3;
+                @Quick_3.canceled += instance.OnQuick_3;
+                @Quick_4.started += instance.OnQuick_4;
+                @Quick_4.performed += instance.OnQuick_4;
+                @Quick_4.canceled += instance.OnQuick_4;
+                @Quick_5.started += instance.OnQuick_5;
+                @Quick_5.performed += instance.OnQuick_5;
+                @Quick_5.canceled += instance.OnQuick_5;
+                @Quick_6.started += instance.OnQuick_6;
+                @Quick_6.performed += instance.OnQuick_6;
+                @Quick_6.canceled += instance.OnQuick_6;
+                @Quick_7.started += instance.OnQuick_7;
+                @Quick_7.performed += instance.OnQuick_7;
+                @Quick_7.canceled += instance.OnQuick_7;
+                @Quick_8.started += instance.OnQuick_8;
+                @Quick_8.performed += instance.OnQuick_8;
+                @Quick_8.canceled += instance.OnQuick_8;
+                @Quick_9.started += instance.OnQuick_9;
+                @Quick_9.performed += instance.OnQuick_9;
+                @Quick_9.canceled += instance.OnQuick_9;
+                @Quick_0.started += instance.OnQuick_0;
+                @Quick_0.performed += instance.OnQuick_0;
+                @Quick_0.canceled += instance.OnQuick_0;
             }
 
             private void UnregisterCallbacks(IGlobalActions instance)
@@ -1686,6 +1946,36 @@ namespace nobodyworks.builder.input
                 @Tab.started -= instance.OnTab;
                 @Tab.performed -= instance.OnTab;
                 @Tab.canceled -= instance.OnTab;
+                @Quick_1.started -= instance.OnQuick_1;
+                @Quick_1.performed -= instance.OnQuick_1;
+                @Quick_1.canceled -= instance.OnQuick_1;
+                @Quick_2.started -= instance.OnQuick_2;
+                @Quick_2.performed -= instance.OnQuick_2;
+                @Quick_2.canceled -= instance.OnQuick_2;
+                @Quick_3.started -= instance.OnQuick_3;
+                @Quick_3.performed -= instance.OnQuick_3;
+                @Quick_3.canceled -= instance.OnQuick_3;
+                @Quick_4.started -= instance.OnQuick_4;
+                @Quick_4.performed -= instance.OnQuick_4;
+                @Quick_4.canceled -= instance.OnQuick_4;
+                @Quick_5.started -= instance.OnQuick_5;
+                @Quick_5.performed -= instance.OnQuick_5;
+                @Quick_5.canceled -= instance.OnQuick_5;
+                @Quick_6.started -= instance.OnQuick_6;
+                @Quick_6.performed -= instance.OnQuick_6;
+                @Quick_6.canceled -= instance.OnQuick_6;
+                @Quick_7.started -= instance.OnQuick_7;
+                @Quick_7.performed -= instance.OnQuick_7;
+                @Quick_7.canceled -= instance.OnQuick_7;
+                @Quick_8.started -= instance.OnQuick_8;
+                @Quick_8.performed -= instance.OnQuick_8;
+                @Quick_8.canceled -= instance.OnQuick_8;
+                @Quick_9.started -= instance.OnQuick_9;
+                @Quick_9.performed -= instance.OnQuick_9;
+                @Quick_9.canceled -= instance.OnQuick_9;
+                @Quick_0.started -= instance.OnQuick_0;
+                @Quick_0.performed -= instance.OnQuick_0;
+                @Quick_0.canceled -= instance.OnQuick_0;
             }
 
             public void RemoveCallbacks(IGlobalActions instance)
@@ -1784,6 +2074,16 @@ namespace nobodyworks.builder.input
         {
             void OnEscape(InputAction.CallbackContext context);
             void OnTab(InputAction.CallbackContext context);
+            void OnQuick_1(InputAction.CallbackContext context);
+            void OnQuick_2(InputAction.CallbackContext context);
+            void OnQuick_3(InputAction.CallbackContext context);
+            void OnQuick_4(InputAction.CallbackContext context);
+            void OnQuick_5(InputAction.CallbackContext context);
+            void OnQuick_6(InputAction.CallbackContext context);
+            void OnQuick_7(InputAction.CallbackContext context);
+            void OnQuick_8(InputAction.CallbackContext context);
+            void OnQuick_9(InputAction.CallbackContext context);
+            void OnQuick_0(InputAction.CallbackContext context);
         }
     }
 }
