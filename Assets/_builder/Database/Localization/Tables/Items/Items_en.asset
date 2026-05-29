@@ -30,6 +30,10 @@ MonoBehaviour:
     m_Localized: Common
     m_Metadata:
       m_Items: []
+  - m_Id: 1138588988567552
+    m_Localized: Wood
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

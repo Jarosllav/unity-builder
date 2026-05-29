@@ -35,6 +35,14 @@ MonoBehaviour:
     m_Key: rarity_common
     m_Metadata:
       m_Items: []
+  - m_Id: 1138588988567552
+    m_Key: wood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1138602234179584
+    m_Key: wood_desc
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
