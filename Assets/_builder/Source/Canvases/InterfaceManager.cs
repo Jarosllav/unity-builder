@@ -4,7 +4,7 @@ using nobodyworks.builder.extensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace nobodyworks.builder
+namespace nobodyworks.builder.interfaces
 {
     public abstract class InterfaceManager : MonoBehaviour
     {

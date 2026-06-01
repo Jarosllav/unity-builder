@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace nobodyworks.builder
+namespace nobodyworks.builder.interfaces
 {
     public class PauseMenuInterface : InterfaceManager
     {

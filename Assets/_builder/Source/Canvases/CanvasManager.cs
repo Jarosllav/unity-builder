@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace nobodyworks.builder
+namespace nobodyworks.builder.interfaces
 {
     [DefaultExecutionOrder((int)ExecutionOrder.Late)]
     public class CanvasManager : MonoBehaviour
