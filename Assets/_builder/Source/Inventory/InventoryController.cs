@@ -19,14 +19,10 @@ namespace nobodyworks.builder.inventories
         {
             _settings = settings;
             _inventoryItems = new InventoryItem[_settings.MaxCapacity];
+            
+            CreateItems(_settings.StartingItems);
         }
         
-        public InventoryController(InventorySettings settings, ItemReference[] initialItems)
-            : this(settings)
-        {
-            CreateItems(initialItems);
-        }
-
         private void CreateItems(ItemReference[] itemsReferences)
         {
             for (int i = 0; i < itemsReferences.Length; ++i)
