@@ -1,5 +1,6 @@
 using nobodyworks.builder.extensions;
 using nobodyworks.builder.inventories;
+using TMPro;
 using UnityEngine;
 
 namespace nobodyworks.builder.interfaces
@@ -13,6 +14,9 @@ namespace nobodyworks.builder.interfaces
 
         [SerializeField]
         private Transform _slotsTransform;
+        
+        [SerializeField]
+        private TMP_Text _headerLabel;
 
         #endregion
 
@@ -22,14 +26,28 @@ namespace nobodyworks.builder.interfaces
         public InventoryItem HoveredItem => _hoveredSlot?.InventoryItem;
         public bool IsHoveringSlot => _hoveredSlot != null;
 
+        protected override void OnStarted()
+        {
+            base.OnStarted();
+            
+            OnClosed += (_) => { _hoveredSlot = null; };
+        }
+
+        public void Setup(InventoryController inventoryController, string ownerName)
+        {
+            Setup(inventoryController);
+            
+            _headerLabel.text = ownerName;
+            _headerLabel.gameObject.SetActive(true);
+        }
+
         public void Setup(InventoryController inventoryController)
         {
             _inventoryController = inventoryController;
             _inventoryController.OnItemsChanged += InventoryItemsChangedHandler;
 
             CreateItemsSlots();
-            
-            OnClosed += (_) => { _hoveredSlot = null; };
+            _headerLabel.gameObject.SetActive(false);
         }
 
         private void CreateItemsSlots()

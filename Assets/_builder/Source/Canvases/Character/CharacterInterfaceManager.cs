@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using nobodyworks.builder.inventories;
+using UnityEngine;
 
 namespace nobodyworks.builder.interfaces
 {
@@ -9,6 +10,9 @@ namespace nobodyworks.builder.interfaces
         [SerializeField]
         private InventoryInterfaceManager _inventoryManager;
 
+        [SerializeField]
+        private InventoryInterfaceManager _extInventoryManager;
+        
         #endregion
 
         protected override void OnInitialized()
@@ -16,7 +20,18 @@ namespace nobodyworks.builder.interfaces
             _inventoryManager.Setup(CharacterManager.InventoryController);
             
             OnOpened += (_) => { _inventoryManager.Open(); };
-            OnClosed += (_) => { _inventoryManager.Close(); };
+            OnClosed += (_) => { _inventoryManager.Close(); _extInventoryManager.Close(); };
+            
+            _extInventoryManager.Close();
+        }
+
+        public void Open(InventoryController extInventoryController)
+        {
+            _extInventoryManager.Setup(extInventoryController);
+            
+            Open();
+            
+            _extInventoryManager.Open();
         }
     }
 }
