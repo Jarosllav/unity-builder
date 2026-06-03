@@ -4,7 +4,7 @@ using nobodyworks.builder.extensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace nobodyworks.builder
+namespace nobodyworks.builder.interfaces
 {
     public abstract class InterfaceManager : MonoBehaviour
     {
@@ -23,6 +23,8 @@ namespace nobodyworks.builder
         private bool _waitForFrame = false;
 
         protected CharacterManager CharacterManager => GameManager.PlayerCharacterManager;
+        protected TooltipManager TooltipManager => CanvasManager.TooltipManager;
+        protected DraggableManager DraggableManager => CanvasManager.DraggableManager;
         
         public bool IsOpened => _isOpened;
         public bool ShowCursor => _showCursor;

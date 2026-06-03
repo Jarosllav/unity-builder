@@ -1,4 +1,5 @@
 ﻿using System;
+using nobodyworks.builder.items;
 using UnityEngine;
 
 namespace nobodyworks.builder.inventories
@@ -9,6 +10,10 @@ namespace nobodyworks.builder.inventories
         [SerializeField, Min(1)]
         private int _maxCapacity = 1;
         
+        [SerializeField]
+        private ItemReference[] _startingItems;
+        
         public int MaxCapacity => _maxCapacity;
+        public ItemReference[] StartingItems => _startingItems;
     }
 }

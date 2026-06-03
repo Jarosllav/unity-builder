@@ -114,6 +114,14 @@ namespace nobodyworks.builder.input
             
             CreateEventHandlers();
             CreateGlobalEventHandlers();
+            
+            _characterManager.InteractionController.Register<CrateInteractableManager>((crateManager, interactionType) =>
+            {
+                if (interactionType == InteractionType.Primary)
+                {
+                    _canvasManager.GetInterface<CharacterInterfaceManager>().Open(crateManager.InventoryController);
+                }
+            });
         }
 
         private void CreateEventHandlers()

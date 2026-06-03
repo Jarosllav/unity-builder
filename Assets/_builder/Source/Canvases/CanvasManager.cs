@@ -3,13 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace nobodyworks.builder
+namespace nobodyworks.builder.interfaces
 {
     [DefaultExecutionOrder((int)ExecutionOrder.Late)]
     public class CanvasManager : MonoBehaviour
     {
         private static CanvasManager _instance;
         public static CanvasManager Instance => _instance;
+
+        #region Inspector
+
+        [SerializeField]
+        private TooltipManager _tooltipManager;
+        
+        [SerializeField]
+        private DraggableManager _draggableManager;
+
+        #endregion
         
         private readonly List<InterfaceManager> _interfacesManagers = new(12);
         private readonly List<InterfaceManager> _openedInterfaces = new(4);
@@ -17,6 +27,9 @@ namespace nobodyworks.builder
         private GameManager _gameManager;
         private EventSystem _eventSystem;
         private int _cursorRefCount = 0;
+        
+        public TooltipManager TooltipManager => _tooltipManager;
+        public DraggableManager DraggableManager => _draggableManager;
         
         public event Action OnCursorChanged;
 
