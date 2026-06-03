@@ -34,8 +34,20 @@ namespace nobodyworks.builder.inventories
             }
         }
 
-        public bool Add(Item item, int amount = 1)
+        public bool Add(Item item, int amount = 1, int index = -1)
         {
+            if (index >= 0)
+            {
+                if (_inventoryItems[index] != null)
+                {
+                    return false;
+                }
+
+                _inventoryItems[index] = new(item, amount);
+                OnItemsChanged?.Invoke();
+                return true;
+            }
+
             var existingId = FindSlot(item.Definition);
 
             if (existingId >= 0 && item.Definition.IsStackable)
@@ -51,37 +63,39 @@ namespace nobodyworks.builder.inventories
             {
                 return false;
             }
-            
+
             _inventoryItems[emptyId] = new(item, amount);
             OnItemsChanged?.Invoke();
             return true;
+
         }
 
-        public bool Remove(Item item, int amount = 1)
+        public bool Remove(Item item, int amount = 1, int index = -1)
         {
-            var existingId = FindSlot(item.Definition);
+            var existingId = index >= 0 ? index : FindSlot(item.Definition);
 
-            if (existingId == -1)
+            if (existingId < 0)
             {
                 return false;
             }
-            
+
             var invItem = _inventoryItems[existingId];
-            
-            if (invItem.Amount - amount < 0)
+
+            if (invItem == null || invItem.Amount - amount < 0)
             {
                 return false;
             }
-                
+
             invItem.SetAmount(invItem.Amount - amount);
 
             if (invItem.Amount == 0)
             {
                 _inventoryItems[existingId] = null;
             }
-                
+
             OnItemsChanged?.Invoke();
             return true;
+
         }
         
         public bool Has(Item item)
@@ -100,6 +114,12 @@ namespace nobodyworks.builder.inventories
             }
             
             return false;
+        }
+        
+        public void Swap(int indexA, int indexB)
+        {
+            (_inventoryItems[indexA], _inventoryItems[indexB]) = (_inventoryItems[indexB], _inventoryItems[indexA]);
+            OnItemsChanged?.Invoke();
         }
         
         public int Count()
