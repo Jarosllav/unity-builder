@@ -23,6 +23,8 @@ namespace nobodyworks.builder.interfaces
         private bool _waitForFrame = false;
 
         protected CharacterManager CharacterManager => GameManager.PlayerCharacterManager;
+        protected TooltipManager TooltipManager => CanvasManager.TooltipManager;
+        protected DraggableManager DraggableManager => CanvasManager.DraggableManager;
         
         public bool IsOpened => _isOpened;
         public bool ShowCursor => _showCursor;
