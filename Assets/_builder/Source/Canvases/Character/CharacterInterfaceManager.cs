@@ -14,6 +14,8 @@ namespace nobodyworks.builder.interfaces
         private InventoryInterfaceManager _extInventoryManager;
         
         #endregion
+        
+        public InventoryInterfaceManager InventoryManager => _inventoryManager;
 
         protected override void OnInitialized()
         {
