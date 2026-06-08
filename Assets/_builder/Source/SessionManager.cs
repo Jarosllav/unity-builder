@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Eflatun.SceneReference;
+using nobodyworks.builder.building;
 using nobodyworks.builder.items;
 
 namespace nobodyworks.builder
@@ -31,6 +32,9 @@ namespace nobodyworks.builder
         [SerializeField]
         private ItemsDatabase _itemsDatabase;
         
+        [SerializeField]
+        private ElementsDatabase _elementsDatabase;
+        
         #endregion
         
         private readonly SessionContext _context = new();
@@ -58,7 +62,7 @@ namespace nobodyworks.builder
                 _instance = this;
             }
             
-            Databases.Setup(_itemsDatabase);
+            Databases.Setup(_itemsDatabase, _elementsDatabase);
             
             DontDestroyOnLoad(this);
             

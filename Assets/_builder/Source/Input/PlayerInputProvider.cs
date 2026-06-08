@@ -193,6 +193,12 @@ namespace nobodyworks.builder.input
                 _characterManager.CarrierController.Drop();
                 return;
             }
+
+            if (isAction && interactionType == InteractionType.Primary && _characterManager.BuilderController.IsEnabled)
+            {
+                _characterManager.BuilderController.TryPlace();
+                return;
+            }
             
             _characterManager.InteractionController.Use(interactionType);
         }
