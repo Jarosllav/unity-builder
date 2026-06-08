@@ -148,6 +148,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Action_Primary",
+                    "type": "Button",
+                    "id": "9d305946-6dd2-4c73-b369-2adc60069839",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Action_Secondary",
+                    "type": "Button",
+                    "id": "cec5daef-8a87-4ff8-8f95-b7c99490655d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -610,6 +628,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Rotate_Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e11affe7-dd69-4ac9-8612-de24ad14e26e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Action_Primary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec614b66-f37f-41b0-b2ab-5da933ffe6bd",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Action_Secondary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

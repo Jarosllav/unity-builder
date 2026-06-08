@@ -134,6 +134,9 @@ namespace nobodyworks.builder.input
             _actionAsset.Player.Interact_Secondary.canceled += (ctx) => InteractionCancel(InteractionType.Secondary);
             _actionAsset.Player.Interact_Secondary.performed += (ctx) => Interact(InteractionType.Secondary);
             
+            _actionAsset.Player.Action_Primary.performed += (ctx) => Interact(InteractionType.Primary, true);
+            _actionAsset.Player.Action_Secondary.performed += (ctx) => Interact(InteractionType.Secondary, true);
+            
             _actionAsset.Player.Jump.performed += (ctx) => _characterManager.MovementController.Jump();
         }
 
@@ -183,9 +186,9 @@ namespace nobodyworks.builder.input
             return _actionAsset.Player.Look.ReadValue<Vector2>();
         }
 
-        private void Interact(InteractionType interactionType)
+        private void Interact(InteractionType interactionType, bool isAction = false)
         {
-            if (interactionType == InteractionType.Secondary && _characterManager.CarrierController.IsCarrying)
+            if (!isAction && interactionType == InteractionType.Secondary && _characterManager.CarrierController.IsCarrying)
             {
                 _characterManager.CarrierController.Drop();
                 return;
@@ -218,7 +221,8 @@ namespace nobodyworks.builder.input
 
         private void AssignQuickSlot(int id)
         {
-            var inventoryInterface = _canvasManager.GetInterface<InventoryInterfaceManager>();
+            var inventoryInterface = _canvasManager.GetInterface<CharacterInterfaceManager>().InventoryManager;
+            
             if (inventoryInterface == null || !inventoryInterface.IsHoveringSlot)
             {
                 return;
