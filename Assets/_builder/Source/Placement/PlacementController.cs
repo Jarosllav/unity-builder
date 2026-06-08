@@ -16,6 +16,8 @@ namespace nobodyworks.builder.placement
         private MaterialsSnapshot _materialsSnapshot;
         private bool _lastCanPlace = false;
         
+        public GameObject GhostGameObject => _ghostGameObject;
+        
         public PlacementController(PlacementSettings settings, MovementController movementController)
         {
             _settings = settings;
@@ -69,12 +71,13 @@ namespace nobodyworks.builder.placement
                 _ghostGameObject.transform.position,
                 _ghostGameObject.transform.rotation
             );
-            
-            GameObject.Destroy(_ghostGameObject);
 
-            _ghostTriggerHandlers = null;
-            _materialsSnapshot = null;
-            _placeable = null;
+            CleanupGhost();
+        }
+
+        public void Cancel()
+        {
+            CleanupGhost();
         }
 
         public bool CanPlace()
@@ -96,6 +99,15 @@ namespace nobodyworks.builder.placement
             
             var angles = _settings.RotateSpeed * Time.deltaTime;
             _ghostGameObject.transform.Rotate(Vector3.up, clockwise ? angles : -angles);
+        }
+
+        private void CleanupGhost()
+        {
+            GameObject.Destroy(_ghostGameObject);
+
+            _ghostTriggerHandlers = null;
+            _materialsSnapshot = null;
+            _placeable = null;
         }
 
         private void TryUpdateGhostMaterials(bool force = false)
