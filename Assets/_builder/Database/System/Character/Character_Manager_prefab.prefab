@@ -300,6 +300,7 @@ MonoBehaviour:
     _checkDistance: 3
   _inventorySettings:
     _maxCapacity: 24
+    _startingItems: []
   _equipmentSettings:
     _slotDefinitions:
     - {fileID: 11400000, guid: 28a0e35609cd69f4691bfd89483c6781, type: 2}
@@ -334,6 +335,9 @@ MonoBehaviour:
     _failureMaterial: {fileID: 2100000, guid: 3f8a3bf1a1b36ba4882b08c8b51525d4, type: 2}
   _quickBarSettings:
     _capacity: 4
+  _builderSettings:
+    _hammerItemDefinition: {fileID: 11400000, guid: 58b3e2e6fadedd143b35168b8d754d2c, type: 2}
+    _defaultElementDefinition: {fileID: 11400000, guid: 2620d07fdd8816a4c9320edd3ebd4242, type: 2}
 --- !u!114 &-5632338659725214172
 MonoBehaviour:
   m_ObjectHideFlags: 0
