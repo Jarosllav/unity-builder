@@ -172,6 +172,24 @@ namespace nobodyworks.builder.input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Action_Primary"",
+                    ""type"": ""Button"",
+                    ""id"": ""9d305946-6dd2-4c73-b369-2adc60069839"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Action_Secondary"",
+                    ""type"": ""Button"",
+                    ""id"": ""cec5daef-8a87-4ff8-8f95-b7c99490655d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -634,6 +652,28 @@ namespace nobodyworks.builder.input
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Rotate_Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e11affe7-dd69-4ac9-8612-de24ad14e26e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Action_Primary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec614b66-f37f-41b0-b2ab-5da933ffe6bd"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Action_Secondary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1266,6 +1306,15 @@ namespace nobodyworks.builder.input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Radial"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d79cebc-2f0a-4119-99f7-68bce490d34f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1392,6 +1441,17 @@ namespace nobodyworks.builder.input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""445fd373-91e8-4c50-8490-904d8e3a47d8"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Radial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""96b48285-efef-48fd-a15e-29ad6eba15c0"",
                     ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
@@ -1485,6 +1545,8 @@ namespace nobodyworks.builder.input
             m_Player_Quick_4 = m_Player.FindAction("Quick_4", throwIfNotFound: true);
             m_Player_Rotate_Left = m_Player.FindAction("Rotate_Left", throwIfNotFound: true);
             m_Player_Rotate_Right = m_Player.FindAction("Rotate_Right", throwIfNotFound: true);
+            m_Player_Action_Primary = m_Player.FindAction("Action_Primary", throwIfNotFound: true);
+            m_Player_Action_Secondary = m_Player.FindAction("Action_Secondary", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1511,6 +1573,7 @@ namespace nobodyworks.builder.input
             m_Global_Quick_8 = m_Global.FindAction("Quick_8", throwIfNotFound: true);
             m_Global_Quick_9 = m_Global.FindAction("Quick_9", throwIfNotFound: true);
             m_Global_Quick_0 = m_Global.FindAction("Quick_0", throwIfNotFound: true);
+            m_Global_Radial = m_Global.FindAction("Radial", throwIfNotFound: true);
         }
 
         ~@InputSystem_Actions()
@@ -1595,6 +1658,8 @@ namespace nobodyworks.builder.input
         private readonly InputAction m_Player_Quick_4;
         private readonly InputAction m_Player_Rotate_Left;
         private readonly InputAction m_Player_Rotate_Right;
+        private readonly InputAction m_Player_Action_Primary;
+        private readonly InputAction m_Player_Action_Secondary;
         public struct PlayerActions
         {
             private @InputSystem_Actions m_Wrapper;
@@ -1615,6 +1680,8 @@ namespace nobodyworks.builder.input
             public InputAction @Quick_4 => m_Wrapper.m_Player_Quick_4;
             public InputAction @Rotate_Left => m_Wrapper.m_Player_Rotate_Left;
             public InputAction @Rotate_Right => m_Wrapper.m_Player_Rotate_Right;
+            public InputAction @Action_Primary => m_Wrapper.m_Player_Action_Primary;
+            public InputAction @Action_Secondary => m_Wrapper.m_Player_Action_Secondary;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1672,6 +1739,12 @@ namespace nobodyworks.builder.input
                 @Rotate_Right.started += instance.OnRotate_Right;
                 @Rotate_Right.performed += instance.OnRotate_Right;
                 @Rotate_Right.canceled += instance.OnRotate_Right;
+                @Action_Primary.started += instance.OnAction_Primary;
+                @Action_Primary.performed += instance.OnAction_Primary;
+                @Action_Primary.canceled += instance.OnAction_Primary;
+                @Action_Secondary.started += instance.OnAction_Secondary;
+                @Action_Secondary.performed += instance.OnAction_Secondary;
+                @Action_Secondary.canceled += instance.OnAction_Secondary;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1724,6 +1797,12 @@ namespace nobodyworks.builder.input
                 @Rotate_Right.started -= instance.OnRotate_Right;
                 @Rotate_Right.performed -= instance.OnRotate_Right;
                 @Rotate_Right.canceled -= instance.OnRotate_Right;
+                @Action_Primary.started -= instance.OnAction_Primary;
+                @Action_Primary.performed -= instance.OnAction_Primary;
+                @Action_Primary.canceled -= instance.OnAction_Primary;
+                @Action_Secondary.started -= instance.OnAction_Secondary;
+                @Action_Secondary.performed -= instance.OnAction_Secondary;
+                @Action_Secondary.canceled -= instance.OnAction_Secondary;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1875,6 +1954,7 @@ namespace nobodyworks.builder.input
         private readonly InputAction m_Global_Quick_8;
         private readonly InputAction m_Global_Quick_9;
         private readonly InputAction m_Global_Quick_0;
+        private readonly InputAction m_Global_Radial;
         public struct GlobalActions
         {
             private @InputSystem_Actions m_Wrapper;
@@ -1891,6 +1971,7 @@ namespace nobodyworks.builder.input
             public InputAction @Quick_8 => m_Wrapper.m_Global_Quick_8;
             public InputAction @Quick_9 => m_Wrapper.m_Global_Quick_9;
             public InputAction @Quick_0 => m_Wrapper.m_Global_Quick_0;
+            public InputAction @Radial => m_Wrapper.m_Global_Radial;
             public InputActionMap Get() { return m_Wrapper.m_Global; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1936,6 +2017,9 @@ namespace nobodyworks.builder.input
                 @Quick_0.started += instance.OnQuick_0;
                 @Quick_0.performed += instance.OnQuick_0;
                 @Quick_0.canceled += instance.OnQuick_0;
+                @Radial.started += instance.OnRadial;
+                @Radial.performed += instance.OnRadial;
+                @Radial.canceled += instance.OnRadial;
             }
 
             private void UnregisterCallbacks(IGlobalActions instance)
@@ -1976,6 +2060,9 @@ namespace nobodyworks.builder.input
                 @Quick_0.started -= instance.OnQuick_0;
                 @Quick_0.performed -= instance.OnQuick_0;
                 @Quick_0.canceled -= instance.OnQuick_0;
+                @Radial.started -= instance.OnRadial;
+                @Radial.performed -= instance.OnRadial;
+                @Radial.canceled -= instance.OnRadial;
             }
 
             public void RemoveCallbacks(IGlobalActions instance)
@@ -2056,6 +2143,8 @@ namespace nobodyworks.builder.input
             void OnQuick_4(InputAction.CallbackContext context);
             void OnRotate_Left(InputAction.CallbackContext context);
             void OnRotate_Right(InputAction.CallbackContext context);
+            void OnAction_Primary(InputAction.CallbackContext context);
+            void OnAction_Secondary(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
@@ -2084,6 +2173,7 @@ namespace nobodyworks.builder.input
             void OnQuick_8(InputAction.CallbackContext context);
             void OnQuick_9(InputAction.CallbackContext context);
             void OnQuick_0(InputAction.CallbackContext context);
+            void OnRadial(InputAction.CallbackContext context);
         }
     }
 }

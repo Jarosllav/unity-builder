@@ -14,5 +14,15 @@ namespace nobodyworks.builder.items
         
         public ItemDefinition Definition => _definition;
         public int Amount => _amount;
+
+        public static implicit operator ItemDefinition(ItemReference reference)
+        {
+            return reference.Definition;
+        }
+
+        public static implicit operator int(ItemReference reference)
+        {
+            return reference.Amount;
+        }
     }
 }

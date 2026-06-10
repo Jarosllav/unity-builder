@@ -97,6 +97,21 @@ namespace nobodyworks.builder.inventories
             return true;
 
         }
+
+        public int Amount(ItemDefinition definition)
+        {
+            var amount = 0;
+
+            foreach (var invItem in _inventoryItems)
+            {
+                if (invItem != null && invItem.Item.Definition == definition)
+                {
+                    amount += invItem.Amount;
+                }
+            }
+            
+            return amount;
+        }
         
         public bool Has(Item item)
         {

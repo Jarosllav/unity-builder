@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using nobodyworks.builder.building;
 using nobodyworks.builder.carrying;
 using nobodyworks.builder.equipment;
 using nobodyworks.builder.extensions;
@@ -42,6 +43,9 @@ namespace nobodyworks.builder.character
 
         [SerializeField]
         private QuickBarSettings _quickBarSettings;
+        
+        [SerializeField]
+        private BuilderSettings _builderSettings;
 
         #endregion
 
@@ -53,6 +57,7 @@ namespace nobodyworks.builder.character
         private CarrierController _carrierController;
         private PlacementController _placementController;
         private QuickBarController _quickBarController;
+        private BuilderController _builderController;
 
         private bool _isInstalled = false;
 
@@ -64,6 +69,7 @@ namespace nobodyworks.builder.character
         public CarrierController CarrierController => _carrierController;
         public PlacementController PlacementController => _placementController;
         public QuickBarController QuickBarController => _quickBarController;
+        public BuilderController BuilderController => _builderController;
         public bool IsInstalled => _isInstalled;
         
         public event Action OnInstalled;
@@ -78,11 +84,28 @@ namespace nobodyworks.builder.character
             _carrierController = new(_carrierSettings, _equipmentController, _movementController);
             _placementController = new(_placementSettings, _movementController);
             _quickBarController = new(_quickBarSettings);
+            _builderController = new(_builderSettings, _placementController);
 
             CreateEvents();
             
             _isInstalled = true;
             OnInstalled?.Invoke();
+            
+            _equipmentController.OnItemEquipped += (item) =>
+            {
+                if (item != null && item.Definition == _builderSettings.HammerItemDefinition)
+                {
+                    _builderController.SetEnabled(true);
+                }
+            };
+            
+            _equipmentController.OnItemUnequipped += (item) =>
+            {
+                if (item != null && item.Definition == _builderSettings.HammerItemDefinition)
+                {
+                    _builderController.SetEnabled(false);
+                }
+            };
         }
         
         private void CreateEvents()
@@ -158,6 +181,7 @@ namespace nobodyworks.builder.character
             _interactionController.Tick(deltaTime);
             _carrierController.Tick(deltaTime);
             _placementController.Tick(deltaTime);
+            _builderController.Tick(deltaTime);
         }
 
         #region Unity callbacks
