@@ -134,8 +134,8 @@ namespace nobodyworks.builder.input
             _actionAsset.Player.Interact_Secondary.canceled += (ctx) => InteractionCancel(InteractionType.Secondary);
             _actionAsset.Player.Interact_Secondary.performed += (ctx) => Interact(InteractionType.Secondary);
             
-            _actionAsset.Player.Action_Primary.performed += (ctx) => Interact(InteractionType.Primary, true);
-            _actionAsset.Player.Action_Secondary.performed += (ctx) => Interact(InteractionType.Secondary, true);
+            _actionAsset.Player.Action_Primary.performed += (ctx) => Interact(InteractionType.PrimaryAction);
+            _actionAsset.Player.Action_Secondary.performed += (ctx) => Interact(InteractionType.SecondaryAction);
             
             _actionAsset.Player.Jump.performed += (ctx) => _characterManager.MovementController.Jump();
         }
@@ -202,15 +202,15 @@ namespace nobodyworks.builder.input
             return _actionAsset.Player.Look.ReadValue<Vector2>();
         }
 
-        private void Interact(InteractionType interactionType, bool isAction = false)
+        private void Interact(InteractionType interactionType)
         {
-            if (!isAction && interactionType == InteractionType.Secondary && _characterManager.CarrierController.IsCarrying)
+            if (interactionType == InteractionType.Secondary && _characterManager.CarrierController.IsCarrying)
             {
                 _characterManager.CarrierController.Drop();
                 return;
             }
 
-            if (isAction && interactionType == InteractionType.Primary && _characterManager.BuilderController.IsEnabled)
+            if (interactionType == InteractionType.PrimaryAction && _characterManager.BuilderController.IsEnabled)
             {
                 _characterManager.BuilderController.TryPlace();
                 return;
