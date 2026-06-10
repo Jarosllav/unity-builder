@@ -369,6 +369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showCursor: 0
+  _closeable: 0
   _slotPrefab: {fileID: 1945159699133874063, guid: 7acc1b312bd26c54da50881b25f4d868, type: 3}
   _slotsTransform: {fileID: 5245879261588545323}
   _headerLabel: {fileID: 4583199662524534968}

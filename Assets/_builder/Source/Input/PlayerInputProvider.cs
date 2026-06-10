@@ -113,6 +113,7 @@ namespace nobodyworks.builder.input
             Cursor.lockState = CursorLockMode.Locked;
             
             CreateEventHandlers();
+            CreateUiEventHandlers();
             CreateGlobalEventHandlers();
             
             _characterManager.InteractionController.Register<CrateInteractableManager>((crateManager, interactionType) =>
@@ -170,6 +171,11 @@ namespace nobodyworks.builder.input
                     _canvasManager.GetInterface<RadialMenuInterface>().Close();
                 }
             };
+        }
+
+        private void CreateUiEventHandlers()
+        {
+            _actionAsset.UI.Cancel.performed += (ctx) => _canvasManager.CloseTopmost();
         }
 
         public void Update()

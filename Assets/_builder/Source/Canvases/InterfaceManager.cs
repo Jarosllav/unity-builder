@@ -13,6 +13,9 @@ namespace nobodyworks.builder.interfaces
         [SerializeField]
         protected bool _showCursor = true;
 
+        [SerializeField]
+        protected bool _closeable = true;
+
         #endregion
 
         protected CanvasManager CanvasManager;
@@ -28,6 +31,7 @@ namespace nobodyworks.builder.interfaces
         
         public bool IsOpened => _isOpened;
         public bool ShowCursor => _showCursor;
+        public bool IsCloseable => _closeable;
 
         public event Action<InterfaceManager> OnOpened;
         public event Action<InterfaceManager> OnOpening;

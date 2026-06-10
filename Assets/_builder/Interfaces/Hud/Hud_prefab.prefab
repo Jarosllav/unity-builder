@@ -1045,6 +1045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showCursor: 0
+  _closeable: 0
   _quickBarWidget: {fileID: 7264244346965955904}
   _keyHintsWidget: {fileID: 3032987081898645890}
   _interactableWidget: {fileID: 188678273407983412}

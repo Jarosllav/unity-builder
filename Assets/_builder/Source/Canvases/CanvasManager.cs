@@ -99,6 +99,18 @@ namespace nobodyworks.builder.interfaces
         
         #endregion
         
+        public void CloseTopmost()
+        {
+            for (var i = _openedInterfaces.Count - 1; i >= 0; --i)
+            {
+                if (_openedInterfaces[i].IsCloseable)
+                {
+                    _openedInterfaces[i].Close();
+                    return;
+                }
+            }
+        }
+
         public TInterface GetInterface<TInterface>()
             where TInterface : InterfaceManager
         {
