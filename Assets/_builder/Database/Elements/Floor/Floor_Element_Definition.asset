@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Floor_Element_Definition
   m_EditorClassIdentifier: 
   _prefab: {fileID: 6940028453998762575, guid: 23bdaa5c5a080bb45966bc76f3d22ac5, type: 3}
-  _resources: []
+  _resources:
+  - _definition: {fileID: 11400000, guid: ea7ec6bb534b3ec4d876f547cf96737c, type: 2}
+    _amount: 2
   _categoryDefinition: {fileID: 0}

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Wall_Element_Definition
   m_EditorClassIdentifier: 
   _prefab: {fileID: 4315347611830330757, guid: a63fb178d4299b345b2b73268685d839, type: 3}
-  _resources: []
+  _resources:
+  - _definition: {fileID: 11400000, guid: ea7ec6bb534b3ec4d876f547cf96737c, type: 2}
+    _amount: 1
   _categoryDefinition: {fileID: 0}

@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Building_Database
   m_EditorClassIdentifier: 
   _definitions:
-  - {fileID: 11400000, guid: 73ce45850c3312c449f3c2195f7a9222, type: 2}
   - {fileID: 11400000, guid: 2620d07fdd8816a4c9320edd3ebd4242, type: 2}
-  - {fileID: 11400000, guid: 6178d44828b65834fba11f27216a8236, type: 2}
   - {fileID: 11400000, guid: 6f446509f142e894e803b19056c02a45, type: 2}
   _categoryDefinitions: []
