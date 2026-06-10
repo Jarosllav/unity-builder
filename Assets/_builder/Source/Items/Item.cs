@@ -10,5 +10,10 @@
         {
             _definition = definition;
         }
+
+        public static implicit operator ItemDefinition(Item item)
+        {
+            return item.Definition;
+        }
     }
 }
