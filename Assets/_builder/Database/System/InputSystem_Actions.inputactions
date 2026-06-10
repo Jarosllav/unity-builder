@@ -1282,6 +1282,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Radial",
+                    "type": "Button",
+                    "id": "7d79cebc-2f0a-4119-99f7-68bce490d34f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1403,6 +1412,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Quick_0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "445fd373-91e8-4c50-8490-904d8e3a47d8",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Radial",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

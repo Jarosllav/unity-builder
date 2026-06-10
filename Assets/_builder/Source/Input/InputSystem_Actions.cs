@@ -1306,6 +1306,15 @@ namespace nobodyworks.builder.input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Radial"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d79cebc-2f0a-4119-99f7-68bce490d34f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1432,6 +1441,17 @@ namespace nobodyworks.builder.input
                 },
                 {
                     ""name"": """",
+                    ""id"": ""445fd373-91e8-4c50-8490-904d8e3a47d8"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Radial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""96b48285-efef-48fd-a15e-29ad6eba15c0"",
                     ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
@@ -1553,6 +1573,7 @@ namespace nobodyworks.builder.input
             m_Global_Quick_8 = m_Global.FindAction("Quick_8", throwIfNotFound: true);
             m_Global_Quick_9 = m_Global.FindAction("Quick_9", throwIfNotFound: true);
             m_Global_Quick_0 = m_Global.FindAction("Quick_0", throwIfNotFound: true);
+            m_Global_Radial = m_Global.FindAction("Radial", throwIfNotFound: true);
         }
 
         ~@InputSystem_Actions()
@@ -1933,6 +1954,7 @@ namespace nobodyworks.builder.input
         private readonly InputAction m_Global_Quick_8;
         private readonly InputAction m_Global_Quick_9;
         private readonly InputAction m_Global_Quick_0;
+        private readonly InputAction m_Global_Radial;
         public struct GlobalActions
         {
             private @InputSystem_Actions m_Wrapper;
@@ -1949,6 +1971,7 @@ namespace nobodyworks.builder.input
             public InputAction @Quick_8 => m_Wrapper.m_Global_Quick_8;
             public InputAction @Quick_9 => m_Wrapper.m_Global_Quick_9;
             public InputAction @Quick_0 => m_Wrapper.m_Global_Quick_0;
+            public InputAction @Radial => m_Wrapper.m_Global_Radial;
             public InputActionMap Get() { return m_Wrapper.m_Global; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1994,6 +2017,9 @@ namespace nobodyworks.builder.input
                 @Quick_0.started += instance.OnQuick_0;
                 @Quick_0.performed += instance.OnQuick_0;
                 @Quick_0.canceled += instance.OnQuick_0;
+                @Radial.started += instance.OnRadial;
+                @Radial.performed += instance.OnRadial;
+                @Radial.canceled += instance.OnRadial;
             }
 
             private void UnregisterCallbacks(IGlobalActions instance)
@@ -2034,6 +2060,9 @@ namespace nobodyworks.builder.input
                 @Quick_0.started -= instance.OnQuick_0;
                 @Quick_0.performed -= instance.OnQuick_0;
                 @Quick_0.canceled -= instance.OnQuick_0;
+                @Radial.started -= instance.OnRadial;
+                @Radial.performed -= instance.OnRadial;
+                @Radial.canceled -= instance.OnRadial;
             }
 
             public void RemoveCallbacks(IGlobalActions instance)
@@ -2144,6 +2173,7 @@ namespace nobodyworks.builder.input
             void OnQuick_8(InputAction.CallbackContext context);
             void OnQuick_9(InputAction.CallbackContext context);
             void OnQuick_0(InputAction.CallbackContext context);
+            void OnRadial(InputAction.CallbackContext context);
         }
     }
 }

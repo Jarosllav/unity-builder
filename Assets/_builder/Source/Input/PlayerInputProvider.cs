@@ -154,6 +154,22 @@ namespace nobodyworks.builder.input
             _actionAsset.Global.Quick_8.performed += (ctx) => Quick(7);
             _actionAsset.Global.Quick_9.performed += (ctx) => Quick(8);
             _actionAsset.Global.Quick_0.performed += (ctx) => Quick(9);
+            
+            
+            _actionAsset.Global.Radial.performed += (ctx) =>
+            {
+                if (_characterManager.BuilderController.IsEnabled)
+                {
+                    _canvasManager.GetInterface<RadialMenuInterface>().Open();
+                }
+            };
+            _actionAsset.Global.Radial.canceled += (ctx) =>
+            {
+                if (_characterManager.BuilderController.IsEnabled)
+                {
+                    _canvasManager.GetInterface<RadialMenuInterface>().Close();
+                }
+            };
         }
 
         public void Update()
