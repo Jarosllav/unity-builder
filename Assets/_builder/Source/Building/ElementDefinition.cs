@@ -1,5 +1,7 @@
-﻿using nobodyworks.builder.items;
+﻿using nobodyworks.builder.extensions;
+using nobodyworks.builder.items;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace nobodyworks.builder.building
 {
@@ -8,6 +10,9 @@ namespace nobodyworks.builder.building
     {
         #region Inspector
 
+        [SerializeField]
+        private LocalizedString _name;
+        
         [SerializeField]
         private GameObject _prefab;
         
@@ -19,6 +24,7 @@ namespace nobodyworks.builder.building
 
         #endregion
         
+        public string Name => _name.GetText();
         public GameObject Prefab => _prefab;
         public ItemReference[] Resources => _resources;
         public ElementsCategoryDefinition CategoryDefinition => _categoryDefinition;

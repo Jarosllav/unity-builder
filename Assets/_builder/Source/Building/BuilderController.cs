@@ -7,24 +7,25 @@ namespace nobodyworks.builder.building
     {
         private readonly BuilderSettings _settings;
         private readonly PlacementController _placementController;
+        
+        private ElementDefinition _selectedElement;
 
         private bool _isEnabled = false;
         private GameObject _elementGameObject;
         private ElementManager _elementManager;
 
         public bool IsEnabled => _isEnabled;
-
-
+        
         #region Initialization
 
         public BuilderController(BuilderSettings settings, PlacementController placementController)
         {
             _settings = settings;
             _placementController = placementController;
+            SetElement(_settings.DefaultElementDefinition);
         }
 
         #endregion
-
 
         public void Tick(float deltaTime)
         {
@@ -81,10 +82,22 @@ namespace nobodyworks.builder.building
             _elementManager = null;
         }
 
+        public void SetElement(ElementDefinition element)
+        {
+            var wasEnabled = _isEnabled;
+            
+            if (_selectedElement != element)
+            {
+                SetEnabled(false);
+            }
+            
+            _selectedElement = element;
+            SetEnabled(wasEnabled);
+        }
 
         private void CreatePending()
         {
-            _elementGameObject = GameObject.Instantiate(_settings.DefaultElementDefinition.Prefab);
+            _elementGameObject = GameObject.Instantiate(_selectedElement.Prefab);
             _elementManager = _elementGameObject.GetComponent<ElementManager>();
             _placementController.Create(_elementManager);
         }
