@@ -36,6 +36,7 @@ namespace nobodyworks.builder.interfaces
         {
             _elementsDatabase = Databases.Elements;
             CreateSlots();
+            CreateResourcesSlots(null);
             Close();
             
             OnClosed += _ =>
