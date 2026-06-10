@@ -83,7 +83,7 @@ namespace nobodyworks.builder.character
             _equipmentController = new(_inventoryController, _skeletonController, _equipmentSettings);
             _carrierController = new(_carrierSettings, _equipmentController, _movementController);
             _placementController = new(_placementSettings, _movementController);
-            _quickBarController = new(_quickBarSettings);
+            _quickBarController = new(_quickBarSettings, _inventoryController);
             _builderController = new(_builderSettings, _placementController);
 
             CreateEvents();
@@ -112,7 +112,17 @@ namespace nobodyworks.builder.character
         {
             _interactionController.Register<ItemInteractableManager>((itemManager, _) =>
             {
-                _inventoryController.Add(itemManager.GetItem(), itemManager.Amount);
+                var item = itemManager.GetItem();
+                
+                if (!_inventoryController.Add(item, itemManager.Amount))
+                {
+                    return;
+                }
+
+                if (item.Definition.IsEquippable) // TODO: Add setting for disable that QoL
+                {
+                    _quickBarController.Assign(item.Definition);
+                }
             });
             
             _interactionController.Register<ICarryable>((carryable, interactionType) =>
@@ -120,14 +130,6 @@ namespace nobodyworks.builder.character
                 if (interactionType == InteractionType.Secondary)
                 {
                     _carrierController.Take(carryable);
-                }
-            });
-
-            _interactionController.Register<CrateInteractableManager>((crateManager, interactionType) =>
-            {
-                if (interactionType != InteractionType.Primary)
-                {
-                    return;
                 }
             });
             

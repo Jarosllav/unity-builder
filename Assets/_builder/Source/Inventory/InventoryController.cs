@@ -113,7 +113,7 @@ namespace nobodyworks.builder.inventories
             return amount;
         }
         
-        public bool Has(Item item)
+        public bool Has(ItemDefinition itemDefinition)
         {
             foreach (var invItem in _inventoryItems)
             {
@@ -122,7 +122,7 @@ namespace nobodyworks.builder.inventories
                     continue;
                 }
                 
-                if (invItem.Item.Definition == item.Definition)
+                if (invItem.Item.Definition == itemDefinition)
                 {
                     return true;
                 }
