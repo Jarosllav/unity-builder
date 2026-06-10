@@ -227,7 +227,8 @@ namespace nobodyworks.builder.interaction
 
         private void DeselectTrigger(Collider other)
         {
-            if (_currentInteractableSelectedCollider == null && _currentInteractableSelectedManager == null)
+            if (ReferenceEquals(_currentInteractableSelectedCollider, null)                                                        
+                && ReferenceEquals(_currentInteractableSelectedManager, null)) 
             {
                 return;
             }
@@ -238,7 +239,7 @@ namespace nobodyworks.builder.interaction
             }
 
             OnDeselected?.Invoke(this, _currentInteractableSelectedManager);
-            _currentInteractableSelectedManager.Deselect();
+            _currentInteractableSelectedManager?.Deselect();
 
             _currentInteractableSelectedManager = null;
             _currentInteractableSelectedCollider = null;
